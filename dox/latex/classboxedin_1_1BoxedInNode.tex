@@ -1,0 +1,301 @@
+\hypertarget{classboxedin_1_1BoxedInNode}{\section{boxedin\+:\+:Boxed\+In\+Node Class Reference}
+\label{classboxedin_1_1BoxedInNode}\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+}
+
+
+This is the search node for A$\ast$ open set and closed set.  
+
+
+
+
+{\ttfamily \#include $<$Boxed\+In\+Node.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classboxedin_1_1BoxedInNode_aa13a2c9cd03950af305a720a1a5c2e84}{Boxed\+In\+Node} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&other)
+\begin{DoxyCompactList}\small\item\em Copy Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classboxedin_1_1BoxedInNode_ab014fcdfc32785894ec87d26111a8f7b}{Boxed\+In\+Node} (const \hyperlink{classboxedin_1_1LevelState}{Level\+State} \&lvlstate)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hypertarget{classboxedin_1_1BoxedInNode_a234011906b0a2a0b30807bb0a434bce3}{\hyperlink{classboxedin_1_1BoxedInNode_a234011906b0a2a0b30807bb0a434bce3}{$\sim$\+Boxed\+In\+Node} ()}\label{classboxedin_1_1BoxedInNode_a234011906b0a2a0b30807bb0a434bce3}
+
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \& \hyperlink{classboxedin_1_1BoxedInNode_a24cb7949e27b78ff14bad86e2f3d21ba}{operator=} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&other)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} assignment. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1BoxedInNode_a70aa3595f1db9e8e3328c79765b0506c}{Set\+Key} (\hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&lvlmap)
+\begin{DoxyCompactList}\small\item\em Sets the \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} key as a hash of the level char map. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1BoxedInNode_ab5653d55f2467a8ef040fc0ab25b9f84}{Action\+Point\+Gear} (\hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} \&action\+Point)
+\begin{DoxyCompactList}\small\item\em Pick up the gear located at the \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1BoxedInNode_a8e29dee7583137d58259b7b2e6400e45}{Action\+Point\+Exit} (\hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} \&action\+Point)
+\begin{DoxyCompactList}\small\item\em Move player position to the exit located at the \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1BoxedInNode_a24f7ba00ae0e7f63211d0a38b8a6f12a}{Action\+Point\+Up} (\hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} \&action\+Point)
+\begin{DoxyCompactList}\small\item\em Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, up. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1BoxedInNode_acb249031d913ed220380d94499cb8f86}{Action\+Point\+Down} (\hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} \&action\+Point)
+\begin{DoxyCompactList}\small\item\em Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, down. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1BoxedInNode_addcc5fd3b61484c0f8911284c456cd9b}{Action\+Point\+Left} (\hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} \&action\+Point)
+\begin{DoxyCompactList}\small\item\em Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, left. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1BoxedInNode_a6b3391ddf86653b300c1799eb81a84fe}{Action\+Point\+Right} (\hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} \&action\+Point)
+\begin{DoxyCompactList}\small\item\em Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, right. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classboxedin_1_1BoxedInNode_a3486e9bbd67ba0517f0e69f9aafc5d9d}{\hyperlink{namespaceboxedin_ac4dc3ff36b9cef0b4c5cc1a96bfc0abd}{key\+\_\+type} \hyperlink{classboxedin_1_1BoxedInNode_a3486e9bbd67ba0517f0e69f9aafc5d9d}{key}}\label{classboxedin_1_1BoxedInNode_a3486e9bbd67ba0517f0e69f9aafc5d9d}
+
+\begin{DoxyCompactList}\small\item\em Unique key for this level state obtained from hashing level map. \end{DoxyCompactList}\item 
+\hypertarget{classboxedin_1_1BoxedInNode_ad7999d3cf6772f89aeeace570c36f89c}{const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$ \hyperlink{classboxedin_1_1BoxedInNode_ad7999d3cf6772f89aeeace570c36f89c}{parent}}\label{classboxedin_1_1BoxedInNode_ad7999d3cf6772f89aeeace570c36f89c}
+
+\begin{DoxyCompactList}\small\item\em The parent node \char`\"{}expanded\char`\"{} to create this node. \end{DoxyCompactList}\item 
+\hypertarget{classboxedin_1_1BoxedInNode_a8dd91a0bd3d6f7a51a3898b318781371}{\hyperlink{namespaceboxedin_ab79d3e8d943aa2875e3adb42b8917ff7}{Path} \hyperlink{classboxedin_1_1BoxedInNode_a8dd91a0bd3d6f7a51a3898b318781371}{path}}\label{classboxedin_1_1BoxedInNode_a8dd91a0bd3d6f7a51a3898b318781371}
+
+\begin{DoxyCompactList}\small\item\em The U,D,L,R directions from parent to this node. \end{DoxyCompactList}\item 
+\hypertarget{classboxedin_1_1BoxedInNode_a611474769c7702558251004f139e9c98}{\hyperlink{classboxedin_1_1OpenSetData}{Open\+Set\+Data} $\ast$ \hyperlink{classboxedin_1_1BoxedInNode_a611474769c7702558251004f139e9c98}{osd}}\label{classboxedin_1_1BoxedInNode_a611474769c7702558251004f139e9c98}
+
+\begin{DoxyCompactList}\small\item\em Data only needed while node is in open set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Related Functions}
+(Note that these are not member functions.) \begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \hyperlink{classboxedin_1_1BoxedInNode_a274bba98e78e14edbeb5457c8d836aaf}{operator$<$$<$} (std\+::ostream \&out, const \hyperlink{classboxedin_1_1BoxedInNode}{boxedin\+::\+Boxed\+In\+Node} $\ast$goal)
+\item 
+ostream \& \hyperlink{classboxedin_1_1BoxedInNode_a65d7cc3f5f20a84f081d6618fefbbccc}{operator$<$$<$} (ostream \&out, const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$goal)
+\begin{DoxyCompactList}\small\item\em Print the paths from goal to start node. \end{DoxyCompactList}\item 
+ostream \& \hyperlink{classboxedin_1_1BoxedInNode_a2bb8d27936b1738095a48345758b7e84}{operator$<$$<$} (ostream \&out, const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&node)
+\begin{DoxyCompactList}\small\item\em Creates a level map from node and displays it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This is the search node for A$\ast$ open set and closed set. 
+
+Each \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} is uniquely identified by key, which is a hash of the character map representation of the state of the node.
+
+Certain data fields are only needed while a \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} is in the open set. These fields have been aggregated into the \hyperlink{classboxedin_1_1OpenSetData}{Open\+Set\+Data} struct and are deleted once the node is moved into the closed set in order to reduce the amount memory used. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classboxedin_1_1BoxedInNode_aa13a2c9cd03950af305a720a1a5c2e84}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Boxed\+In\+Node@{Boxed\+In\+Node}}
+\index{Boxed\+In\+Node@{Boxed\+In\+Node}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Boxed\+In\+Node}]{\setlength{\rightskip}{0pt plus 5cm}boxedin\+::\+Boxed\+In\+Node\+::\+Boxed\+In\+Node (
+\begin{DoxyParamCaption}
+\item[{const {\bf Boxed\+In\+Node} \&}]{other}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_aa13a2c9cd03950af305a720a1a5c2e84}
+
+
+Copy Constructor. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em other} & \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} to copy \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1BoxedInNode_ab014fcdfc32785894ec87d26111a8f7b}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Boxed\+In\+Node@{Boxed\+In\+Node}}
+\index{Boxed\+In\+Node@{Boxed\+In\+Node}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Boxed\+In\+Node}]{\setlength{\rightskip}{0pt plus 5cm}boxedin\+::\+Boxed\+In\+Node\+::\+Boxed\+In\+Node (
+\begin{DoxyParamCaption}
+\item[{const {\bf Level\+State} \&}]{lvlstate}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_ab014fcdfc32785894ec87d26111a8f7b}
+
+
+Constructor. 
+
+Construct \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} from a \hyperlink{classboxedin_1_1LevelState}{Level\+State}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em lvlstate} & \hyperlink{classboxedin_1_1LevelState}{Level\+State} to construct \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} from \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classboxedin_1_1BoxedInNode_acb249031d913ed220380d94499cb8f86}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Action\+Point\+Down@{Action\+Point\+Down}}
+\index{Action\+Point\+Down@{Action\+Point\+Down}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Action\+Point\+Down}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Boxed\+In\+Node\+::\+Action\+Point\+Down (
+\begin{DoxyParamCaption}
+\item[{{\bf Action\+Point} \&}]{action\+Point}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_acb249031d913ed220380d94499cb8f86}
+
+
+Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, down. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Point} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} above box and path from parent to it. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1BoxedInNode_a8e29dee7583137d58259b7b2e6400e45}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Action\+Point\+Exit@{Action\+Point\+Exit}}
+\index{Action\+Point\+Exit@{Action\+Point\+Exit}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Action\+Point\+Exit}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Boxed\+In\+Node\+::\+Action\+Point\+Exit (
+\begin{DoxyParamCaption}
+\item[{{\bf Action\+Point} \&}]{action\+Point}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_a8e29dee7583137d58259b7b2e6400e45}
+
+
+Move player position to the exit located at the \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Point} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} of exit and path from parent to it. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1BoxedInNode_ab5653d55f2467a8ef040fc0ab25b9f84}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Action\+Point\+Gear@{Action\+Point\+Gear}}
+\index{Action\+Point\+Gear@{Action\+Point\+Gear}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Action\+Point\+Gear}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Boxed\+In\+Node\+::\+Action\+Point\+Gear (
+\begin{DoxyParamCaption}
+\item[{{\bf Action\+Point} \&}]{action\+Point}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_ab5653d55f2467a8ef040fc0ab25b9f84}
+
+
+Pick up the gear located at the \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em action\+Point} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} of gear and path from parent \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} to it. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1BoxedInNode_addcc5fd3b61484c0f8911284c456cd9b}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Action\+Point\+Left@{Action\+Point\+Left}}
+\index{Action\+Point\+Left@{Action\+Point\+Left}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Action\+Point\+Left}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Boxed\+In\+Node\+::\+Action\+Point\+Left (
+\begin{DoxyParamCaption}
+\item[{{\bf Action\+Point} \&}]{action\+Point}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_addcc5fd3b61484c0f8911284c456cd9b}
+
+
+Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, left. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Point} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} right of box and path from parent to it. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1BoxedInNode_a6b3391ddf86653b300c1799eb81a84fe}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Action\+Point\+Right@{Action\+Point\+Right}}
+\index{Action\+Point\+Right@{Action\+Point\+Right}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Action\+Point\+Right}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Boxed\+In\+Node\+::\+Action\+Point\+Right (
+\begin{DoxyParamCaption}
+\item[{{\bf Action\+Point} \&}]{action\+Point}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_a6b3391ddf86653b300c1799eb81a84fe}
+
+
+Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, right. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Point} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} left of box and path from parent to it. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1BoxedInNode_a24f7ba00ae0e7f63211d0a38b8a6f12a}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Action\+Point\+Up@{Action\+Point\+Up}}
+\index{Action\+Point\+Up@{Action\+Point\+Up}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Action\+Point\+Up}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Boxed\+In\+Node\+::\+Action\+Point\+Up (
+\begin{DoxyParamCaption}
+\item[{{\bf Action\+Point} \&}]{action\+Point}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_a24f7ba00ae0e7f63211d0a38b8a6f12a}
+
+
+Move box located at \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} coordinate, up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+Point} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} underneath box and path from parent to it. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1BoxedInNode_a24cb7949e27b78ff14bad86e2f3d21ba}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!operator=@{operator=}}
+\index{operator=@{operator=}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Boxed\+In\+Node} \& boxedin\+::\+Boxed\+In\+Node\+::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Boxed\+In\+Node} \&}]{other}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_a24cb7949e27b78ff14bad86e2f3d21ba}
+
+
+\hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} assignment. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em other} & Assign other to this. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+reference to this \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} 
+\end{DoxyReturn}
+\hypertarget{classboxedin_1_1BoxedInNode_a70aa3595f1db9e8e3328c79765b0506c}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!Set\+Key@{Set\+Key}}
+\index{Set\+Key@{Set\+Key}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{Set\+Key}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Boxed\+In\+Node\+::\+Set\+Key (
+\begin{DoxyParamCaption}
+\item[{{\bf charmap} \&}]{lvlmap}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1BoxedInNode_a70aa3595f1db9e8e3328c79765b0506c}
+
+
+Sets the \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} key as a hash of the level char map. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em lvlmap} & Map of gears, boxes, walls, etc to generate key from \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classboxedin_1_1BoxedInNode_a274bba98e78e14edbeb5457c8d836aaf}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}std\+::ostream \& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{std\+::ostream \&}]{out, }
+\item[{const {\bf boxedin\+::\+Boxed\+In\+Node} $\ast$}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [related]}}}\label{classboxedin_1_1BoxedInNode_a274bba98e78e14edbeb5457c8d836aaf}
+Print a \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node}. \hypertarget{classboxedin_1_1BoxedInNode_a65d7cc3f5f20a84f081d6618fefbbccc}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream \& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{out, }
+\item[{const {\bf Boxed\+In\+Node} $\ast$}]{goal}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [related]}}}\label{classboxedin_1_1BoxedInNode_a65d7cc3f5f20a84f081d6618fefbbccc}
+
+
+Print the paths from goal to start node. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em out} & ostream to print to. \\
+\hline
+\mbox{\tt in}  & {\em goal} & The \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} goal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the ostream. 
+\end{DoxyReturn}
+\hypertarget{classboxedin_1_1BoxedInNode_a2bb8d27936b1738095a48345758b7e84}{\index{boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!boxedin\+::\+Boxed\+In\+Node@{boxedin\+::\+Boxed\+In\+Node}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream \& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{out, }
+\item[{const {\bf Boxed\+In\+Node} \&}]{node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [related]}}}\label{classboxedin_1_1BoxedInNode_a2bb8d27936b1738095a48345758b7e84}
+
+
+Creates a level map from node and displays it. 
+
+Certain characters are printed in color if use\+\_\+color is true. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em out} & ostream to print to. \\
+\hline
+\mbox{\tt in}  & {\em node} & The node to display. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the ostream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+libboxedin/include/\hyperlink{BoxedInNode_8h}{Boxed\+In\+Node.\+h}\item 
+libboxedin/include/\hyperlink{boxedinio_8h}{boxedinio.\+h}\item 
+libboxedin/src/boxedinio.\+cc\item 
+libboxedin/src/Boxed\+In\+Node.\+cc\end{DoxyCompactItemize}

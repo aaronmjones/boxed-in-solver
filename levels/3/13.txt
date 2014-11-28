@@ -1,0 +1,14 @@
+'''''''xxx
+xxxxxxxx@x
+x   x  BGx
+x x   xxxx
+x r x  x''
+xx xxxgx''
+x   x  x''
+x+++R  x''
+x   xxbxx'
+xx p +  x'
+'x   x**x'
+'xxxxx  x'
+'''''xxxx'
+''''''''''

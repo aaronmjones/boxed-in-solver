@@ -1,0 +1,87 @@
+\hypertarget{classboxedin_1_1SearchResult}{\section{boxedin\+:\+:Search\+Result Class Reference}
+\label{classboxedin_1_1SearchResult}\index{boxedin\+::\+Search\+Result@{boxedin\+::\+Search\+Result}}
+}
+
+
+A$\ast$ search results, statistics, possibly a solution.  
+
+
+
+
+{\ttfamily \#include $<$Search\+Result.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classboxedin_1_1SearchResult_a908673bfad091b9413082ab0074f24ff}{void {\bfseries Set\+Failed} (size\+\_\+t openset\+\_\+size, size\+\_\+t closedset\+\_\+size)}\label{classboxedin_1_1SearchResult_a908673bfad091b9413082ab0074f24ff}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_a0f3f84329dc4d8519fcbf15f09fd8fd0}{void {\bfseries Set\+Succeeded} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$node, size\+\_\+t openset\+\_\+size, size\+\_\+t closedset\+\_\+size)}\label{classboxedin_1_1SearchResult_a0f3f84329dc4d8519fcbf15f09fd8fd0}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classboxedin_1_1SearchResult_ad906f3ac02a97789d177c462e16362ec}{bool {\bfseries success}}\label{classboxedin_1_1SearchResult_ad906f3ac02a97789d177c462e16362ec}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_adc5e9f908892b6381ffbe813424843dd}{int {\bfseries num\+\_\+moves}}\label{classboxedin_1_1SearchResult_adc5e9f908892b6381ffbe813424843dd}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_ad4271e643c769b52895188a62c9f73e4}{size\+\_\+t {\bfseries openset\+\_\+size}}\label{classboxedin_1_1SearchResult_ad4271e643c769b52895188a62c9f73e4}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_ab9dec2cc9f0238e946c44771d08c3019}{size\+\_\+t {\bfseries closedset\+\_\+size}}\label{classboxedin_1_1SearchResult_ab9dec2cc9f0238e946c44771d08c3019}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_a2b8fc6d0c94837035a6cba14a919e63c}{std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point {\bfseries search\+\_\+start\+\_\+time}}\label{classboxedin_1_1SearchResult_a2b8fc6d0c94837035a6cba14a919e63c}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_aa6080d5ca0060ae85f61459e326772b9}{std\+::chrono\+::steady\+\_\+clock\+::time\+\_\+point {\bfseries search\+\_\+stop\+\_\+time}}\label{classboxedin_1_1SearchResult_aa6080d5ca0060ae85f61459e326772b9}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_a4793bccb0e11735815f2fb7f4bce5673}{std\+::list$<$ \hyperlink{namespaceboxedin_ab79d3e8d943aa2875e3adb42b8917ff7}{Path} $>$ {\bfseries solution}}\label{classboxedin_1_1SearchResult_a4793bccb0e11735815f2fb7f4bce5673}
+
+\item 
+\hypertarget{classboxedin_1_1SearchResult_a6d8dfdbb36641edc4760d2016a861af6}{\hyperlink{structMemUsage}{Mem\+Usage} {\bfseries memusage}}\label{classboxedin_1_1SearchResult_a6d8dfdbb36641edc4760d2016a861af6}
+
+\end{DoxyCompactItemize}
+\subsection*{Related Functions}
+(Note that these are not member functions.) \begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{classboxedin_1_1SearchResult_aba8988360e7071d87b94408be1e799ee}{operator$<$$<$} (ostream \&out, const \hyperlink{classboxedin_1_1SearchResult}{Search\+Result} \&result)
+\begin{DoxyCompactList}\small\item\em Displays A$\ast$ search result information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A$\ast$ search results, statistics, possibly a solution. 
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{classboxedin_1_1SearchResult_aba8988360e7071d87b94408be1e799ee}{\index{boxedin\+::\+Search\+Result@{boxedin\+::\+Search\+Result}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!boxedin\+::\+Search\+Result@{boxedin\+::\+Search\+Result}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream \& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{out, }
+\item[{const {\bf Search\+Result} \&}]{result}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [related]}}}\label{classboxedin_1_1SearchResult_aba8988360e7071d87b94408be1e799ee}
+
+
+Displays A$\ast$ search result information. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em out} & ostream to print to. \\
+\hline
+\mbox{\tt in}  & {\em result} & A$\ast$ search result. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the ostream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+libboxedin/include/\hyperlink{SearchResult_8h}{Search\+Result.\+h}\item 
+libboxedin/src/boxedinio.\+cc\end{DoxyCompactItemize}

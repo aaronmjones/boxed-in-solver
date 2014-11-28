@@ -1,0 +1,48 @@
+\hypertarget{viewsolution_page_description_sec}{}\section{Description}\label{viewsolution_page_description_sec}
+Command line program for running Boxed In A$\ast$ search. The solution (if found) is written to standard output. All other output is written to standard error.\hypertarget{viewsolution_page_usage_sec}{}\section{Usage}\label{viewsolution_page_usage_sec}
+\begin{DoxyVerb}BoxedInSolver OPTIONS file
+    Reads a boxed in level from file and runs the solving
+    algorithm for it.
+
+    OPTIONS
+        -c
+            Print console output in color
+        -s, <statsfile>
+            Print solver stats to statsfile\end{DoxyVerb}
+\hypertarget{viewsolution_page_examples_sec}{}\section{Command Examples}\label{viewsolution_page_examples_sec}
+Solve level 1
+
+\begin{DoxyVerb}bin/BoxedInSolver levels/1/01.txt\end{DoxyVerb}
+
+
+Solve level 7 and print to console in color
+
+\begin{DoxyVerb}bin/BoxedInSolver -c levels/1/07.txt\end{DoxyVerb}
+
+
+Solve level 1, game 2, print to console in color and write solution to a file by redirecting standard input.
+
+\begin{DoxyVerb}bin/BoxedInSolver -c levels/2/01.txt > solutions/2/01.txt\end{DoxyVerb}
+
+
+Same as before, but write algorithm statistics to a file.
+
+\begin{DoxyVerb}bin/BoxedInSolver -c -s stats/2/01.txt levels/2/01.txt > solutions/2/01.txt\end{DoxyVerb}
+\hypertarget{viewsolution_page_example_level_file_sec}{}\section{Example Level File}\label{viewsolution_page_example_level_file_sec}
+levels/1/13.\+txt
+
+\begin{DoxyVerb}xxxxxxxxxx
+x        x
+x x+x+xg+x
+x x x    x
+x +   p  x
+x*x*xxx xx
+'xxxxxx x'
+xr    x xx
+'xx      x
+'''x  x +x
+xxxxx x *x
+x@ RG   xx
+xxxxxxxxx'
+''''''''''\end{DoxyVerb}
+ 

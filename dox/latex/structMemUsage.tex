@@ -1,0 +1,90 @@
+\hypertarget{structMemUsage}{\section{Mem\+Usage Struct Reference}
+\label{structMemUsage}\index{Mem\+Usage@{Mem\+Usage}}
+}
+
+
+This struct holds process memory statistics.  
+
+
+
+
+{\ttfamily \#include $<$memusage.\+h$>$}
+
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{structMemUsage_a34942f89004c17e22df12fc440986115}{uint64\+\_\+t {\bfseries max\+\_\+resident\+\_\+set\+\_\+size}}\label{structMemUsage_a34942f89004c17e22df12fc440986115}
+
+\item 
+uint64\+\_\+t \hyperlink{structMemUsage_aee7c0f91294b9ec344191ca5085110f3}{resident\+\_\+set\+\_\+size}
+\item 
+uint64\+\_\+t \hyperlink{structMemUsage_ace61fbe86233e13fb504a2b3733a26a4}{num\+\_\+page\+\_\+reclaims}
+\item 
+uint64\+\_\+t \hyperlink{structMemUsage_aea2abd0b56172239f29b73fdd93d11d8}{num\+\_\+page\+\_\+faults}
+\item 
+uint64\+\_\+t \hyperlink{structMemUsage_aa36d9bec23bcbc858b1d89bfd8aed136}{num\+\_\+swaps}
+\item 
+uint64\+\_\+t \hyperlink{structMemUsage_a3607fbd80c1b4b7b156aab8fb41605b8}{max\+\_\+size}
+\item 
+uint64\+\_\+t \hyperlink{structMemUsage_aea96a2509e52b4b27806869d425b6255}{size}
+\end{DoxyCompactItemize}
+\subsection*{Related Functions}
+(Note that these are not member functions.) \begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{structMemUsage_a05793fb5553dfe8e8dee5df2247da1ac}{operator$<$$<$} (ostream \&out, const \hyperlink{structMemUsage}{Mem\+Usage} \&memusage)
+\begin{DoxyCompactList}\small\item\em Displays process memory usage information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This struct holds process memory statistics. 
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{structMemUsage_a05793fb5553dfe8e8dee5df2247da1ac}{\index{Mem\+Usage@{Mem\+Usage}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Mem\+Usage@{Mem\+Usage}}
+\subsubsection[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream \& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{out, }
+\item[{const {\bf Mem\+Usage} \&}]{memusage}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [related]}}}\label{structMemUsage_a05793fb5553dfe8e8dee5df2247da1ac}
+
+
+Displays process memory usage information. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em out} & ostream to print to. \\
+\hline
+\mbox{\tt in}  & {\em memusage} & Process memory usage information. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the ostream. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{structMemUsage_a3607fbd80c1b4b7b156aab8fb41605b8}{\index{Mem\+Usage@{Mem\+Usage}!max\+\_\+size@{max\+\_\+size}}
+\index{max\+\_\+size@{max\+\_\+size}!Mem\+Usage@{Mem\+Usage}}
+\subsubsection[{max\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}uint64\+\_\+t Mem\+Usage\+::max\+\_\+size}}\label{structMemUsage_a3607fbd80c1b4b7b156aab8fb41605b8}
+num R\+A\+M swaps to hard disk \hypertarget{structMemUsage_aea2abd0b56172239f29b73fdd93d11d8}{\index{Mem\+Usage@{Mem\+Usage}!num\+\_\+page\+\_\+faults@{num\+\_\+page\+\_\+faults}}
+\index{num\+\_\+page\+\_\+faults@{num\+\_\+page\+\_\+faults}!Mem\+Usage@{Mem\+Usage}}
+\subsubsection[{num\+\_\+page\+\_\+faults}]{\setlength{\rightskip}{0pt plus 5cm}uint64\+\_\+t Mem\+Usage\+::num\+\_\+page\+\_\+faults}}\label{structMemUsage_aea2abd0b56172239f29b73fdd93d11d8}
+page reclaims (soft page faults) \hypertarget{structMemUsage_ace61fbe86233e13fb504a2b3733a26a4}{\index{Mem\+Usage@{Mem\+Usage}!num\+\_\+page\+\_\+reclaims@{num\+\_\+page\+\_\+reclaims}}
+\index{num\+\_\+page\+\_\+reclaims@{num\+\_\+page\+\_\+reclaims}!Mem\+Usage@{Mem\+Usage}}
+\subsubsection[{num\+\_\+page\+\_\+reclaims}]{\setlength{\rightskip}{0pt plus 5cm}uint64\+\_\+t Mem\+Usage\+::num\+\_\+page\+\_\+reclaims}}\label{structMemUsage_ace61fbe86233e13fb504a2b3733a26a4}
+current physical memory (bytes) \hypertarget{structMemUsage_aa36d9bec23bcbc858b1d89bfd8aed136}{\index{Mem\+Usage@{Mem\+Usage}!num\+\_\+swaps@{num\+\_\+swaps}}
+\index{num\+\_\+swaps@{num\+\_\+swaps}!Mem\+Usage@{Mem\+Usage}}
+\subsubsection[{num\+\_\+swaps}]{\setlength{\rightskip}{0pt plus 5cm}uint64\+\_\+t Mem\+Usage\+::num\+\_\+swaps}}\label{structMemUsage_aa36d9bec23bcbc858b1d89bfd8aed136}
+page faults (hard page faults) \hypertarget{structMemUsage_aee7c0f91294b9ec344191ca5085110f3}{\index{Mem\+Usage@{Mem\+Usage}!resident\+\_\+set\+\_\+size@{resident\+\_\+set\+\_\+size}}
+\index{resident\+\_\+set\+\_\+size@{resident\+\_\+set\+\_\+size}!Mem\+Usage@{Mem\+Usage}}
+\subsubsection[{resident\+\_\+set\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}uint64\+\_\+t Mem\+Usage\+::resident\+\_\+set\+\_\+size}}\label{structMemUsage_aee7c0f91294b9ec344191ca5085110f3}
+max physical memory (bytes) \hypertarget{structMemUsage_aea96a2509e52b4b27806869d425b6255}{\index{Mem\+Usage@{Mem\+Usage}!size@{size}}
+\index{size@{size}!Mem\+Usage@{Mem\+Usage}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}uint64\+\_\+t Mem\+Usage\+::size}}\label{structMemUsage_aea96a2509e52b4b27806869d425b6255}
+max physical + virtual memory (bytes) 
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+libboxedin/include/\hyperlink{memusage_8h}{memusage.\+h}\item 
+libboxedin/src/boxedinio.\+cc\end{DoxyCompactItemize}

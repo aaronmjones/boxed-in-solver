@@ -1,0 +1,202 @@
+\hypertarget{classboxedin_1_1LevelState}{\section{boxedin\+:\+:Level\+State Class Reference}
+\label{classboxedin_1_1LevelState}\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+}
+
+
+Characterizes the state of a Boxed In level.  
+
+
+
+
+{\ttfamily \#include $<$Level\+State.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classboxedin_1_1LevelState_aba5675b4bb9070d74530f2ca9a8f7abc}{Level\+State} ()
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{classboxedin_1_1LevelState_ad0222f236c59908a2d54e569296278ba}{Level\+State} (const \hyperlink{classboxedin_1_1LevelState}{Level\+State} \&other)
+\begin{DoxyCompactList}\small\item\em Copy Constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1LevelState_a7c048d53cc9a1152c017c0494095a362}{Pickup\+Gear} ()
+\begin{DoxyCompactList}\small\item\em Remove the gear at the current player coordinate. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1LevelState_ae45f5fb187e4b3a0e0417d9fb6cdaaaa}{Move\+Up} ()
+\begin{DoxyCompactList}\small\item\em Move player up, pushing a box if there is one. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1LevelState_ad2f37cbae5ea4d1879f71b9c7e5b23d9}{Move\+Down} ()
+\begin{DoxyCompactList}\small\item\em Move player down, pushing a box if there is one. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1LevelState_a79afab587c3d0c9dc22315043a4be2c2}{Move\+Left} ()
+\begin{DoxyCompactList}\small\item\em Move player left, pushing a box if there is one. \end{DoxyCompactList}\item 
+void \hyperlink{classboxedin_1_1LevelState_ad6f4593805277f983d7f4ee5a618df58}{Move\+Right} ()
+\begin{DoxyCompactList}\small\item\em Move player right, pushing a box if there is one. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{classboxedin_1_1LevelState_a0cd6cb30769f24259b3128593162ab53}{Make\+Level\+Map} (\hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&lvlmap, const \hyperlink{classboxedin_1_1LevelState}{Level\+State} \&lvl\+State, bool draw\+Player=true)
+\begin{DoxyCompactList}\small\item\em Create 2\+D character array representation of \hyperlink{classboxedin_1_1LevelState}{Level\+State}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespaceboxedin_a06d85d1dad095f12bcc1a03894abb650}{gears\+\_\+bitfield\+\_\+t} \hyperlink{classboxedin_1_1LevelState_afac5079af12178ae9c5aec7a753e21ad}{gears\+\_\+bitfield}
+\item 
+\hyperlink{namespaceboxedin_a9cf4c1fe66d111542a6b853f276b5d63}{Boxes} \hyperlink{classboxedin_1_1LevelState_a49db037f37aefc1ee2e41ff36735cfdf}{boxes}
+\item 
+\hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \hyperlink{classboxedin_1_1LevelState_a1e04f0ad962384393c45d47242260fe6}{player}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \hyperlink{classboxedin_1_1LevelState_ad16af891d79850a4a8724d90d82b1243}{basemap}
+\item 
+static \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \hyperlink{classboxedin_1_1LevelState_a40f55b388488172493c0fd685bdb2479}{exit}
+\item 
+static \hyperlink{namespaceboxedin_a03c7cc22a04c973f84db352c32e17a2c}{Switch\+Gate\+Pairs} \hyperlink{classboxedin_1_1LevelState_a988fcdbba677903b2b7b893446473768}{switch\+Gate\+Pairs}
+\item 
+static \hyperlink{namespaceboxedin_a9fa1a20bcfcbdd4d7cad2d6fc92725f6}{Gears} \hyperlink{classboxedin_1_1LevelState_a5df7e9d9733bf4dab9132203e8e87b0d}{gears}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Characterizes the state of a Boxed In level. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classboxedin_1_1LevelState_aba5675b4bb9070d74530f2ca9a8f7abc}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Level\+State@{Level\+State}}
+\index{Level\+State@{Level\+State}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Level\+State}]{\setlength{\rightskip}{0pt plus 5cm}boxedin\+::\+Level\+State\+::\+Level\+State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1LevelState_aba5675b4bb9070d74530f2ca9a8f7abc}
+
+
+Constructor. 
+
+Constructor \hypertarget{classboxedin_1_1LevelState_ad0222f236c59908a2d54e569296278ba}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Level\+State@{Level\+State}}
+\index{Level\+State@{Level\+State}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Level\+State}]{\setlength{\rightskip}{0pt plus 5cm}boxedin\+::\+Level\+State\+::\+Level\+State (
+\begin{DoxyParamCaption}
+\item[{const {\bf Level\+State} \&}]{other}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1LevelState_ad0222f236c59908a2d54e569296278ba}
+
+
+Copy Constructor. 
+
+Copy constructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{classboxedin_1_1LevelState_a0cd6cb30769f24259b3128593162ab53}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Make\+Level\+Map@{Make\+Level\+Map}}
+\index{Make\+Level\+Map@{Make\+Level\+Map}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Make\+Level\+Map}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Level\+State\+::\+Make\+Level\+Map (
+\begin{DoxyParamCaption}
+\item[{{\bf charmap} \&}]{lvlmap, }
+\item[{const {\bf Level\+State} \&}]{lvl\+State, }
+\item[{bool}]{draw\+Player = {\ttfamily true}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classboxedin_1_1LevelState_a0cd6cb30769f24259b3128593162ab53}
+
+
+Create 2\+D character array representation of \hyperlink{classboxedin_1_1LevelState}{Level\+State}. 
+
+Make character map representation from \hyperlink{classboxedin_1_1LevelState}{Level\+State}
+
+Assumes that \hyperlink{classboxedin_1_1OpenSetData}{Open\+Set\+Data} is not N\+U\+L\+L. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em lvlmap} & Character array representation \\
+\hline
+\mbox{\tt in}  & {\em lvl\+State} & Level state \\
+\hline
+\mbox{\tt in}  & {\em draw\+Player} & If true, set P\+L\+A\+Y\+E\+R char at the player coordinate \\
+\hline
+\end{DoxyParams}
+\hypertarget{classboxedin_1_1LevelState_ad2f37cbae5ea4d1879f71b9c7e5b23d9}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Move\+Down@{Move\+Down}}
+\index{Move\+Down@{Move\+Down}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Move\+Down}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Level\+State\+::\+Move\+Down (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1LevelState_ad2f37cbae5ea4d1879f71b9c7e5b23d9}
+
+
+Move player down, pushing a box if there is one. 
+
+Move player down and move box accordingly
+
+Assumes the move is legal; no validation is performed. \hypertarget{classboxedin_1_1LevelState_a79afab587c3d0c9dc22315043a4be2c2}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Move\+Left@{Move\+Left}}
+\index{Move\+Left@{Move\+Left}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Move\+Left}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Level\+State\+::\+Move\+Left (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1LevelState_a79afab587c3d0c9dc22315043a4be2c2}
+
+
+Move player left, pushing a box if there is one. 
+
+Move player left and move box accordingly
+
+Assumes the move is legal; no validation is performed. \hypertarget{classboxedin_1_1LevelState_ad6f4593805277f983d7f4ee5a618df58}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Move\+Right@{Move\+Right}}
+\index{Move\+Right@{Move\+Right}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Move\+Right}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Level\+State\+::\+Move\+Right (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1LevelState_ad6f4593805277f983d7f4ee5a618df58}
+
+
+Move player right, pushing a box if there is one. 
+
+Move player right and move box accordingly
+
+Assumes the move is legal; no validation is performed. \hypertarget{classboxedin_1_1LevelState_ae45f5fb187e4b3a0e0417d9fb6cdaaaa}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Move\+Up@{Move\+Up}}
+\index{Move\+Up@{Move\+Up}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Move\+Up}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Level\+State\+::\+Move\+Up (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1LevelState_ae45f5fb187e4b3a0e0417d9fb6cdaaaa}
+
+
+Move player up, pushing a box if there is one. 
+
+Move player up and move box accordingly
+
+Assumes the move is legal; no validation is performed. \hypertarget{classboxedin_1_1LevelState_a7c048d53cc9a1152c017c0494095a362}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!Pickup\+Gear@{Pickup\+Gear}}
+\index{Pickup\+Gear@{Pickup\+Gear}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{Pickup\+Gear}]{\setlength{\rightskip}{0pt plus 5cm}void boxedin\+::\+Level\+State\+::\+Pickup\+Gear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classboxedin_1_1LevelState_a7c048d53cc9a1152c017c0494095a362}
+
+
+Remove the gear at the current player coordinate. 
+
+\char`\"{}\+Pickup\char`\"{} the gear at the player's current position 
+
+\subsection{Member Data Documentation}
+\hypertarget{classboxedin_1_1LevelState_ad16af891d79850a4a8724d90d82b1243}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!basemap@{basemap}}
+\index{basemap@{basemap}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{basemap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf charmap} boxedin\+::\+Level\+State\+::basemap\hspace{0.3cm}{\ttfamily [static]}}}\label{classboxedin_1_1LevelState_ad16af891d79850a4a8724d90d82b1243}
+The space, walls and floor \hypertarget{classboxedin_1_1LevelState_a49db037f37aefc1ee2e41ff36735cfdf}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!boxes@{boxes}}
+\index{boxes@{boxes}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{boxes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Boxes} boxedin\+::\+Level\+State\+::boxes}}\label{classboxedin_1_1LevelState_a49db037f37aefc1ee2e41ff36735cfdf}
+Box positions \hypertarget{classboxedin_1_1LevelState_a40f55b388488172493c0fd685bdb2479}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!exit@{exit}}
+\index{exit@{exit}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{exit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Coord} boxedin\+::\+Level\+State\+::exit\hspace{0.3cm}{\ttfamily [static]}}}\label{classboxedin_1_1LevelState_a40f55b388488172493c0fd685bdb2479}
+The exit position \hypertarget{classboxedin_1_1LevelState_a5df7e9d9733bf4dab9132203e8e87b0d}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!gears@{gears}}
+\index{gears@{gears}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{gears}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Gears} boxedin\+::\+Level\+State\+::gears\hspace{0.3cm}{\ttfamily [static]}}}\label{classboxedin_1_1LevelState_a5df7e9d9733bf4dab9132203e8e87b0d}
+Gear locations \hypertarget{classboxedin_1_1LevelState_afac5079af12178ae9c5aec7a753e21ad}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!gears\+\_\+bitfield@{gears\+\_\+bitfield}}
+\index{gears\+\_\+bitfield@{gears\+\_\+bitfield}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{gears\+\_\+bitfield}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gears\+\_\+bitfield\+\_\+t} boxedin\+::\+Level\+State\+::gears\+\_\+bitfield}}\label{classboxedin_1_1LevelState_afac5079af12178ae9c5aec7a753e21ad}
+This bitfield tells whether each gear has been picked up \hypertarget{classboxedin_1_1LevelState_a1e04f0ad962384393c45d47242260fe6}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!player@{player}}
+\index{player@{player}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{player}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Coord} boxedin\+::\+Level\+State\+::player}}\label{classboxedin_1_1LevelState_a1e04f0ad962384393c45d47242260fe6}
+Player position \hypertarget{classboxedin_1_1LevelState_a988fcdbba677903b2b7b893446473768}{\index{boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}!switch\+Gate\+Pairs@{switch\+Gate\+Pairs}}
+\index{switch\+Gate\+Pairs@{switch\+Gate\+Pairs}!boxedin\+::\+Level\+State@{boxedin\+::\+Level\+State}}
+\subsubsection[{switch\+Gate\+Pairs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Switch\+Gate\+Pairs} boxedin\+::\+Level\+State\+::switch\+Gate\+Pairs\hspace{0.3cm}{\ttfamily [static]}}}\label{classboxedin_1_1LevelState_a988fcdbba677903b2b7b893446473768}
+Pairs of switch/gate coordinates 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+libboxedin/include/\hyperlink{LevelState_8h}{Level\+State.\+h}\item 
+libboxedin/src/Level\+State.\+cc\end{DoxyCompactItemize}

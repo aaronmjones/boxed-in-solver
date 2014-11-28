@@ -1,0 +1,14 @@
+''xxxxxxx'
+xxx px  yx
+x  b   g x
+x+xxxRxx+x
+x   + +  x
+x xxx xxrx
+x   + +  x
+x xxx x  x
+x     x  x
+xxxxBxx  x
+'''x xxxYx
+'xxxGx***x
+'x@  x***x
+'xxxxxxxxx

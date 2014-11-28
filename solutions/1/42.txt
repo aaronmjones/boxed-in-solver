@@ -1,0 +1,19 @@
+
+l l 
+u u u u u u 
+r r d 
+d 
+d 
+l 
+r u u u r r r 
+d d d d d d 
+l l l l l u u u 
+u 
+d r r r d d 
+u u u l u u r r r d d d d d d l l 
+l 
+r u u u r 
+l u l u u r r r d d d 
+d 
+u l l l l l d d d d d d r 
+

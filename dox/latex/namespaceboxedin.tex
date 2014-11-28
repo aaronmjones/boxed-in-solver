@@ -1,0 +1,513 @@
+\hypertarget{namespaceboxedin}{\section{boxedin Namespace Reference}
+\label{namespaceboxedin}\index{boxedin@{boxedin}}
+}
+
+
+Core components of the Boxed In library.  
+
+
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceboxedin_1_1io}{io}
+\begin{DoxyCompactList}\small\item\em Classes and static functions use for I/\+O. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point}
+\begin{DoxyCompactList}\small\item\em This is used to generate successors to a \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node}. \end{DoxyCompactList}\item 
+class \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node}
+\begin{DoxyCompactList}\small\item\em This is the search node for A$\ast$ open set and closed set. \end{DoxyCompactList}\item 
+struct \hyperlink{structboxedin_1_1Coordinate}{Coordinate}
+\begin{DoxyCompactList}\small\item\em Template for an x,y coordinate. \end{DoxyCompactList}\item 
+struct \hyperlink{structboxedin_1_1FloodFillNode}{Flood\+Fill\+Node}
+\begin{DoxyCompactList}\small\item\em This type is used for flood filling a level state to find action points. \end{DoxyCompactList}\item 
+struct \hyperlink{structboxedin_1_1FValCompare}{F\+Val\+Compare}
+\begin{DoxyCompactList}\small\item\em This is a functor used to compare \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node}'s by f-\/value. \end{DoxyCompactList}\item 
+struct \hyperlink{structboxedin_1_1KeyEqual}{Key\+Equal}
+\begin{DoxyCompactList}\small\item\em This is a functor for comparison by hash key. \end{DoxyCompactList}\item 
+struct \hyperlink{structboxedin_1_1KeyHash}{Key\+Hash}
+\begin{DoxyCompactList}\small\item\em This is a functor for returning a \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} hash key. \end{DoxyCompactList}\item 
+class \hyperlink{classboxedin_1_1LevelState}{Level\+State}
+\begin{DoxyCompactList}\small\item\em Characterizes the state of a Boxed In level. \end{DoxyCompactList}\item 
+class \hyperlink{classboxedin_1_1OpenSetData}{Open\+Set\+Data}
+\begin{DoxyCompactList}\small\item\em This type contains data only needed while node is in open set. \end{DoxyCompactList}\item 
+class \hyperlink{classboxedin_1_1SearchResult}{Search\+Result}
+\begin{DoxyCompactList}\small\item\em A$\ast$ search results, statistics, possibly a solution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceboxedin_a4354e19fe0fd28e8d5d66327f15d211c}{typedef std\+::priority\+\_\+queue\\*
+$<$ \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$, std\+::vector\\*
+$<$ \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$ $>$, \hyperlink{structboxedin_1_1FValCompare}{F\+Val\+Compare} $>$ {\bfseries Open\+Queue}}\label{namespaceboxedin_a4354e19fe0fd28e8d5d66327f15d211c}
+
+\item 
+\hypertarget{namespaceboxedin_a888729f0b16fedf98067249ac46993ae}{typedef std\+::unordered\+\_\+set\\*
+$<$ \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$, \hyperlink{structboxedin_1_1KeyHash}{Key\+Hash}, \\*
+\hyperlink{structboxedin_1_1KeyEqual}{Key\+Equal} $>$ {\bfseries Open\+Set}}\label{namespaceboxedin_a888729f0b16fedf98067249ac46993ae}
+
+\item 
+\hypertarget{namespaceboxedin_a014c99b2c3e8412cc37e38f9c9a67d70}{typedef Open\+Set\+::iterator {\bfseries Open\+Set\+It}}\label{namespaceboxedin_a014c99b2c3e8412cc37e38f9c9a67d70}
+
+\item 
+\hypertarget{namespaceboxedin_aaa54ec0d6b1d6c4904d144904e444f80}{typedef Open\+Set\+::const\+\_\+iterator {\bfseries Open\+Set\+Cit}}\label{namespaceboxedin_aaa54ec0d6b1d6c4904d144904e444f80}
+
+\item 
+\hypertarget{namespaceboxedin_aba48e926d3e0b5f5aacce0e7a17f4713}{typedef std\+::unordered\+\_\+set\\*
+$<$ \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$, \hyperlink{structboxedin_1_1KeyHash}{Key\+Hash}, \\*
+\hyperlink{structboxedin_1_1KeyEqual}{Key\+Equal} $>$ {\bfseries Closed\+Set}}\label{namespaceboxedin_aba48e926d3e0b5f5aacce0e7a17f4713}
+
+\item 
+\hypertarget{namespaceboxedin_a36cac0025dc6615566ab2a92fe7a3320}{typedef Closed\+Set\+::iterator {\bfseries Closed\+Set\+It}}\label{namespaceboxedin_a36cac0025dc6615566ab2a92fe7a3320}
+
+\item 
+\hypertarget{namespaceboxedin_a351056338794ee3a6c5e7efec3dc1908}{typedef Closed\+Set\+::const\+\_\+iterator {\bfseries Closed\+Set\+Cit}}\label{namespaceboxedin_a351056338794ee3a6c5e7efec3dc1908}
+
+\item 
+typedef char \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \mbox{[}H\+E\+I\+G\+H\+T\mbox{]}\mbox{[}W\+I\+D\+T\+H\mbox{]}
+\item 
+typedef \hyperlink{structboxedin_1_1Coordinate}{Coordinate}$<$ uint8\+\_\+t $>$ \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord}
+\item 
+typedef std\+::pair$<$ \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord}, \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} $>$ \hyperlink{namespaceboxedin_ac85f00ec0a253d53da24ecfa3671f6f9}{Switch\+Gate\+Pair}
+\item 
+typedef std\+::map$<$ \hyperlink{namespaceboxedin_a5d4a85861c29b50e230046a0e9c2cd73}{Color}, \\*
+\hyperlink{namespaceboxedin_ac85f00ec0a253d53da24ecfa3671f6f9}{Switch\+Gate\+Pair} $>$ \hyperlink{namespaceboxedin_a03c7cc22a04c973f84db352c32e17a2c}{Switch\+Gate\+Pairs}
+\item 
+typedef Switch\+Gate\+Pairs\+::iterator \hyperlink{namespaceboxedin_ab405434884f36ef897ef6c9227a72342}{Switch\+Gate\+Pairs\+It}
+\item 
+typedef \\*
+Switch\+Gate\+Pairs\+::const\+\_\+iterator \hyperlink{namespaceboxedin_a6aae579b92c95f39c9aaaf6013fa0c29}{Switch\+Gate\+Pairs\+Cit}
+\item 
+typedef std\+::vector$<$ \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} $>$ \hyperlink{namespaceboxedin_adfad3f57ac730784b07eeef6e6244ceb}{Coords}
+\item 
+typedef std\+::vector$<$ \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} $>$ \hyperlink{namespaceboxedin_a9cf4c1fe66d111542a6b853f276b5d63}{Boxes}
+\item 
+typedef Boxes\+::iterator \hyperlink{namespaceboxedin_ad09b9ae0e0fe0b8fe4ded755de971056}{Boxes\+It}
+\item 
+typedef Boxes\+::const\+\_\+iterator \hyperlink{namespaceboxedin_ae12efbf42d3d7cae8554a7cfe89373ef}{Boxes\+Cit}
+\item 
+typedef std\+::vector$<$ \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} $>$ \hyperlink{namespaceboxedin_a9fa1a20bcfcbdd4d7cad2d6fc92725f6}{Gears}
+\item 
+typedef Gears\+::iterator \hyperlink{namespaceboxedin_a108752fd170b457fe49ff7d9ce6eafc9}{Gears\+It}
+\item 
+typedef Gears\+::const\+\_\+iterator \hyperlink{namespaceboxedin_ad10e1f3c9ae2e8d08f1bc2ac8c074eb7}{Gears\+Cit}
+\item 
+typedef std\+::vector$<$ char $>$ \hyperlink{namespaceboxedin_ab79d3e8d943aa2875e3adb42b8917ff7}{Path}
+\item 
+typedef Path\+::iterator \hyperlink{namespaceboxedin_a5ada570c5ebc9f728d9b0de122316173}{Path\+It}
+\item 
+typedef Path\+::const\+\_\+iterator \hyperlink{namespaceboxedin_ac425496c03d94f10ef5e861df766442a}{Path\+Cit}
+\item 
+typedef size\+\_\+t \hyperlink{namespaceboxedin_ac4dc3ff36b9cef0b4c5cc1a96bfc0abd}{key\+\_\+type}
+\item 
+typedef int \hyperlink{namespaceboxedin_ae2b1ff7be48e8d543a64922e65788e04}{cost\+\_\+t}
+\item 
+typedef std\+::queue$<$ \hyperlink{structboxedin_1_1FloodFillNode}{Flood\+Fill\+Node} $>$ \hyperlink{namespaceboxedin_a32593929ac9faf2a89b10156353111bf}{Flood\+Fill\+Queue}
+\item 
+typedef std\+::vector$<$ \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} $>$ \hyperlink{namespaceboxedin_ac5c79d0ac76a1a0ac73706f34abe3fc3}{Action\+Points}
+\item 
+typedef Action\+Points\+::iterator \hyperlink{namespaceboxedin_ad689efceb1168fa307cd39a22a6e9ad4}{Action\+Point\+It}
+\item 
+typedef \\*
+Action\+Points\+::const\+\_\+iterator \hyperlink{namespaceboxedin_a1d095c548e50d28c4901ac9f46c8aee1}{Action\+Point\+Cit}
+\item 
+typedef std\+::list$<$ \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} $\ast$ $>$ \hyperlink{namespaceboxedin_a01412e7e38b44e8ce2d9f0d67d142219}{Boxed\+In\+Node\+List}
+\item 
+typedef Boxed\+In\+Node\+List\+::iterator \hyperlink{namespaceboxedin_a67fd73b97479017eac16cbd43f979636}{Boxed\+In\+Node\+List\+It}
+\item 
+typedef \\*
+Boxed\+In\+Node\+List\+::const\+\_\+iterator \hyperlink{namespaceboxedin_a840999e14b7b86c1333d2980f406682b}{Boxed\+In\+Node\+List\+Cit}
+\end{DoxyCompactItemize}
+{\bf }\par
+\begin{DoxyCompactItemize}
+\item 
+typedef uint16\+\_\+t \hyperlink{namespaceboxedin_a06d85d1dad095f12bcc1a03894abb650}{gears\+\_\+bitfield\+\_\+t}
+\end{DoxyCompactItemize}
+
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceboxedin_a5d4a85861c29b50e230046a0e9c2cd73}{enum \hyperlink{namespaceboxedin_a5d4a85861c29b50e230046a0e9c2cd73}{Color} \{ {\bfseries R\+E\+D}, 
+{\bfseries Y\+E\+L\+L\+O\+W}, 
+{\bfseries G\+R\+E\+E\+N}, 
+{\bfseries B\+L\+U\+E}
+ \}}\label{namespaceboxedin_a5d4a85861c29b50e230046a0e9c2cd73}
+
+\begin{DoxyCompactList}\small\item\em Color values for switches and gates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classboxedin_1_1SearchResult}{Search\+Result} \hyperlink{namespaceboxedin_ab45bd3ce2fbf569ccb8404439052e0d1}{A\+Star\+Search} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&start)
+\begin{DoxyCompactList}\small\item\em Search for a solution to the Boxed In level characterized by the given \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} using the A$\ast$ search algorithm. \end{DoxyCompactList}\item 
+\hypertarget{namespaceboxedin_ab1e7cd6ae4e909fcd5c7f7fb33bee364}{\hyperlink{namespaceboxedin_a01412e7e38b44e8ce2d9f0d67d142219}{Boxed\+In\+Node\+List} {\bfseries Get\+Successors} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&node)}\label{namespaceboxedin_ab1e7cd6ae4e909fcd5c7f7fb33bee364}
+
+\item 
+bool \hyperlink{namespaceboxedin_ada2dd541f6b68a4d95327e1250b65496}{Is\+Goal} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&node)
+\begin{DoxyCompactList}\small\item\em Check if node is the goal. \end{DoxyCompactList}\item 
+\hyperlink{namespaceboxedin_ae2b1ff7be48e8d543a64922e65788e04}{cost\+\_\+t} \hyperlink{namespaceboxedin_a79fdbad685fb9625a322a3c349edbadd}{Heuristic\+Cost\+Estimate} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&node)
+\begin{DoxyCompactList}\small\item\em Calculate the shortest Manhattan distance from player through all remaining gears to the exit. \end{DoxyCompactList}\item 
+\hyperlink{namespaceboxedin_ac5c79d0ac76a1a0ac73706f34abe3fc3}{Action\+Points} \hyperlink{namespaceboxedin_aa0ba22460d217870312025e1ee42767f}{Find\+Action\+Points} (const \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} \&node)
+\begin{DoxyCompactList}\small\item\em Find all action points reachable from node. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a515bb8e119ed8c9af726ebf4755e48ca}{Is\+Action\+Point} (const \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&cmap, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Check if coordinate in character map is an action point. \end{DoxyCompactList}\item 
+\hyperlink{namespaceboxedin_ae2b1ff7be48e8d543a64922e65788e04}{cost\+\_\+t} \hyperlink{namespaceboxedin_a0ba0b3dc4e0327b472e477d1bc97add2}{Shortest\+Moves\+Through\+Points} (const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&player, const \hyperlink{namespaceboxedin_a9fa1a20bcfcbdd4d7cad2d6fc92725f6}{Gears} \&gears, \hyperlink{namespaceboxedin_a06d85d1dad095f12bcc1a03894abb650}{gears\+\_\+bitfield\+\_\+t} gears\+\_\+bitfield, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&exit)
+\item 
+\hyperlink{namespaceboxedin_ae2b1ff7be48e8d543a64922e65788e04}{cost\+\_\+t} \hyperlink{namespaceboxedin_ac46d077e735ae30753839875e93c84a9}{Moves\+Through\+Points} (const \hyperlink{namespaceboxedin_adfad3f57ac730784b07eeef6e6244ceb}{Coords} \&coords)
+\begin{DoxyCompactList}\small\item\em Calculate the smallest number of moves through all coordinates. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a7528d80c5829dd05691b97d65c8825dc}{Is\+Gear} (const \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&cmap, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Check if gear exists at map coordinate. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_ad392c9ccb82570febc39b69e579a2bef}{Is\+Exit} (const \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&cmap, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Check if exit exists at map coordinate. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_ade6b00c044daae22e3210444e3859a2e}{Can\+Box\+Move\+Up} (const \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&cmap, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is above coord and it can move up. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a024b3dd298c0c13f748655e0f957fa57}{Can\+Box\+Move\+Down} (const \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&cmap, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is below coord and it can move down. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a1714f09fb58130ee860623d8c01e1be8}{Can\+Box\+Move\+Left} (const \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&cmap, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is left of coord and it can move left. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a638e327c1179153f5cf96f5967c29a13}{Can\+Box\+Move\+Right} (const \hyperlink{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{charmap} \&cmap, const \hyperlink{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{Coord} \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is right of coord and it can move right. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceboxedin_aa119c4a108b02ce01f42045fa7516aed}{Open\+Queue {\bfseries openqueue}}\label{namespaceboxedin_aa119c4a108b02ce01f42045fa7516aed}
+
+\item 
+\hypertarget{namespaceboxedin_a2474c340bee49abd8e4131b8aa42501f}{Open\+Set {\bfseries openset}}\label{namespaceboxedin_a2474c340bee49abd8e4131b8aa42501f}
+
+\item 
+\hypertarget{namespaceboxedin_a2c735e19072e8639dd61b4d6656b746e}{Closed\+Set {\bfseries closedset}}\label{namespaceboxedin_a2c735e19072e8639dd61b4d6656b746e}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Core components of the Boxed In library. 
+
+\subsection{Typedef Documentation}
+\hypertarget{namespaceboxedin_a1d095c548e50d28c4901ac9f46c8aee1}{\index{boxedin@{boxedin}!Action\+Point\+Cit@{Action\+Point\+Cit}}
+\index{Action\+Point\+Cit@{Action\+Point\+Cit}!boxedin@{boxedin}}
+\subsubsection[{Action\+Point\+Cit}]{\setlength{\rightskip}{0pt plus 5cm}typedef Action\+Points\+::const\+\_\+iterator {\bf boxedin\+::\+Action\+Point\+Cit}}}\label{namespaceboxedin_a1d095c548e50d28c4901ac9f46c8aee1}
+Actoin\+Points const iterator. \hypertarget{namespaceboxedin_ad689efceb1168fa307cd39a22a6e9ad4}{\index{boxedin@{boxedin}!Action\+Point\+It@{Action\+Point\+It}}
+\index{Action\+Point\+It@{Action\+Point\+It}!boxedin@{boxedin}}
+\subsubsection[{Action\+Point\+It}]{\setlength{\rightskip}{0pt plus 5cm}typedef Action\+Points\+::iterator {\bf boxedin\+::\+Action\+Point\+It}}}\label{namespaceboxedin_ad689efceb1168fa307cd39a22a6e9ad4}
+Action\+Points iterator. \hypertarget{namespaceboxedin_ac5c79d0ac76a1a0ac73706f34abe3fc3}{\index{boxedin@{boxedin}!Action\+Points@{Action\+Points}}
+\index{Action\+Points@{Action\+Points}!boxedin@{boxedin}}
+\subsubsection[{Action\+Points}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::vector$<${\bf Action\+Point}$>$ {\bf boxedin\+::\+Action\+Points}}}\label{namespaceboxedin_ac5c79d0ac76a1a0ac73706f34abe3fc3}
+Vector of points where something interesting can happen, like pickup a gear, step on an exit or move a box. \hypertarget{namespaceboxedin_a01412e7e38b44e8ce2d9f0d67d142219}{\index{boxedin@{boxedin}!Boxed\+In\+Node\+List@{Boxed\+In\+Node\+List}}
+\index{Boxed\+In\+Node\+List@{Boxed\+In\+Node\+List}!boxedin@{boxedin}}
+\subsubsection[{Boxed\+In\+Node\+List}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::list$<${\bf Boxed\+In\+Node}$\ast$$>$ {\bf boxedin\+::\+Boxed\+In\+Node\+List}}}\label{namespaceboxedin_a01412e7e38b44e8ce2d9f0d67d142219}
+List of \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} created by expanding parent node (apply Action\+Points) \hypertarget{namespaceboxedin_a840999e14b7b86c1333d2980f406682b}{\index{boxedin@{boxedin}!Boxed\+In\+Node\+List\+Cit@{Boxed\+In\+Node\+List\+Cit}}
+\index{Boxed\+In\+Node\+List\+Cit@{Boxed\+In\+Node\+List\+Cit}!boxedin@{boxedin}}
+\subsubsection[{Boxed\+In\+Node\+List\+Cit}]{\setlength{\rightskip}{0pt plus 5cm}typedef Boxed\+In\+Node\+List\+::const\+\_\+iterator {\bf boxedin\+::\+Boxed\+In\+Node\+List\+Cit}}}\label{namespaceboxedin_a840999e14b7b86c1333d2980f406682b}
+Boxed\+In\+Nodelist const iterator. \hypertarget{namespaceboxedin_a67fd73b97479017eac16cbd43f979636}{\index{boxedin@{boxedin}!Boxed\+In\+Node\+List\+It@{Boxed\+In\+Node\+List\+It}}
+\index{Boxed\+In\+Node\+List\+It@{Boxed\+In\+Node\+List\+It}!boxedin@{boxedin}}
+\subsubsection[{Boxed\+In\+Node\+List\+It}]{\setlength{\rightskip}{0pt plus 5cm}typedef Boxed\+In\+Node\+List\+::iterator {\bf boxedin\+::\+Boxed\+In\+Node\+List\+It}}}\label{namespaceboxedin_a67fd73b97479017eac16cbd43f979636}
+Boxed\+In\+Node\+List iterator. \hypertarget{namespaceboxedin_a9cf4c1fe66d111542a6b853f276b5d63}{\index{boxedin@{boxedin}!Boxes@{Boxes}}
+\index{Boxes@{Boxes}!boxedin@{boxedin}}
+\subsubsection[{Boxes}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::vector$<${\bf Coord}$>$ {\bf boxedin\+::\+Boxes}}}\label{namespaceboxedin_a9cf4c1fe66d111542a6b853f276b5d63}
+Vector of box coordinates. \hypertarget{namespaceboxedin_ae12efbf42d3d7cae8554a7cfe89373ef}{\index{boxedin@{boxedin}!Boxes\+Cit@{Boxes\+Cit}}
+\index{Boxes\+Cit@{Boxes\+Cit}!boxedin@{boxedin}}
+\subsubsection[{Boxes\+Cit}]{\setlength{\rightskip}{0pt plus 5cm}typedef Boxes\+::const\+\_\+iterator {\bf boxedin\+::\+Boxes\+Cit}}}\label{namespaceboxedin_ae12efbf42d3d7cae8554a7cfe89373ef}
+Boxes const iterator. \hypertarget{namespaceboxedin_ad09b9ae0e0fe0b8fe4ded755de971056}{\index{boxedin@{boxedin}!Boxes\+It@{Boxes\+It}}
+\index{Boxes\+It@{Boxes\+It}!boxedin@{boxedin}}
+\subsubsection[{Boxes\+It}]{\setlength{\rightskip}{0pt plus 5cm}typedef Boxes\+::iterator {\bf boxedin\+::\+Boxes\+It}}}\label{namespaceboxedin_ad09b9ae0e0fe0b8fe4ded755de971056}
+Boxes iterator. \hypertarget{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}{\index{boxedin@{boxedin}!charmap@{charmap}}
+\index{charmap@{charmap}!boxedin@{boxedin}}
+\subsubsection[{charmap}]{\setlength{\rightskip}{0pt plus 5cm}typedef char boxedin\+::charmap\mbox{[}H\+E\+I\+G\+H\+T\mbox{]}\mbox{[}W\+I\+D\+T\+H\mbox{]}}}\label{namespaceboxedin_a95e88d677e0a17d3f9e4a9b0de980c4f}
+A 2\+D char array the size of a Boxed In level. \hypertarget{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}{\index{boxedin@{boxedin}!Coord@{Coord}}
+\index{Coord@{Coord}!boxedin@{boxedin}}
+\subsubsection[{Coord}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf Coordinate}$<$uint8\+\_\+t$>$ {\bf boxedin\+::\+Coord}}}\label{namespaceboxedin_afc0dedc740afcefb60a4dac20d984b16}
+An x/y coordinate. \hypertarget{namespaceboxedin_adfad3f57ac730784b07eeef6e6244ceb}{\index{boxedin@{boxedin}!Coords@{Coords}}
+\index{Coords@{Coords}!boxedin@{boxedin}}
+\subsubsection[{Coords}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::vector$<${\bf Coord}$>$ {\bf boxedin\+::\+Coords}}}\label{namespaceboxedin_adfad3f57ac730784b07eeef6e6244ceb}
+Generic coordiate vector. \hypertarget{namespaceboxedin_ae2b1ff7be48e8d543a64922e65788e04}{\index{boxedin@{boxedin}!cost\+\_\+t@{cost\+\_\+t}}
+\index{cost\+\_\+t@{cost\+\_\+t}!boxedin@{boxedin}}
+\subsubsection[{cost\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef int {\bf boxedin\+::cost\+\_\+t}}}\label{namespaceboxedin_ae2b1ff7be48e8d543a64922e65788e04}
+The type used for f, g and h values. \hypertarget{namespaceboxedin_a32593929ac9faf2a89b10156353111bf}{\index{boxedin@{boxedin}!Flood\+Fill\+Queue@{Flood\+Fill\+Queue}}
+\index{Flood\+Fill\+Queue@{Flood\+Fill\+Queue}!boxedin@{boxedin}}
+\subsubsection[{Flood\+Fill\+Queue}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::queue$<${\bf Flood\+Fill\+Node}$>$ {\bf boxedin\+::\+Flood\+Fill\+Queue}}}\label{namespaceboxedin_a32593929ac9faf2a89b10156353111bf}
+This container is used to find action points \hypertarget{namespaceboxedin_a9fa1a20bcfcbdd4d7cad2d6fc92725f6}{\index{boxedin@{boxedin}!Gears@{Gears}}
+\index{Gears@{Gears}!boxedin@{boxedin}}
+\subsubsection[{Gears}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::vector$<${\bf Coord}$>$ {\bf boxedin\+::\+Gears}}}\label{namespaceboxedin_a9fa1a20bcfcbdd4d7cad2d6fc92725f6}
+Vector of gear coordinates. \hypertarget{namespaceboxedin_a06d85d1dad095f12bcc1a03894abb650}{\index{boxedin@{boxedin}!gears\+\_\+bitfield\+\_\+t@{gears\+\_\+bitfield\+\_\+t}}
+\index{gears\+\_\+bitfield\+\_\+t@{gears\+\_\+bitfield\+\_\+t}!boxedin@{boxedin}}
+\subsubsection[{gears\+\_\+bitfield\+\_\+t}]{\setlength{\rightskip}{0pt plus 5cm}typedef uint16\+\_\+t {\bf boxedin\+::gears\+\_\+bitfield\+\_\+t}}}\label{namespaceboxedin_a06d85d1dad095f12bcc1a03894abb650}
+gears\+\_\+bitfield\+\_\+t The position of each gear is stored in 1 static container and is referenced by every \hyperlink{classboxedin_1_1LevelState}{Level\+State}. Every \hyperlink{classboxedin_1_1LevelState}{Level\+State} has its own bitfield which describes wheter each gear has been picked up or not. Each bit index corresponds to a gear in the gears container with the same index. If the bit value is 1, the gear has not been picked up. If the bit value is 0, the gear has been picked up. \hypertarget{namespaceboxedin_ad10e1f3c9ae2e8d08f1bc2ac8c074eb7}{\index{boxedin@{boxedin}!Gears\+Cit@{Gears\+Cit}}
+\index{Gears\+Cit@{Gears\+Cit}!boxedin@{boxedin}}
+\subsubsection[{Gears\+Cit}]{\setlength{\rightskip}{0pt plus 5cm}typedef Gears\+::const\+\_\+iterator {\bf boxedin\+::\+Gears\+Cit}}}\label{namespaceboxedin_ad10e1f3c9ae2e8d08f1bc2ac8c074eb7}
+Gears const iterator. \hypertarget{namespaceboxedin_a108752fd170b457fe49ff7d9ce6eafc9}{\index{boxedin@{boxedin}!Gears\+It@{Gears\+It}}
+\index{Gears\+It@{Gears\+It}!boxedin@{boxedin}}
+\subsubsection[{Gears\+It}]{\setlength{\rightskip}{0pt plus 5cm}typedef Gears\+::iterator {\bf boxedin\+::\+Gears\+It}}}\label{namespaceboxedin_a108752fd170b457fe49ff7d9ce6eafc9}
+Gears iterator. \hypertarget{namespaceboxedin_ac4dc3ff36b9cef0b4c5cc1a96bfc0abd}{\index{boxedin@{boxedin}!key\+\_\+type@{key\+\_\+type}}
+\index{key\+\_\+type@{key\+\_\+type}!boxedin@{boxedin}}
+\subsubsection[{key\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}typedef size\+\_\+t {\bf boxedin\+::key\+\_\+type}}}\label{namespaceboxedin_ac4dc3ff36b9cef0b4c5cc1a96bfc0abd}
+The type used for a key for open set and closed set containers. \hypertarget{namespaceboxedin_ab79d3e8d943aa2875e3adb42b8917ff7}{\index{boxedin@{boxedin}!Path@{Path}}
+\index{Path@{Path}!boxedin@{boxedin}}
+\subsubsection[{Path}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::vector$<$char$>$ {\bf boxedin\+::\+Path}}}\label{namespaceboxedin_ab79d3e8d943aa2875e3adb42b8917ff7}
+Path of direction chars \{u,d,l,r\}. \hypertarget{namespaceboxedin_ac425496c03d94f10ef5e861df766442a}{\index{boxedin@{boxedin}!Path\+Cit@{Path\+Cit}}
+\index{Path\+Cit@{Path\+Cit}!boxedin@{boxedin}}
+\subsubsection[{Path\+Cit}]{\setlength{\rightskip}{0pt plus 5cm}typedef Path\+::const\+\_\+iterator {\bf boxedin\+::\+Path\+Cit}}}\label{namespaceboxedin_ac425496c03d94f10ef5e861df766442a}
+Path const iterator. \hypertarget{namespaceboxedin_a5ada570c5ebc9f728d9b0de122316173}{\index{boxedin@{boxedin}!Path\+It@{Path\+It}}
+\index{Path\+It@{Path\+It}!boxedin@{boxedin}}
+\subsubsection[{Path\+It}]{\setlength{\rightskip}{0pt plus 5cm}typedef Path\+::iterator {\bf boxedin\+::\+Path\+It}}}\label{namespaceboxedin_a5ada570c5ebc9f728d9b0de122316173}
+Path iterator. \hypertarget{namespaceboxedin_ac85f00ec0a253d53da24ecfa3671f6f9}{\index{boxedin@{boxedin}!Switch\+Gate\+Pair@{Switch\+Gate\+Pair}}
+\index{Switch\+Gate\+Pair@{Switch\+Gate\+Pair}!boxedin@{boxedin}}
+\subsubsection[{Switch\+Gate\+Pair}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::pair$<${\bf Coord},{\bf Coord}$>$ {\bf boxedin\+::\+Switch\+Gate\+Pair}}}\label{namespaceboxedin_ac85f00ec0a253d53da24ecfa3671f6f9}
+A pair of switch/gate coordinates. \hypertarget{namespaceboxedin_a03c7cc22a04c973f84db352c32e17a2c}{\index{boxedin@{boxedin}!Switch\+Gate\+Pairs@{Switch\+Gate\+Pairs}}
+\index{Switch\+Gate\+Pairs@{Switch\+Gate\+Pairs}!boxedin@{boxedin}}
+\subsubsection[{Switch\+Gate\+Pairs}]{\setlength{\rightskip}{0pt plus 5cm}typedef std\+::map$<${\bf Color},{\bf Switch\+Gate\+Pair}$>$ {\bf boxedin\+::\+Switch\+Gate\+Pairs}}}\label{namespaceboxedin_a03c7cc22a04c973f84db352c32e17a2c}
+Maps each color to a switch/gate coordinate pair. \hypertarget{namespaceboxedin_a6aae579b92c95f39c9aaaf6013fa0c29}{\index{boxedin@{boxedin}!Switch\+Gate\+Pairs\+Cit@{Switch\+Gate\+Pairs\+Cit}}
+\index{Switch\+Gate\+Pairs\+Cit@{Switch\+Gate\+Pairs\+Cit}!boxedin@{boxedin}}
+\subsubsection[{Switch\+Gate\+Pairs\+Cit}]{\setlength{\rightskip}{0pt plus 5cm}typedef Switch\+Gate\+Pairs\+::const\+\_\+iterator {\bf boxedin\+::\+Switch\+Gate\+Pairs\+Cit}}}\label{namespaceboxedin_a6aae579b92c95f39c9aaaf6013fa0c29}
+Switch\+Gate\+Pairs const iterator. \hypertarget{namespaceboxedin_ab405434884f36ef897ef6c9227a72342}{\index{boxedin@{boxedin}!Switch\+Gate\+Pairs\+It@{Switch\+Gate\+Pairs\+It}}
+\index{Switch\+Gate\+Pairs\+It@{Switch\+Gate\+Pairs\+It}!boxedin@{boxedin}}
+\subsubsection[{Switch\+Gate\+Pairs\+It}]{\setlength{\rightskip}{0pt plus 5cm}typedef Switch\+Gate\+Pairs\+::iterator {\bf boxedin\+::\+Switch\+Gate\+Pairs\+It}}}\label{namespaceboxedin_ab405434884f36ef897ef6c9227a72342}
+Switch\+Gate\+Pairs iterator. 
+
+\subsection{Function Documentation}
+\hypertarget{namespaceboxedin_ab45bd3ce2fbf569ccb8404439052e0d1}{\index{boxedin@{boxedin}!A\+Star\+Search@{A\+Star\+Search}}
+\index{A\+Star\+Search@{A\+Star\+Search}!boxedin@{boxedin}}
+\subsubsection[{A\+Star\+Search}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Search\+Result} boxedin\+::\+A\+Star\+Search (
+\begin{DoxyParamCaption}
+\item[{const Boxed\+In\+Node \&}]{start}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_ab45bd3ce2fbf569ccb8404439052e0d1}
+
+
+Search for a solution to the Boxed In level characterized by the given \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} using the A$\ast$ search algorithm. 
+
+The algorithm works by first expanding a node to generate all of it's successor nodes -- nodes that can be reached by performing some action, e.\+g. picking up a gear, moving a box or moving to the exit. Once a node has been expanded, it is moved to the closed set and all of it's successors (that are not already in the closed set or open set) are moved to the open set. Then the algorithm continues to choose the highest priority node from the open set until that node is the goal node (no gears are left and the player is on the exit coordinate) or until the open set is empty (failure).
+
+Maintaining an open set allows the algorithm to prioritize nodes that have not been expanded.
+
+Maintaining a closed set allows the algorithm to know which nodes it has already expanded and avoid expanding them again.
+
+The nodes in the open set are prioritized by lowest f(x) for a given node x, where\+:
+
+f(x) = g(x) + h(x)
+
+g(x) is the move count from start node to node x h(x) is a heuristic cost estimate from x to the goal
+
+By the laws of A$\ast$ search, h(x) must not over-\/estimate the cost from the x to the goal. This algorithm uses the shortest Manhattan distance from the player position, through all of the existing gears (if any), to the exit.
+
+\begin{DoxyNote}{Note}
+Another important property of a heuristic is that it is consistent (monotone). Because of the dynamic nature of the Boxed In search space (moving boxes and gates), the above heuristic is not consistent. However as stated here \href{http://en.wikipedia.org/wiki/Consistent_heuristic}{\tt http\+://en.\+wikipedia.\+org/wiki/\+Consistent\+\_\+heuristic} a heurstic can be made consistent by the following adjustment\+: \begin{DoxyVerb}h'(P) = max(h(P), h(N) - c(N,P))
+\end{DoxyVerb}
+ where N is any node in the graph, P is any descendant of N, and c(\+N,\+P) is the cost of reaching node P from N
+\end{DoxyNote}
+\begin{DoxyReturn}{Returns}
+A result containing a success flag, algorithm statistics and the optimal solution path if the algorithm succeeded. 
+\end{DoxyReturn}
+\hypertarget{namespaceboxedin_a024b3dd298c0c13f748655e0f957fa57}{\index{boxedin@{boxedin}!Can\+Box\+Move\+Down@{Can\+Box\+Move\+Down}}
+\index{Can\+Box\+Move\+Down@{Can\+Box\+Move\+Down}!boxedin@{boxedin}}
+\subsubsection[{Can\+Box\+Move\+Down}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Can\+Box\+Move\+Down (
+\begin{DoxyParamCaption}
+\item[{const charmap \&}]{cmap, }
+\item[{const Coord \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_a024b3dd298c0c13f748655e0f957fa57}
+
+
+Check if box is below coord and it can move down. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmap} & 2\+D character array representation of level state. \\
+\hline
+\mbox{\tt in}  & {\em coord} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} to check. \\
+\hline
+\end{DoxyParams}
+\hypertarget{namespaceboxedin_a1714f09fb58130ee860623d8c01e1be8}{\index{boxedin@{boxedin}!Can\+Box\+Move\+Left@{Can\+Box\+Move\+Left}}
+\index{Can\+Box\+Move\+Left@{Can\+Box\+Move\+Left}!boxedin@{boxedin}}
+\subsubsection[{Can\+Box\+Move\+Left}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Can\+Box\+Move\+Left (
+\begin{DoxyParamCaption}
+\item[{const charmap \&}]{cmap, }
+\item[{const Coord \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_a1714f09fb58130ee860623d8c01e1be8}
+
+
+Check if box is left of coord and it can move left. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmap} & 2\+D character array representation of level state. \\
+\hline
+\mbox{\tt in}  & {\em coord} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} to check. \\
+\hline
+\end{DoxyParams}
+\hypertarget{namespaceboxedin_a638e327c1179153f5cf96f5967c29a13}{\index{boxedin@{boxedin}!Can\+Box\+Move\+Right@{Can\+Box\+Move\+Right}}
+\index{Can\+Box\+Move\+Right@{Can\+Box\+Move\+Right}!boxedin@{boxedin}}
+\subsubsection[{Can\+Box\+Move\+Right}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Can\+Box\+Move\+Right (
+\begin{DoxyParamCaption}
+\item[{const charmap \&}]{cmap, }
+\item[{const Coord \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_a638e327c1179153f5cf96f5967c29a13}
+
+
+Check if box is right of coord and it can move right. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmap} & 2\+D character array representation of level state. \\
+\hline
+\mbox{\tt in}  & {\em coord} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} to check. \\
+\hline
+\end{DoxyParams}
+\hypertarget{namespaceboxedin_ade6b00c044daae22e3210444e3859a2e}{\index{boxedin@{boxedin}!Can\+Box\+Move\+Up@{Can\+Box\+Move\+Up}}
+\index{Can\+Box\+Move\+Up@{Can\+Box\+Move\+Up}!boxedin@{boxedin}}
+\subsubsection[{Can\+Box\+Move\+Up}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Can\+Box\+Move\+Up (
+\begin{DoxyParamCaption}
+\item[{const charmap \&}]{cmap, }
+\item[{const Coord \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_ade6b00c044daae22e3210444e3859a2e}
+
+
+Check if box is above coord and it can move up. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmap} & 2\+D character array representation of level state. \\
+\hline
+\mbox{\tt in}  & {\em coord} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} to check. \\
+\hline
+\end{DoxyParams}
+\hypertarget{namespaceboxedin_aa0ba22460d217870312025e1ee42767f}{\index{boxedin@{boxedin}!Find\+Action\+Points@{Find\+Action\+Points}}
+\index{Find\+Action\+Points@{Find\+Action\+Points}!boxedin@{boxedin}}
+\subsubsection[{Find\+Action\+Points}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Action\+Points} boxedin\+::\+Find\+Action\+Points (
+\begin{DoxyParamCaption}
+\item[{const Boxed\+In\+Node \&}]{node}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_aa0ba22460d217870312025e1ee42767f}
+
+
+Find all action points reachable from node. 
+
+An action point is the coordinate where something interesting can happen -- step on a gear, move a box or step on the exit. Note that a single action point can be used to expand many successor nodes, like when there is a box above and below the action point -- the \char`\"{}up\char`\"{} move would generate a successor and the \char`\"{}down\char`\"{} move would generate a successor. \begin{DoxyReturn}{Returns}
+A list of \hyperlink{structboxedin_1_1ActionPoint}{Action\+Point} objects suitable for generating all of node's successor nodes. 
+\end{DoxyReturn}
+\hypertarget{namespaceboxedin_a79fdbad685fb9625a322a3c349edbadd}{\index{boxedin@{boxedin}!Heuristic\+Cost\+Estimate@{Heuristic\+Cost\+Estimate}}
+\index{Heuristic\+Cost\+Estimate@{Heuristic\+Cost\+Estimate}!boxedin@{boxedin}}
+\subsubsection[{Heuristic\+Cost\+Estimate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cost\+\_\+t} boxedin\+::\+Heuristic\+Cost\+Estimate (
+\begin{DoxyParamCaption}
+\item[{const Boxed\+In\+Node \&}]{node}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_a79fdbad685fb9625a322a3c349edbadd}
+
+
+Calculate the shortest Manhattan distance from player through all remaining gears to the exit. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em node} & Estimate cost from this node to the goal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The estimated number of moves to the goal node. 
+\end{DoxyReturn}
+\hypertarget{namespaceboxedin_a515bb8e119ed8c9af726ebf4755e48ca}{\index{boxedin@{boxedin}!Is\+Action\+Point@{Is\+Action\+Point}}
+\index{Is\+Action\+Point@{Is\+Action\+Point}!boxedin@{boxedin}}
+\subsubsection[{Is\+Action\+Point}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Is\+Action\+Point (
+\begin{DoxyParamCaption}
+\item[{const charmap \&}]{cmap, }
+\item[{const Coord \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_a515bb8e119ed8c9af726ebf4755e48ca}
+
+
+Check if coordinate in character map is an action point. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmap} & 2\+D character array representation of level state. \\
+\hline
+\mbox{\tt in}  & {\em coord} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if coord is an action point. 
+\end{DoxyReturn}
+\hypertarget{namespaceboxedin_ad392c9ccb82570febc39b69e579a2bef}{\index{boxedin@{boxedin}!Is\+Exit@{Is\+Exit}}
+\index{Is\+Exit@{Is\+Exit}!boxedin@{boxedin}}
+\subsubsection[{Is\+Exit}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Is\+Exit (
+\begin{DoxyParamCaption}
+\item[{const charmap \&}]{cmap, }
+\item[{const Coord \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_ad392c9ccb82570febc39b69e579a2bef}
+
+
+Check if exit exists at map coordinate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmap} & 2\+D character array representation of level state. \\
+\hline
+\mbox{\tt in}  & {\em coord} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} to check. \\
+\hline
+\end{DoxyParams}
+\hypertarget{namespaceboxedin_a7528d80c5829dd05691b97d65c8825dc}{\index{boxedin@{boxedin}!Is\+Gear@{Is\+Gear}}
+\index{Is\+Gear@{Is\+Gear}!boxedin@{boxedin}}
+\subsubsection[{Is\+Gear}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Is\+Gear (
+\begin{DoxyParamCaption}
+\item[{const charmap \&}]{cmap, }
+\item[{const Coord \&}]{coord}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_a7528d80c5829dd05691b97d65c8825dc}
+
+
+Check if gear exists at map coordinate. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cmap} & 2\+D character array representation of level state. \\
+\hline
+\mbox{\tt in}  & {\em coord} & \hyperlink{structboxedin_1_1Coordinate}{Coordinate} to check. \\
+\hline
+\end{DoxyParams}
+\hypertarget{namespaceboxedin_ada2dd541f6b68a4d95327e1250b65496}{\index{boxedin@{boxedin}!Is\+Goal@{Is\+Goal}}
+\index{Is\+Goal@{Is\+Goal}!boxedin@{boxedin}}
+\subsubsection[{Is\+Goal}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::\+Is\+Goal (
+\begin{DoxyParamCaption}
+\item[{const Boxed\+In\+Node \&}]{node}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_ada2dd541f6b68a4d95327e1250b65496}
+
+
+Check if node is the goal. 
+
+\begin{DoxyReturn}{Returns}
+true if node has no more gears and player location is at the exit. 
+\end{DoxyReturn}
+\hypertarget{namespaceboxedin_ac46d077e735ae30753839875e93c84a9}{\index{boxedin@{boxedin}!Moves\+Through\+Points@{Moves\+Through\+Points}}
+\index{Moves\+Through\+Points@{Moves\+Through\+Points}!boxedin@{boxedin}}
+\subsubsection[{Moves\+Through\+Points}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cost\+\_\+t} boxedin\+::\+Moves\+Through\+Points (
+\begin{DoxyParamCaption}
+\item[{const Coords \&}]{coords}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_ac46d077e735ae30753839875e93c84a9}
+
+
+Calculate the smallest number of moves through all coordinates. 
+
+The first element in coords is the player position and the last is the exit. Any elements in between are gears. The cost is calculated for each permutation of gear ordering and the minimum is returned. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em coords} & Player, gear(s), exit. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The minimum cost from player, through gears, to exit without any regard for obstacles. 
+\end{DoxyReturn}
+\hypertarget{namespaceboxedin_a0ba0b3dc4e0327b472e477d1bc97add2}{\index{boxedin@{boxedin}!Shortest\+Moves\+Through\+Points@{Shortest\+Moves\+Through\+Points}}
+\index{Shortest\+Moves\+Through\+Points@{Shortest\+Moves\+Through\+Points}!boxedin@{boxedin}}
+\subsubsection[{Shortest\+Moves\+Through\+Points}]{\setlength{\rightskip}{0pt plus 5cm}{\bf cost\+\_\+t} boxedin\+::\+Shortest\+Moves\+Through\+Points (
+\begin{DoxyParamCaption}
+\item[{const Coord \&}]{player, }
+\item[{const Gears \&}]{gears, }
+\item[{gears\+\_\+bitfield\+\_\+t}]{gears\+\_\+bitfield, }
+\item[{const Coord \&}]{exit}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_a0ba0b3dc4e0327b472e477d1bc97add2}
+Gets the shortest Manhattan distance route from player position through each of the specified points . 

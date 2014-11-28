@@ -1,0 +1,98 @@
+\hypertarget{namespaceboxedin_1_1io}{\section{boxedin\+:\+:io Namespace Reference}
+\label{namespaceboxedin_1_1io}\index{boxedin\+::io@{boxedin\+::io}}
+}
+
+
+Classes and static functions use for I/\+O.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceboxedin_1_1io_a510f6cf1cd3ae784a4c719affbfe18d3}{bool {\bfseries Parse\+Level} (std\+::istream \&in, \hyperlink{classboxedin_1_1LevelState}{Level\+State} \&level\+State)}\label{namespaceboxedin_1_1io_a510f6cf1cd3ae784a4c719affbfe18d3}
+
+\item 
+\hypertarget{namespaceboxedin_1_1io_a83fcb4ddd9a88d7931d0f68edba8a58f}{bool {\bfseries Parse\+Solution} (std\+::istream \&in, \hyperlink{namespaceboxedin_ab79d3e8d943aa2875e3adb42b8917ff7}{Path} \&path)}\label{namespaceboxedin_1_1io_a83fcb4ddd9a88d7931d0f68edba8a58f}
+
+\item 
+bool \hyperlink{namespaceboxedin_1_1io_a468cc777de0eddc11c949120332bce85}{Parse\+Level} (istream \&in, \hyperlink{classboxedin_1_1LevelState}{Level\+State} \&lvl\+State)
+\begin{DoxyCompactList}\small\item\em Parse Boxed In level from A\+S\+C\+I\+I char, file representation. \end{DoxyCompactList}\item 
+\hypertarget{namespaceboxedin_1_1io_ab3635f32bf86a73840bb9261fee01b7b}{bool {\bfseries Parse\+Solution} (istream \&in, \hyperlink{namespaceboxedin_ab79d3e8d943aa2875e3adb42b8917ff7}{Path} \&path)}\label{namespaceboxedin_1_1io_ab3635f32bf86a73840bb9261fee01b7b}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{namespaceboxedin_1_1io_a583d60fa101a5ac52ee13b54b3ca9693}{use\+\_\+colors} = false
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Classes and static functions use for I/\+O. 
+
+\hypertarget{namespaceboxedin_1_1io_levelfile_sec}{}\subsection{Level File}\label{namespaceboxedin_1_1io_levelfile_sec}
+\hypertarget{namespaceboxedin_1_1io_levelfilechars_sec}{}\subsubsection{Level File Characters}\label{namespaceboxedin_1_1io_levelfilechars_sec}
+A level file is composed of the following characters \begin{DoxyVerb} ' space
+ x wall
+   floor (space character)
+ + box
+ * gear
+ r red switch
+ g green switch
+ b blue switch
+ y yellow switch
+ R red gate
+ G green gate
+ B blue gate
+ Y yellow gate
+ @ exit\end{DoxyVerb}
+\hypertarget{namespaceboxedin_1_1io_levelfileexample_sec}{}\subsubsection{Level File Example}\label{namespaceboxedin_1_1io_levelfileexample_sec}
+Game 1, Level 37 (levels/01/37.\+txt)\+: \begin{DoxyVerb}''''''''''
+xxxxxxxxxx
+xp   +   x
+xr Y + x x
+x  x*x   x
+x   +xx yx
+xxx++ x x'
+x +     x'
+'x xx x x'
+'x      x'
+'xRxxxxGx'
+'xg*x'x@x'
+'xxxx'xxx'
+''''''''''\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\hypertarget{namespaceboxedin_1_1io_a468cc777de0eddc11c949120332bce85}{\index{boxedin\+::io@{boxedin\+::io}!Parse\+Level@{Parse\+Level}}
+\index{Parse\+Level@{Parse\+Level}!boxedin\+::io@{boxedin\+::io}}
+\subsubsection[{Parse\+Level}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::io\+::\+Parse\+Level (
+\begin{DoxyParamCaption}
+\item[{istream \&}]{in, }
+\item[{{\bf Level\+State} \&}]{lvl\+State}
+\end{DoxyParamCaption}
+)}}\label{namespaceboxedin_1_1io_a468cc777de0eddc11c949120332bce85}
+
+
+Parse Boxed In level from A\+S\+C\+I\+I char, file representation. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em in} & Input stream to parse level from. \\
+\hline
+\mbox{\tt out}  & {\em lvl\+State} & \hyperlink{classboxedin_1_1LevelState}{Level\+State} created from parsed input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if successful, or false if an error occured.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{namespaceboxedin_1_1io_levelfile_sec}{Level File} 
+\end{DoxySeeAlso}
+
+
+\subsection{Variable Documentation}
+\hypertarget{namespaceboxedin_1_1io_a583d60fa101a5ac52ee13b54b3ca9693}{\index{boxedin\+::io@{boxedin\+::io}!use\+\_\+colors@{use\+\_\+colors}}
+\index{use\+\_\+colors@{use\+\_\+colors}!boxedin\+::io@{boxedin\+::io}}
+\subsubsection[{use\+\_\+colors}]{\setlength{\rightskip}{0pt plus 5cm}bool boxedin\+::io\+::use\+\_\+colors = false}}\label{namespaceboxedin_1_1io_a583d60fa101a5ac52ee13b54b3ca9693}
+This is a flag indicating whether to print Boxed In levels in color. 

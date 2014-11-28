@@ -1,0 +1,51 @@
+\hypertarget{astar_8cc}{\section{libboxedin/src/astar.cc File Reference}
+\label{astar_8cc}\index{libboxedin/src/astar.\+cc@{libboxedin/src/astar.\+cc}}
+}
+{\ttfamily \#include \char`\"{}astar.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$boxedinio.\+h$>$}\\*
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespaceboxedin}{boxedin}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Search\+Result \hyperlink{namespaceboxedin_ab45bd3ce2fbf569ccb8404439052e0d1}{boxedin\+::\+A\+Star\+Search} (const Boxed\+In\+Node \&start)
+\begin{DoxyCompactList}\small\item\em Search for a solution to the Boxed In level characterized by the given \hyperlink{classboxedin_1_1BoxedInNode}{Boxed\+In\+Node} using the A$\ast$ search algorithm. \end{DoxyCompactList}\item 
+Boxed\+In\+Node\+List \hyperlink{namespaceboxedin_ab1e7cd6ae4e909fcd5c7f7fb33bee364}{boxedin\+::\+Get\+Successors} (const Boxed\+In\+Node \&node)
+\item 
+bool \hyperlink{namespaceboxedin_ada2dd541f6b68a4d95327e1250b65496}{boxedin\+::\+Is\+Goal} (const Boxed\+In\+Node \&node)
+\begin{DoxyCompactList}\small\item\em Check if node is the goal. \end{DoxyCompactList}\item 
+cost\+\_\+t \hyperlink{namespaceboxedin_a79fdbad685fb9625a322a3c349edbadd}{boxedin\+::\+Heuristic\+Cost\+Estimate} (const Boxed\+In\+Node \&node)
+\begin{DoxyCompactList}\small\item\em Calculate the shortest Manhattan distance from player through all remaining gears to the exit. \end{DoxyCompactList}\item 
+Action\+Points \hyperlink{namespaceboxedin_aa0ba22460d217870312025e1ee42767f}{boxedin\+::\+Find\+Action\+Points} (const Boxed\+In\+Node \&node)
+\begin{DoxyCompactList}\small\item\em Find all action points reachable from node. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a515bb8e119ed8c9af726ebf4755e48ca}{boxedin\+::\+Is\+Action\+Point} (const charmap \&cmap, const Coord \&coord)
+\begin{DoxyCompactList}\small\item\em Check if coordinate in character map is an action point. \end{DoxyCompactList}\item 
+cost\+\_\+t \hyperlink{namespaceboxedin_a0ba0b3dc4e0327b472e477d1bc97add2}{boxedin\+::\+Shortest\+Moves\+Through\+Points} (const Coord \&player, const Gears \&gears, gears\+\_\+bitfield\+\_\+t gears\+\_\+bitfield, const Coord \&exit)
+\item 
+cost\+\_\+t \hyperlink{namespaceboxedin_ac46d077e735ae30753839875e93c84a9}{boxedin\+::\+Moves\+Through\+Points} (const Coords \&coords)
+\begin{DoxyCompactList}\small\item\em Calculate the smallest number of moves through all coordinates. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a7528d80c5829dd05691b97d65c8825dc}{boxedin\+::\+Is\+Gear} (const charmap \&cmap, const Coord \&coord)
+\begin{DoxyCompactList}\small\item\em Check if gear exists at map coordinate. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_ad392c9ccb82570febc39b69e579a2bef}{boxedin\+::\+Is\+Exit} (const charmap \&cmap, const Coord \&coord)
+\begin{DoxyCompactList}\small\item\em Check if exit exists at map coordinate. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_ade6b00c044daae22e3210444e3859a2e}{boxedin\+::\+Can\+Box\+Move\+Up} (const charmap \&cmap, const Coord \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is above coord and it can move up. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a024b3dd298c0c13f748655e0f957fa57}{boxedin\+::\+Can\+Box\+Move\+Down} (const charmap \&cmap, const Coord \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is below coord and it can move down. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a1714f09fb58130ee860623d8c01e1be8}{boxedin\+::\+Can\+Box\+Move\+Left} (const charmap \&cmap, const Coord \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is left of coord and it can move left. \end{DoxyCompactList}\item 
+bool \hyperlink{namespaceboxedin_a638e327c1179153f5cf96f5967c29a13}{boxedin\+::\+Can\+Box\+Move\+Right} (const charmap \&cmap, const Coord \&coord)
+\begin{DoxyCompactList}\small\item\em Check if box is right of coord and it can move right. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Open\+Queue \hyperlink{namespaceboxedin_aa119c4a108b02ce01f42045fa7516aed}{boxedin\+::openqueue}
+\item 
+Open\+Set \hyperlink{namespaceboxedin_a2474c340bee49abd8e4131b8aa42501f}{boxedin\+::openset}
+\item 
+Closed\+Set \hyperlink{namespaceboxedin_a2c735e19072e8639dd61b4d6656b746e}{boxedin\+::closedset}
+\end{DoxyCompactItemize}

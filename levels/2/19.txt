@@ -1,0 +1,14 @@
+xxxxxxxxxx
+x        x
+x x+xxxy x
+x Y  +   x
+x x+ +   x
+x x x+xx x
+xrx   +  x
+x x++x+  x
+xbx  x p x
+x        x
+xx  xBxx*x
+x*R x@xxxx
+xxxxxxx'''
+''''''''''
