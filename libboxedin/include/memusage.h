@@ -1,6 +1,9 @@
 /**
  * \file memusage.h
  * \brief This file contains cross platform memory usage declarations.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
  ******************************************************************************/
 #ifndef MEM_USAGE_H__
 #define MEM_USAGE_H__

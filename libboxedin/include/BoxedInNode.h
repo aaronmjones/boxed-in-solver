@@ -1,7 +1,9 @@
 /**
  * \file BoxedInNode.h
- * \ingroup boxedin_group
  * \brief Declarations for BoxedInNode.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
  */
 #ifndef BOXED_IN_NODE_H__
 #define BOXED_IN_NODE_H__

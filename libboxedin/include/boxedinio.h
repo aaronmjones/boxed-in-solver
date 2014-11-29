@@ -1,6 +1,9 @@
 /**
  * \file boxedinio.h
  * \brief This file containts declarations for I/O functions.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
  */
 #ifndef BOXED_IN_IO_H__
 #define BOXED_IN_IO_H__

@@ -1,6 +1,9 @@
 /**
  * \file astar.h
- * \brief A* implementation of Boxed In Level-Solver
+ * \brief A* implementation of Boxed In Level-Solver.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
  */
 #ifndef ASTAR_H__
 #define ASTAR_H__

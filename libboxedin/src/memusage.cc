@@ -1,9 +1,10 @@
-/*******************************************************************************
- * File: memusage.cc
- *
- * Description:
- * Cross platform memory usage
- ******************************************************************************/
+/**
+ * \file memusage.cc
+ * \brief Cross platform, process memory usage information.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
+ */
 #include <memusage.h>
 
 #if defined(__linux__) || defined(__APPLE__)

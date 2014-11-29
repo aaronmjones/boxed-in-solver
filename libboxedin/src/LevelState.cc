@@ -1,9 +1,10 @@
-/*******************************************************************************
- * File: LevelState.cc
- *
- * Description:
- * Definitions for LevelState.
- ******************************************************************************/
+/**
+ * \file LevelState.cc
+ * \brief Definitions for LevelState.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
+ */
 #include <LevelState.h>
 
 #include <cstring> // memcpy

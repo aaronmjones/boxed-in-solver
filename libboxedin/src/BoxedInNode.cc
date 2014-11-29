@@ -1,9 +1,10 @@
-/*******************************************************************************
- * File: BoxedInNode.cc
- *
- * Description:
- * Definitions for BoxedInNode.
- ******************************************************************************/
+/**
+ * \file BoxedInNode.cc
+ * \brief Definitions for BoxedInNode.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
+ */
 #include <BoxedInNode.h>
 
 #include <boxedindefs.h>

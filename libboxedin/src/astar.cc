@@ -1,9 +1,10 @@
-/*******************************************************************************
- * File: astar.cc
- *
- * Description:
- * A* implementation of Boxed In Level-Solver
- ******************************************************************************/
+/**
+ * \file astar.cc
+ * \brief A* implementation of Boxed In Level-Solver.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
+ */
 #include "astar.h"
 
 #include <iostream>

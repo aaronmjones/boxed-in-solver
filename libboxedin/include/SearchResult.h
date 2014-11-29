@@ -1,8 +1,10 @@
 /**
  * \file SearchResult.h
- * \ingroup boxedin_group
  * \brief This file contains the A* search result class.
- ******************************************************************************/
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
+ */
 #ifndef SEARCH_RESULT_H__
 #define SEARCH_RESULT_H__
 

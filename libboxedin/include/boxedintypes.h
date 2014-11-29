@@ -1,8 +1,10 @@
 /**
  * \file boxedintypes.h
- * \ingroup boxedin_group
  * \brief This file contains various utility types used for the Boxed In solver
  *        A* algorithm.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
  */
 #ifndef BOXED_IN_TYPES_H__
 #define BOXED_IN_TYPES_H__

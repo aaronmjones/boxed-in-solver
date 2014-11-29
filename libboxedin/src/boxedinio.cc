@@ -1,9 +1,10 @@
-/*******************************************************************************
- * File: boxedinio.cc
- *
- * Description:
- * Definitions for IO functions.
- ******************************************************************************/
+/**
+ * \file boxedinio.cc
+ * \brief Definitions for IO functions.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
+ */
 #include <boxedinio.h>
 
 #include <cstring>

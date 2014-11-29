@@ -1,6 +1,9 @@
 /**
  * \file BoxedInSolver.cc
  * \brief This file contains the main() function for BoxedInSolver.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
  */
 
 #if defined (_WIN32)

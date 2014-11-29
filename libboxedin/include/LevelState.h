@@ -1,9 +1,11 @@
 /**
  * \file LevelState.h
- * \ingroup boxedin_group
  * \brief This file contains the LevelState declaration.
  * \details The LevelState class completely characterizes the state of a Boxed
  *          In level.
+ * \author Aaron Jones
+ * \date 2014
+ * \copyright GNU Public License.
  */
 #ifndef LEVEL_STATE_H__
 #define LEVEL_STATE_H__
