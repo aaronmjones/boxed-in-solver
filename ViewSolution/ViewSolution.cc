@@ -5,7 +5,7 @@
 
 #if defined (_WIN32)
 #include <wingetopt.h>
-#elif defined (__linux__)
+#elif defined (__linux__) || defined (__APPLE__)
 #include <getopt.h>
 #endif
 

@@ -127,7 +127,7 @@ namespace boxedin {
     } // namespace
 } // namespace
 
-#if defined(__linux__)
+#if defined(__linux__) || defined(__APPLE__)
 const char* normal  = "\x1b[0;39m";
 const char* red     = "\x1b[1;31m";
 const char* green   = "\x1b[1;32m";
@@ -144,7 +144,7 @@ const char* white   = "\x1b[1;37m";
 
 ostream& clear_screen(ostream& out)
 {
-#if defined(__linux__)
+#if defined(__linux__) || defined(__APPLE__)
     out << "\033c";
 #elif defined(_WIN32)
     system("cls");

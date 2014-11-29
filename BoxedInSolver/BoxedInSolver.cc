@@ -5,7 +5,7 @@
 
 #if defined (_WIN32)
 # include <wingetopt.h>
-#elif defined (__linux__)
+#elif defined (__linux__) || defined (__APPLE__)
 # include <getopt.h>
 # include <signal.h>
 # include <execinfo.h> // backtrace
@@ -22,7 +22,7 @@
 #include <astar.h>
 
 
-#if defined (__linux__)
+#if defined (__linux__) || defined (__APPLE__)
 static void signal_handler(int signum);
 #endif
 
@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 {
     char* stats_path = NULL;
 
-#if defined (__linux__)
+#if defined (__linux__) || defined (__APPLE__)
     // Setup process signal handlers
     signal(SIGSEGV, signal_handler);
 #endif
@@ -152,7 +152,7 @@ static void usage(void)
 }
 
 
-#ifdef __linux__
+#if defined (__linux__) || defined (__APPLE__)
 static void signal_handler(int signum)
 {
     /* Print backtrace for seg fault */
