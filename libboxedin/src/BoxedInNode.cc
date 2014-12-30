@@ -5,6 +5,9 @@
  * \date 2014
  * \copyright GNU Public License.
  */
+#include <string>
+#include <functional>
+
 #include <BoxedInNode.h>
 
 #include <boxedindefs.h>
