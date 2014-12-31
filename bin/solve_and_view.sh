@@ -1,29 +1,43 @@
 #!/bin/bash
 #
-# USAGE:
-# solve_and_view.sh GAME LEVEL [LEVEL_LAST]
-#
-# DESCRIPTION:
-# Solve levels in the range LEVEL..LEVEL_LAST for Boxed In
-# game number GAME. After each level is solved, print the
-# solution (ctrl+c to terminate solution view).
-############################################################
+# Filename: solve_and_view.sh
+# Description:
+# Solve level(s) using BoxedInSolver and view animated solution using
+# ViewSolution.
+################################################################################
 
-GAME=$1
-LEVEL=$2
-LEVEL_LAST=${3:-$2}
+function usage() {
+echo "
+SYNOPSIS
+  solve_and_view.sh <game-number:level-number> ... 
 
-if [ ! -d "stats/$GAME" ]; then
-    mkdir -p "stats/$GAME"
-fi
-if [ ! -d "solutions/$GAME" ]; then
-    mkdir -p "solutions/$GAME"
-fi
+DESCRIPTION
+  This script uses the BoxedInSolver to attempt to solve each level specified
+  by game-number and level-number and on success uses ViewSolution to animate
+  the solution move-by-move.
 
-for i in $(seq $LEVEL $LEVEL_LAST)
-do
-    file=$(printf %02d.txt $i)
-    if bin/BoxedInSolver levels/$GAME/$file -s stats/$GAME/$file > solutions/$GAME/$file; then
-	bin/ViewSolution levels/$GAME/$file solutions/$GAME/$file
+EXAMPLES
+  Solve and view game 1, level 7:
+  solve_and_view.sh 1:7
+
+AUTHOR
+  Aaron Jones    ajones2279@gmail.com    30 Dec 2014
+" >&2
+}
+
+for GAME in {1..3}; do
+    if [ ! -d "stats/$GAME" ]; then
+	mkdir -p "stats/$GAME"
+    fi
+    if [ ! -d "solutions/$GAME" ]; then
+	mkdir -p "solutions/$GAME"
+    fi
+done
+
+for GAMELEVEL; do
+    IFS=':' read GAME LEVEL <<< "$GAMELEVEL"
+    FILE=$(printf %02d.txt $LEVEL)
+    if bin/BoxedInSolver -c levels/$GAME/$FILE -s stats/$GAME/$FILE > solutions/$GAME/$FILE; then
+	bin/ViewSolution -c levels/$GAME/$FILE solutions/$GAME/$FILE
     fi
 done
