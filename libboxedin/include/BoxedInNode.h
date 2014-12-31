@@ -77,6 +77,8 @@ public:
     LevelState lvlState;
     cost_t f;
     cost_t g;
+    /** \todo Use "blacklisted" to identify nodes that should go straight to
+        the closed set and not be expanded. */
     union {
 	uint8_t bitfield;
 	struct {
