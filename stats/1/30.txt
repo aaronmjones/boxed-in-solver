@@ -1,5 +1,7 @@
-levels/1/30.txt
+SEARCHTIME 2
 Level can be solved in 119 moves
-A* search time was 11 seconds
-nodes in closed set 120252
-max resident set size 27240 kilobytes
+A* search time was 2.27952 seconds
+Nodes in open set 13190
+Nodes in closed set 119588
+MAXRSS 21928000
+

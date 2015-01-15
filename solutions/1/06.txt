@@ -1,11 +1,1 @@
-
-u u u u u u 
-l l d 
-d 
-l l u 
-d r r u u l l 
-l 
-r r r r r d d d l l 
-r r d d d l l l l l l u u u 
-d d d l 
-
+UUUUUULLDDLLUDRRUULLLRRRRRDDDLLRRDDDLLLLLLUUUDDDL

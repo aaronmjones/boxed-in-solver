@@ -1,6 +1,7 @@
-SOLVETIME 4
-Level can be solved in 49 moves.
-A* search time was 4 seconds.
-Nodes in open set 72372.
-Nodes in closed set 58500.
-Max resident set size 31460 kilobytes.
+SEARCHTIME 1
+Level can be solved in 49 moves
+A* search time was 1.36493 seconds
+Nodes in open set 72372
+Nodes in closed set 58500
+MAXRSS 31444000
+

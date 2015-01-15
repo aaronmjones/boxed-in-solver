@@ -113,6 +113,101 @@ SearchResult AStarSearch(const BoxedInNode& start)
                 continue;
             }
 
+            // successor already in openset?
+            OpenSetIt openIt = openset.find(successor);
+            bool is_successor_in_openset = openIt != openset.end();
+            bool new_best_g_found = false;
+
+            if (is_successor_in_openset)
+            {
+                BoxedInNode* opensetnode = *openIt;
+                if (successor->osd->g < opensetnode->osd->g)
+                {
+                    // Flag for discard in openqueue and erase from openset
+                    new_best_g_found = true;
+                    opensetnode->osd->discard = 1;
+                    openset.erase(openIt);
+                }
+            }
+
+            if (!is_successor_in_openset || new_best_g_found)
+            {
+                // This is the adjustment made to guarantee a "consistent"
+                // heuristic.
+                // See http://en.wikipedia.org/wiki/Consistent_heuristic
+		// \fixme: Maybe just move this into the heuristic function.
+                int hN = node->osd->f - node->osd->g;
+                int hP = HeuristicCostEstimate(*successor);
+                int hPrime = max<int>(hN - (int)successor->path.size(), hP);
+
+                successor->osd->f = successor->osd->g + hPrime;
+
+                openqueue.push(successor);
+                openset.insert(successor);
+            }
+            else
+            {
+                delete successor;
+            }
+        }
+
+        if (node->osd)
+        {
+            delete node->osd;
+            node->osd = NULL;
+        }
+    }
+
+    result.SetFailed(openset.size(), closedset.size());
+
+    return result;
+}
+
+
+
+BoxedInNodeList GetSuccessors(const BoxedInNode& node)
+{
+    BoxedInNodeList successors;
+    BoxedInNode* successor;
+    ActionPointIt it;
+
+    ActionPoints action_points = FindActionPoints( node );
+
+    charmap lvlmap;
+    bool draw_player = false;
+    LevelState::MakeLevelMap(lvlmap, node.osd->lvlState, draw_player);
+
+    for (it=action_points.begin(); it!=action_points.end(); ++it)
+    {
+        const Coord& coord = it->coord;
+
+        // GEAR SUCCESSOR
+        if ( IsGear(lvlmap, coord) )
+        {
+            successor = new BoxedInNode( node );
+            successor->ActionPointGear( *it );
+            successor->osd->g += (cost_t)successor->path.size();
+            successor->parent = &node;
+            successors.push_back( successor );
+            continue;
+        }
+        // EXIT SUCCESSOR
+        if ( IsExit(lvlmap, coord) && node.osd->lvlState.gears_bitfield == 0 )
+        {
+            successor = new BoxedInNode( node );
+            successor->ActionPointExit( *it );
+            successor->osd->g += (cost_t)successor->path.size();
+            successor->parent = &node;
+            successors.push_back( successor );
+            continue;
+        }
+        // BOX UP SUCCESSOR
+        if ( CanBoxMoveUp(lvlmap, coord) )
+        {           
+            successor = new BoxedInNode( node );
+            successor->ActionPointUp( *it );
+            successor->osd->g += (cost_t)successor->path.size();
+            successor->parent = &node;
             successors.push_back( successor );
         }
         // BOX DOWN SUCCESSOR
