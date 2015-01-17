@@ -61,7 +61,7 @@ If solver succeeds, results will be posted to solverstats.com with:
     META2=$META2
     META3=$META3" >&2
 	    read -p "Proceed? [Y/n] " -n 1 -r ANSWER
-	    ${ANSWER:="Y"}
+	    ANSWER=${ANSWER:-"Y"}
 	    if [[ ! $ANSWER =~ ^[Yy]$ ]]; then
 		exit 1
 	    fi

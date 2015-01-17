@@ -1,14 +1,14 @@
-'xxxxxxxxx
-'x       x
-'x+xxx+x x
-'x       x
-xxyxbxgxxx
-x  xrx   x
-x+ x x xBx
-x  x G xRx
-xx+x x x x
-x  xYx+x@x
-x     pxxx
-xx  + xx''
-'xxxxxx'''
+'''''''XXX
+'''''''X@X
+XXXXXXXXXX
+X  +     X
+X  XpXX++X
+Xr    X  X
+XXX+X+X  X
+X*g R X XX
+XXX XbX *X
+X B   + XX
+X XYXXX  X
+X     y  X
+XXXXXXXXXX
 ''''''''''
