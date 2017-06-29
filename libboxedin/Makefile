@@ -12,15 +12,22 @@ CXXFLAGS += \
 	-std=c++11 \
 	-std=gnu++11 \
 	-rdynamic
-CXXFLAGS+=-O3
 CXXFLAGS+=-m64
+
+ifeq ($(DEBUG),1)
+CXXFLAGS+= -g -Wall
+else
+CXXFLAGS+=-O3
+endif
 
 CXXSOURCES += \
 	src/BoxedInNode.cc \
 	src/LevelState.cc \
 	src/boxedinio.cc \
 	src/astar.cc \
-	src/memusage.cc
+	src/memusage.cc \
+	src/Level.cc \
+	src/Node.cc
 
 INCPATH += \
 	-Iinclude

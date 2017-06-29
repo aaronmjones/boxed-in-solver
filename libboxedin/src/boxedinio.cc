@@ -15,117 +15,181 @@ using namespace std::chrono;
 using namespace boxedin;
 
 namespace boxedin {
-    namespace io {
+namespace io {
 
 
-        bool use_colors = false;
+bool use_colors = false;
 
 
-        /**
-           \brief Parse Boxed In level from ASCII char, file representation.
-           \param[in] in Input stream to parse level from.
-           \param[out] lvlState LevelState created from parsed input.
-           \returns true if successful, or false if an error occured.
+/**
+   \brief Parse Boxed In level from ASCII char, file representation.
+   \param[in] in Input stream to parse level from.
+   \param[out] lvlState LevelState created from parsed input.
+   \returns true if successful, or false if an error occured.
 
-	   \sa \ref levelfile_sec
-         */
-        bool ParseLevel(istream& in, LevelState& lvlState)
+   \sa \ref levelfile_sec
+*/
+bool ParseLevel(istream& in, LevelState& lvlState)
+{
+    Color color;
+    char c;
+    int i = 0;
+    int j = 0;
+    while (in.get(c))
+    {
+        switch (c)
         {
-            Color color;
-            char c;
-            int i = 0;
-            int j = 0;
-            while (in.get(c))
-            {
-                switch (c)
-                {
-                case '\n':
-                    continue;
-                case SWITCH_RED:
-                case SWITCH_GREEN:
-                case SWITCH_BLUE:
-                case SWITCH_YELLOW:
-                    color = SWITCH_CHAR_TO_COLOR(c);
-                    lvlState.switchGatePairs[color].first = Coord(i, j);
-                    lvlState.basemap[j][i] = FLOOR;
-                    break;
-                case GATE_RED:
-                case GATE_GREEN:
-                case GATE_BLUE:
-                case GATE_YELLOW:
-                    color = GATE_CHAR_TO_COLOR(c);
-                    lvlState.switchGatePairs[color].second = Coord(i, j);
-                    lvlState.basemap[j][i] = FLOOR;
-                    break;
-                case PLAYER:
-                    lvlState.player = Coord(i, j);
-                    lvlState.basemap[j][i] = FLOOR;
-                    break;
-                case GEAR:
-                    lvlState.gears_bitfield |=
-                        ((gears_bitfield_t)1 << lvlState.gears.size());
-                    lvlState.gears.push_back(Coord(i, j));
-                    lvlState.basemap[j][i] = FLOOR;
-                    break;
-                case BOX:
-                    lvlState.boxes.push_back(Coord(i, j));
-                    lvlState.basemap[j][i] = FLOOR;
-                    break;
-                case EXIT:
-                    lvlState.exit = Coord(i, j);
-                    lvlState.basemap[j][i] = EXIT;
-                    break;
-                default:
-                    lvlState.basemap[j][i] = c;
-                    break;
-                }
-
-                if (++i >= WIDTH)
-                {
-                    i = 0;
-                    if (++j >= HEIGHT)
-                    {
-                        break;
-                    }
-                }
-            }
-            return true;
+        case '\n':
+            continue;
+        case SWITCH_RED:
+        case SWITCH_GREEN:
+        case SWITCH_BLUE:
+        case SWITCH_YELLOW:
+            color = SWITCH_CHAR_TO_COLOR(c);
+            lvlState.switchGatePairs[color].first = Coord(i, j);
+            lvlState.basemap[j][i] = FLOOR;
+            break;
+        case GATE_RED:
+        case GATE_GREEN:
+        case GATE_BLUE:
+        case GATE_YELLOW:
+            color = GATE_CHAR_TO_COLOR(c);
+            lvlState.switchGatePairs[color].second = Coord(i, j);
+            lvlState.basemap[j][i] = FLOOR;
+            break;
+        case PLAYER:
+            lvlState.player = Coord(i, j);
+            lvlState.basemap[j][i] = FLOOR;
+            break;
+        case GEAR:
+            lvlState.gears_bitfield |=
+                ((gears_bitfield_t)1 << lvlState.gears.size());
+            lvlState.gears.push_back(Coord(i, j));
+            lvlState.basemap[j][i] = FLOOR;
+            break;
+        case BOX:
+            lvlState.boxes.push_back(Coord(i, j));
+            lvlState.basemap[j][i] = FLOOR;
+            break;
+        case EXIT:
+            lvlState.exit = Coord(i, j);
+            lvlState.basemap[j][i] = EXIT;
+            break;
+        default:
+            lvlState.basemap[j][i] = c;
+            break;
         }
 
-        // The path file contains directions to solve the level.
-        //
-        // The directions can be delimited by ' ', ',', ':', ';', '\n'
-        //
-        // The directions can be any of:
-        // u,d,l,r
-        // U,D,L,R
-        // up,down,left,right
-        // UP,DOWN,LEFT,RIGHT
-        // where the delimiter can be any of the delimiters listed above.
-        bool ParseSolution(istream& in, Path& path)
+        if (++i >= WIDTH)
         {
-            char c = 0;
-            while (in.get(c))
+            i = 0;
+            if (++j >= HEIGHT)
             {
-                c = toupper(c);
-                switch (c)
-                {
-                case 'U':
-                case 'D':
-                case 'L':
-                case 'R':
-                    path.push_back(c);
-                    break;
-                default:
-                    break;
-                }
+                break;
             }
-
-            return true;
         }
+    }
+    return true;
+}
+
+void ParseCharMap(istream& in, vector<vector<char> >& charmap)
+{
+    char c;
+    vector<char> row;
+    while (in.get(c))
+    {
+        switch (c)
+        {
+        case '\n':
+            charmap.push_back(row);
+            row.clear();
+            break;;
+        default:
+            row.push_back(c);
+            break;
+        }
+    }
+}
+
+bool IsValidBoxedInLevel(vector<vector<char> >& charmap)
+{
+    int player_chars_found = 0;
+    int exit_chars_found = 0;
+    int invalid_chars_found = 0;
+    for (size_t y = 0; y < charmap.size(); y++)
+    {
+        if (y > 0 && charmap[y].size() != charmap[y-1].size())
+        {
+            return false;
+        }
+        for (size_t x = 0; x < charmap[y].size(); x++)
+        {
+            switch (charmap[y][x])
+            {
+            case '\'': // space
+            case ' ':  // floor
+            case 'x':  // wall
+            case '+':  // box
+            case '*':  // gear
+            case 'r':  // switch
+            case 'y':  // switch
+            case 'g':  // switch
+            case 'b':  // switch
+            case 'R':  // gate
+            case 'Y':  // gate
+            case 'G':  // gate
+            case 'B':  // gate
+                break;
+            case 'p':  // player
+                player_chars_found++;
+                break;
+            case '@':  // exit
+                exit_chars_found++;
+                break;
+            default:
+                invalid_chars_found++;
+                break;
+            }
+        }
+    }
+    return ( player_chars_found == 1 && exit_chars_found == 1 &&
+             invalid_chars_found == 0);
+}
+
+// The path file contains directions to solve the level.
+//
+// The directions can be delimited by ' ', ',', ':', ';', '\n'
+//
+// The directions can be any of:
+// u,d,l,r
+// U,D,L,R
+// up,down,left,right
+// UP,DOWN,LEFT,RIGHT
+// where the delimiter can be any of the delimiters listed above.
+bool ParseSolution(istream& in, Path& path)
+{
+    char c = 0;
+    while (in.get(c))
+    {
+        c = toupper(c);
+        switch (c)
+        {
+        case 'U':
+        case 'D':
+        case 'L':
+        case 'R':
+            path.push_back(c);
+            break;
+        default:
+            break;
+        }
+    }
+
+    return true;
+}
 
 
-    } // namespace
+} // namespace
 } // namespace
 
 #if defined(__linux__) || defined(__APPLE__)
@@ -155,6 +219,44 @@ ostream& clear_screen(ostream& out)
 
 
 
+void PrintCharMapInColor(ostream& out, vector<vector<char> >& charmap)
+{
+    // Display level, optionally with color
+    for (size_t y = 0; y < charmap.size(); y++)
+    {
+        for (size_t x = 0; x < charmap[y].size(); x++)
+        {
+            switch (charmap[y][x])
+            {
+            case BOX:
+                out << brown;   break;
+            case PLAYER:
+                out << cyan;    break;
+            case EXIT:
+                out << magenta; break;
+            case GEAR:
+                out << white;   break;
+            case SWITCH_RED:
+            case GATE_RED:
+                out << red;     break;
+            case SWITCH_YELLOW:
+            case GATE_YELLOW:
+                out << yellow;  break;
+            case SWITCH_GREEN:
+            case GATE_GREEN:
+                out << green;   break;
+            case SWITCH_BLUE:
+            case GATE_BLUE:
+                out << blue;    break;
+            default:
+                out << normal;  break;
+            }
+            out << charmap[y][x];
+        }
+        out << endl;
+    }
+}
+
 /**
    \relates boxedin::charmap
    \brief Print the map of level characters.
@@ -162,7 +264,7 @@ ostream& clear_screen(ostream& out)
    \param[in,out] out ostream to print to.
    \param[in] lvlmap Character map to print.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const charmap& lvlmap)
 {
     // Display level, optionally with color
@@ -214,7 +316,7 @@ ostream& operator<<(ostream& out, const charmap& lvlmap)
    \param[in,out] out ostream to print to.
    \param[in] path Characters to print.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const Path& path)
 {
     for (PathCit it = path.begin(); it != path.end(); ++it)
@@ -232,7 +334,7 @@ ostream& operator<<(ostream& out, const Path& path)
    \param[in,out] out ostream to print to.
    \param[in] coord Coordinate to print.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const Coord& coord)
 {
     out << "(" << (int)coord.x << "," << (int)coord.y << ")";
@@ -247,7 +349,7 @@ ostream& operator<<(ostream& out, const Coord& coord)
    \param[in,out] out ostream to print to.
    \param[in] goal The BoxedInNode goal.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const BoxedInNode* goal)
 {
     const BoxedInNode* node = goal;
@@ -268,7 +370,7 @@ ostream& operator<<(ostream& out, const BoxedInNode* goal)
    \param[in,out] out ostream to print to.
    \param[in] node The node to display.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const BoxedInNode& node)
 {
     charmap lvlmap;
@@ -285,7 +387,7 @@ ostream& operator<<(ostream& out, const BoxedInNode& node)
    \param[in,out] out ostream to print to.
    \param[in] actionPoints A list of ActionPoint's to display.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const ActionPoints& actionPoints)
 {
     for (ActionPointCit it = actionPoints.begin(); it != actionPoints.end(); ++it)
@@ -304,7 +406,7 @@ ostream& operator<<(ostream& out, const ActionPoints& actionPoints)
    \param[in,out] out ostream to print to.
    \param[in] solution A list of Path's to display.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const list<Path>& solution)
 {
     list<Path>::const_iterator cit = solution.begin();
@@ -327,7 +429,7 @@ ostream& operator<<(ostream& out, const list<Path>& solution)
    \param[in,out] out ostream to print to.
    \param[in] memusage Process memory usage information.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const MemUsage& memusage)
 {
     out << "MAXRSS " << memusage.max_resident_set_size;
@@ -342,7 +444,7 @@ ostream& operator<<(ostream& out, const MemUsage& memusage)
    \param[in,out] out ostream to print to.
    \param[in] result A* search result.
    \returns A reference to the ostream.
- */
+*/
 ostream& operator<<(ostream& out, const SearchResult& result)
 {
     const steady_clock::time_point& t1 = result.search_start_time;

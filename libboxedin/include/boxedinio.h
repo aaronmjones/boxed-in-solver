@@ -9,6 +9,7 @@
 #define BOXED_IN_IO_H__
 
 #include <list>
+#include <vector>
 #include <istream>
 #include <ostream>
 
@@ -70,13 +71,16 @@ extern bool use_colors;
 
 bool ParseLevel(std::istream& in, LevelState& levelState);
 bool ParseSolution(std::istream& in, Path& path);
-
+void ParseCharMap(std::istream& in, std::vector<std::vector<char> >& charmap);
+bool IsValidBoxedInLevel(std::vector<std::vector<char> >& charmap);
 
 } // namespace
 } // namespace
 
 
 std::ostream& clear_screen(std::ostream& out);
+
+void PrintCharMapInColor(std::ostream& out, std::vector<std::vector<char> >& charmap);
 
 std::ostream& operator<<(std::ostream& out, const boxedin::charmap& lvlmap);
 /** \relates Path */

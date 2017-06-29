@@ -7,6 +7,10 @@
  */
 #include "astar.h"
 
+#include "Node.h"
+#include "Level.h"
+#include "Heuristic.h"
+
 #include <iostream>
 #include <boxedinio.h>
 
@@ -574,5 +578,49 @@ bool CanBoxMoveRight(const charmap& cmap, const Coord& coord)
 }
 
 
+enum ActionType
+{
+  ACTION_TYPE_PICKUP_GEAR,
+  ACTION_TYPE_EXIT,
+  ACTION_TYPE_MOVE_BOX_UP,
+  ACTION_TYPE_MOVE_BOX_DOWN,
+  ACTION_TYPE_MOVE_BOX_LEFT,
+  ACTION_TYPE_MOVE_BOX_RIGHT
+};
 
-} // namespace
+struct Action
+{
+  ActionType type_;
+  vector<char> path_;
+  Coordinate<uint8_t> destination_;
+};
+
+#define MAX_FSCORE 200
+
+void astar(vector<vector<char> >& charmap, Heuristic& heuristic)
+{
+    fprintf(stderr, "making level\n");
+    Level level = Level::MakeLevel(charmap);
+    fprintf(stderr, "making start node\n");
+    Node* start = Node::MakeStartNode(level, heuristic);
+    
+    // The set of nodes already evaluated
+    set<Node*, NodeCompare> closed_set;
+    
+    // The current set of nodes that are not evaluated yet.
+    // Initially, only the start node is known.
+    set<Node*, NodeCompare> open_set;
+    fprintf(stderr, "openset insert\n");
+    open_set.insert(start);
+    
+    vector<list<Node*> > openset_fscore_nodes;
+    fprintf(stderr, "resize\n");
+    openset_fscore_nodes.resize(MAX_FSCORE);
+    if (start->fscore() < MAX_FSCORE)
+    {
+        openset_fscore_nodes[start->fscore()].push_back(start);
+    }
+    
+}
+
+} // namespace boxedin

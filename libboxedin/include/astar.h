@@ -22,7 +22,9 @@
 #include "BoxedInNode.h"
 #include "LevelState.h"
 #include "SearchResult.h"
-
+#include "Node.h"
+#include "Level.h"
+#include "Heuristic.h"
 
 /**
     \mainpage Boxed In Solver
@@ -323,6 +325,7 @@ bool CanBoxMoveDown(const charmap& cmap, const Coord& coord);
 bool CanBoxMoveLeft(const charmap& cmap, const Coord& coord);
 bool CanBoxMoveRight(const charmap& cmap, const Coord& coord);
 
+void astar(std::vector<std::vector<char> >& charmap, Heuristic& heuristic);
 
 } // namespace
 

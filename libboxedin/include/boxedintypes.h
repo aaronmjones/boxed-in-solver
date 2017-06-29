@@ -12,6 +12,7 @@
 #include "boxedindefs.h"
 
 #include <stdint.h>
+#include <limits.h>
 
 #include <list>
 #include <map>
@@ -60,7 +61,21 @@ struct Coordinate
     }
 };
 
+template<typename T>
+    bool operator<(const Coordinate<T>& l, const Coordinate<T>& r)
+{
+    if (l.y == r.y)
+    {
+        return (l.x < r.x);
+    }
+    return (l.y < r.y);
+}
 
+template<typename T>
+    bool operator==(const Coordinate<T>& l, const Coordinate<T>& r)
+{
+    return ((l.y == r.y) && (l.x == r.x));
+}
 
 /** \group gears_bitfield_t
     The position of each gear is stored in 1 static container
@@ -132,7 +147,8 @@ typedef size_t key_type;
 /** The type used for f, g and h values. */
 typedef int cost_t;
 
-
+#define COST_INFINITY (INT_MAX-0)
+#define COST_UNKNOWN  (INT_MAX-1)
 
 /**
    \struct ActionPoint

@@ -13,8 +13,13 @@ CXXFLAGS += \
 	-std=c++11 \
 	-std=gnu++11 \
 	-rdynamic
-CXXFLAGS+=-O3
 CXXFLAGS+=-m64
+
+ifeq ($(DEBUG),1)
+CXXFLAGS+= -g -Wall
+else
+CXXFLAGS+=-O3
+endif
 
 CXXSOURCES += \
 	BoxedInSolver.cc

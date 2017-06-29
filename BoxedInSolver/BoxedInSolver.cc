@@ -23,6 +23,9 @@
 
 #include <boxedinio.h>
 #include <astar.h>
+#include "Node.h"
+#include "Level.h"
+#include "Heuristic.h"
 
 
 #if defined (__linux__) || defined (__APPLE__)
@@ -79,24 +82,30 @@ int main(int argc, char* argv[])
     }
 
     // Parse the level
-    LevelState lvlstate;
+    LevelState lvlstate;//TODO: remove
+    vector<vector<char> > charmap;
     if (filename)
     {
         ifstream level_istream(filename);
-        boxedin::io::ParseLevel(level_istream, lvlstate);
+        boxedin::io::ParseCharMap(level_istream, charmap);
     }
     else
     {
-        boxedin::io::ParseLevel(cin, lvlstate);
+        boxedin::io::ParseCharMap(cin, charmap);
     }
-    BoxedInNode start(lvlstate);
+
+    if (!boxedin::io::IsValidBoxedInLevel(charmap))
+    {
+        fprintf(stderr, "ERROR: Invalid boxed in level\n");
+        return 1;
+    }
 
     if (filename)
     {
         cerr << filename << endl;
     }
     cerr << "Boxed In Level:" << endl;
-    cerr << start << endl; // print level
+    PrintCharMapInColor(cerr, charmap);
 
     // A* Search
     time_t rawtime;
@@ -106,12 +115,14 @@ int main(int argc, char* argv[])
     timeinfo = localtime(&rawtime);
     cerr << asctime(timeinfo) << endl;
 
-    SearchResult result = boxedin::AStarSearch(start);
-
+    ShortestManhattenDistanceThroughGearsToExitHeuristic heuristic(0, 0, 0);
+    astar(charmap, heuristic);
+    
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     cerr << asctime(timeinfo) << endl;
 
+#if 0
     if (result.success)
     {
         cerr << "A* search succeeded" << endl;
@@ -134,6 +145,8 @@ int main(int argc, char* argv[])
 
     cerr << "A* search failed" << endl;
     return 1;
+#endif
+    return 0;
 }
 
 
