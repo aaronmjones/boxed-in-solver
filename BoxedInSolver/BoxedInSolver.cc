@@ -107,6 +107,8 @@ int main(int argc, char* argv[])
     cerr << "Boxed In Level:" << endl;
     PrintCharMapInColor(cerr, charmap);
 
+    // TODO: trim unnecessary rows and columns and re-print the level
+    
     // A* Search
     time_t rawtime;
     struct tm* timeinfo;
@@ -115,8 +117,11 @@ int main(int argc, char* argv[])
     timeinfo = localtime(&rawtime);
     cerr << asctime(timeinfo) << endl;
 
-    ShortestManhattenDistanceThroughGearsToExitHeuristic heuristic(0, 0, 0);
-    astar(charmap, heuristic);
+    fprintf(stderr, "making level\n");
+    Level level = Level::MakeLevel(charmap);
+
+    ShortestManhattenDistanceThroughGearsToExitHeuristic heuristic(level);
+    astar(level, heuristic);
     
     time(&rawtime);
     timeinfo = localtime(&rawtime);

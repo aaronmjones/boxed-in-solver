@@ -27,7 +27,8 @@ CXXSOURCES += \
 	src/astar.cc \
 	src/memusage.cc \
 	src/Level.cc \
-	src/Node.cc
+	src/Node.cc \
+	src/Heuristic.cc
 
 INCPATH += \
 	-Iinclude

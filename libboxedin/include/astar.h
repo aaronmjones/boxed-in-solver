@@ -325,7 +325,7 @@ bool CanBoxMoveDown(const charmap& cmap, const Coord& coord);
 bool CanBoxMoveLeft(const charmap& cmap, const Coord& coord);
 bool CanBoxMoveRight(const charmap& cmap, const Coord& coord);
 
-void astar(std::vector<std::vector<char> >& charmap, Heuristic& heuristic);
+void astar(Level& level, Heuristic& heuristic);
 
 } // namespace
 

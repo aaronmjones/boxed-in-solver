@@ -597,10 +597,8 @@ struct Action
 
 #define MAX_FSCORE 200
 
-void astar(vector<vector<char> >& charmap, Heuristic& heuristic)
+void astar(Level& level, Heuristic& heuristic)
 {
-    fprintf(stderr, "making level\n");
-    Level level = Level::MakeLevel(charmap);
     fprintf(stderr, "making start node\n");
     Node* start = Node::MakeStartNode(level, heuristic);
     
