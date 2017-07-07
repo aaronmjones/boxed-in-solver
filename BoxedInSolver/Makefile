@@ -68,6 +68,6 @@ $(CXXDEPEND): %.d: %.cc
 $(CXXOBJECTS): %.o: %.cc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) $(LIBPATH) $(LIBS) $< -o $@
 
-$(EXE): $(CXXOBJECTS)
+$(EXE): $(CXXOBJECTS) ../libboxedin/libboxedin.a
 	$(CXX) $(CXXFLAGS) $(INCPATH) $(LIBPATH) $(CXXOBJECTS) $(LIBS) -o $@
 
