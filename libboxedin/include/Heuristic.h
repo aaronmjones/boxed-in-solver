@@ -86,7 +86,7 @@ struct SymmetricCostTable
             x = y;
             y = temp;
         }
-        table_offset = (x * table_width) + y;
+        table_offset = (y * table_width) + x;
         memory_offset = table_offset - ((y * (y + 1)) / 2);
         return memory_offset;
     }
@@ -146,7 +146,7 @@ struct ShortestManhattenDistanceThroughGearsToExitHeuristic : public Heuristic
         , num_gears(level.gear_coords_.size())
         , tile_to_tile_cost_table(num_tiles)
     {
-        size_t sz = num_tiles * num_gears;
+        size_t sz = num_tiles * (2 ^ num_gears);
         hscore_table = new cost_t[sz];
         for (size_t i = 0; i < sz; i++)
         {
