@@ -12,6 +12,7 @@
 #include "boxedindefs.h"
 
 #include <stdint.h>
+#include <stddef.h>
 #include <limits.h>
 
 #include <list>

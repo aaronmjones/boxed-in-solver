@@ -1,6 +1,7 @@
 #ifndef BOXED_IN_NODE
 #define BOXED_IN_NODE
 
+#include <stdio.h>
 #include "boxedintypes.h"
 #include "Heuristic.h"
 #include "Level.h"

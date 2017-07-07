@@ -12,40 +12,40 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
         return *cost_ptr;
     }
 
-
-
-#if 0
     vector<vector<char> > floor_plan = level.floor_plan_;
     std::queue<FloodFillNode> flood_fill_queue;
-
+    Coord coord1(cell1 % floor_width, cell1 / floor_width);
+    Coord coord2(cell2 % floor_width, cell2 / floor_width);
+    cost_t cost = COST_INFINITY;
+    
     // Queue of spaces to fill is initially the current player position
-    flood_fill_queue.push( FloodFillNode(Coord()) );
+    flood_fill_queue.push( FloodFillNode(coord1) );
 
     while (!flood_fill_queue.empty())
     {
         FloodFillNode ffnode = flood_fill_queue.front();
         Coord& coord = ffnode.coord;
 
+        if (coord == coord2)
+        {
+            cost = (cost_t)ffnode.path.size();
+            break;
+        }
+        
         // Skip node if it's position has been filled
-        if (lvlmap[coord.y][coord.x] == FILLED)
+        if (floor_plan[coord.y][coord.x] == '-')
         {
             flood_fill_queue.pop();
             continue;
         }
 
-        // If it's an action point, add it to the results
-        if (IsActionPoint(lvlmap, coord))
-        {
-            action_points.push_back( ActionPoint(ffnode.path, ffnode.coord) );
-        }
-
         // Mark current point as filled
-        lvlmap[coord.y][coord.x] = FILLED;
+        floor_plan[coord.y][coord.x] = '-';
 
         //// Add neighbor nodes in the 4 directions ////
 
         // UP
-        if ( (coord.y > 0) && CAN_FLOOD_FILL(lvlmap[coord.y-1][coord.x]) )
+        if ( (coord.y > 0) && (floor_plan[coord.y-1][coord.x] == ' ') )
         {
             FloodFillNode up( ffnode ); // copy of node
             up.path.push_back('U');
@@ -53,7 +53,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
             flood_fill_queue.push( up );
         }
         // DOWN
-        if ( (coord.y < HEIGHT-1) && CAN_FLOOD_FILL(lvlmap[coord.y+1][coord.x]) )
+        if ( (coord.y < floor_height-1) && (floor_plan[coord.y+1][coord.x] == ' ') )
         {
             FloodFillNode down( ffnode ); // copy of node
             down.path.push_back('D');
@@ -61,7 +61,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
             flood_fill_queue.push( down );
         }
         // LEFT
-        if ( (coord.x > 0) && CAN_FLOOD_FILL(lvlmap[coord.y][coord.x-1]) )
+        if ( (coord.x > 0) && (floor_plan[coord.y][coord.x-1] == ' ') )
         {
             FloodFillNode left( ffnode ); // copy of node
             left.path.push_back('L');
@@ -69,7 +69,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
             flood_fill_queue.push( left );
         }
         // RIGHT
-        if ( (coord.x < WIDTH-1) && CAN_FLOOD_FILL(lvlmap[coord.y][coord.x+1]) )
+        if ( (coord.x < floor_width-1) && (floor_plan[coord.y][coord.x+1] == ' ') )
         {
             FloodFillNode right( ffnode ); // copy of node
             right.path.push_back('R');
@@ -78,15 +78,8 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
         }
     }
 
-    return action_points;
-#endif
-
-
-
-
-
-    
-    return 0; //TODO
+    *cost_ptr = cost;
+    return cost;
 }
 
 
