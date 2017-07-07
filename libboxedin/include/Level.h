@@ -49,6 +49,7 @@ public:
           char c = charmap[y][x];
           switch (c)
           {
+          case '@':  // exit
           case '+':  // box
           case '*':  // gear
           case 'p':  // player
@@ -61,6 +62,10 @@ public:
           case 'B':  // gate (blue)
           case 'Y':  // gate (yellow)
             level.floor_plan_[y][x] = ' ';
+            break;
+          case '\'': // space
+          case 'x':  // wall
+            level.floor_plan_[y][x] = c;
             break;
           default:   // invalid char
             break;
