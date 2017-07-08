@@ -578,47 +578,241 @@ bool CanBoxMoveRight(const charmap& cmap, const Coord& coord)
 }
 
 
-enum ActionType
-{
-  ACTION_TYPE_PICKUP_GEAR,
-  ACTION_TYPE_EXIT,
-  ACTION_TYPE_MOVE_BOX_UP,
-  ACTION_TYPE_MOVE_BOX_DOWN,
-  ACTION_TYPE_MOVE_BOX_LEFT,
-  ACTION_TYPE_MOVE_BOX_RIGHT
-};
-
-struct Action
-{
-  ActionType type_;
-  vector<char> path_;
-  Coordinate<uint8_t> destination_;
-};
-
 #define MAX_FSCORE 200
+
+
+// The set of nodes already evaluated
+set<Node*, NodeCompare> closed_set;
+
+// The current set of nodes that are not evaluated yet.
+// Initially, only the start node is known.
+set<Node*, NodeCompare> open_set;
+
+vector<list<Node*> > openset_fscore_nodes;
+
+Node* get_next_best_fscore_node(cost_t current_fscore)
+{
+    Node* node = NULL;
+    cost_t fscore = current_fscore;
+    while ( fscore < MAX_FSCORE )
+    {
+        list<Node*>& nodes = openset_fscore_nodes[fscore];
+        if ( nodes.empty() )
+        {
+            fscore++;
+            continue;
+        }
+        node = nodes.front();
+        nodes.pop_front();
+    }
+    return node;
+}
+
+list<Action> find_actions(const Level& level, const Node& node)
+{
+    list<Action> actions;
+    bool draw_player = false;
+    vector<vector<char> > level_map = level.Map( node, draw_player );
+
+    //// Flood fill to find all action points ////
+
+    // Queue of spaces to fill is initially the current player position
+    queue<FloodFillNode> flood_fill_queue;
+    flood_fill_queue.push( FloodFillNode(node.player_coord_) );
+
+    while ( !flood_fill_queue.empty() )
+    {
+        FloodFillNode ffnode = flood_fill_queue.front();
+        Coord& coord = ffnode.coord;
+
+        // Skip node if it's position has been filled
+        if (level_map[coord.y][coord.x] == '-')
+        {
+            flood_fill_queue.pop();
+            continue;
+        }
+
+#define CAN_BOX_MOVE(char1,char2) ( (char1 == BOX) && (IS_FLOOR(char2) || IS_SWITCH(char2) || (char2 == PLAYER)) )
+
+        // If it's an action point, add it to the results
+
+        if ( level_map[coord.y][coord.x] == '@' ) // exit
+        {
+            actions.push_back( Action(ACTION_TYPE_EXIT, ffnode.path, ffnode.coord) );            
+        }
+        if ( level_map[coord.y][coord.x] == '*' ) // gear
+        {
+            actions.push_back( Action(ACTION_TYPE_PICKUP_GEAR, ffnode.path, ffnode.coord) );            
+        }
+        if ( coord.y > 0 &&
+             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y-1][coord.x] ) ) // box up
+        {
+            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_UP, ffnode.path, ffnode.coord) );            
+        }
+        if ( coord.y < level.floor_plan_.size() - 1  &&
+             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y+1][coord.x] ) ) // box down
+        {
+            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_DOWN, ffnode.path, ffnode.coord) );            
+        }
+        if ( coord.x > 0 &&
+             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y][coord.x-1] ) ) // box left
+        {
+            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_LEFT, ffnode.path, ffnode.coord) );            
+        }
+        if ( coord.x < level.floor_plan_[0].size() - 1 &&
+             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y][coord.x+1] ) ) // box right
+        {
+            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_RIGHT, ffnode.path, ffnode.coord) );            
+        }
+
+        // Mark current point as filled
+        level_map[coord.y][coord.x] = '-';
+
+#if 0 // TODO: implement
+        //// Add neighbor nodes in the 4 directions ////
+
+        // UP
+        if ( (coord.y > 0) && CAN_FLOOD_FILL(lvlmap[coord.y-1][coord.x]) )
+        {
+            FloodFillNode up( ffnode ); // copy of node
+            up.path.push_back('U');
+            up.coord.y--;
+            flood_fill_queue.push( up );
+        }
+        // DOWN
+        if ( (coord.y < HEIGHT-1) && CAN_FLOOD_FILL(lvlmap[coord.y+1][coord.x]) )
+        {
+            FloodFillNode down( ffnode ); // copy of node
+            down.path.push_back('D');
+            down.coord.y++;
+            flood_fill_queue.push( down );
+        }
+        // LEFT
+        if ( (coord.x > 0) && CAN_FLOOD_FILL(lvlmap[coord.y][coord.x-1]) )
+        {
+            FloodFillNode left( ffnode ); // copy of node
+            left.path.push_back('L');
+            left.coord.x--;
+            flood_fill_queue.push( left );
+        }
+        // RIGHT
+        if ( (coord.x < WIDTH-1) && CAN_FLOOD_FILL(lvlmap[coord.y][coord.x+1]) )
+        {
+            FloodFillNode right( ffnode ); // copy of node
+            right.path.push_back('R');
+            right.coord.x++;
+            flood_fill_queue.push( right );
+        }
+#endif
+    }
+    
+    return actions;
+}
+
+list<Node*> generate_successors(const Level& level, Heuristic& heuristic, Node& node)
+{
+    list<Node*> successors;
+    list<Action> actions = find_actions( level, node );
+
+#if 1 // FIXME: remove
+    bool draw_player = true;
+    vector<vector<char> > level_map = level.Map( node, draw_player );
+    PrintCharMapInColor(cerr, level_map);
+#endif
+
+    list<Action>::iterator it;
+    for (it=actions.begin(); it!=actions.end(); ++it)
+    {
+        Node* successor = new Node( level, heuristic, node, *it );
+        successors.push_back( successor );
+    }
+
+    return successors;
+}
 
 void astar(Level& level, Heuristic& heuristic)
 {
-    fprintf(stderr, "making start node\n");
     Node* start = Node::MakeStartNode(level, heuristic);
     
-    // The set of nodes already evaluated
-    set<Node*, NodeCompare> closed_set;
-    
-    // The current set of nodes that are not evaluated yet.
-    // Initially, only the start node is known.
-    set<Node*, NodeCompare> open_set;
-    fprintf(stderr, "openset insert\n");
     open_set.insert(start);
-    
-    vector<list<Node*> > openset_fscore_nodes;
-    fprintf(stderr, "resize\n");
     openset_fscore_nodes.resize(MAX_FSCORE);
     if (start->fscore() < MAX_FSCORE)
     {
         openset_fscore_nodes[start->fscore()].push_back(start);
     }
+
+    Node* node = NULL;
+    cost_t fscore = start->fscore();
     
+    while ( (node = get_next_best_fscore_node(fscore)) != NULL )
+    {
+        fscore = node->fscore();
+
+        if (node->better_gscore_found_)
+        {
+            delete node;
+            continue;
+        }
+
+        if ( node->IsGoal(level) )
+        {
+            fprintf(stderr, "astar search found solution!!!\n");
+            return;
+        }
+
+        open_set.erase(node);
+        closed_set.insert(node);
+
+        list<Node*> successors = generate_successors(level, heuristic, *node);
+        
+        for ( list<Node*>::iterator it = successors.begin(); it != successors.end(); ++it )
+        {
+            Node* successor = *it;
+
+            // successor already in closed set?
+            set<Node*, NodeCompare>::iterator it_closed = closed_set.find(successor);
+            if ( it_closed != closed_set.end() )
+            {
+                delete successor;
+                continue;
+            }
+
+            // successor already in open set?
+            set<Node*, NodeCompare>::iterator it_open = open_set.find(successor);
+            if ( it_open != open_set.end() )
+            {
+                if ( successor->gscore_ < (*it_open)->gscore_)
+                {
+                    // better gscore found!!!
+                    // Optimization: instead of removing the old node from the open_set and openset_fscore_nodes,
+                    // just flag it for deletion.
+                    (*it_open)->better_gscore_found_ = true;
+                }
+                else
+                {
+                    delete successor;
+                    continue;
+                }
+            }
+
+            // new search node!!!
+            if ( successor->fscore() < MAX_FSCORE)
+            {
+                open_set.insert( successor );
+                openset_fscore_nodes[successor->fscore()].push_back( successor );
+            }
+            else
+            {
+                fprintf(stderr, "warning: dropping node with fscore %d (>%d)\n",
+                        successor->fscore(), MAX_FSCORE);
+                delete successor;
+                continue;
+            }            
+        } // end for (successors)
+
+    } // end while
+
+    //TODO: delete heap memory
 }
 
 } // namespace boxedin

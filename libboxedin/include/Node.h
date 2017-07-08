@@ -32,15 +32,71 @@ struct BoxDescriptorLite
         vector<Coord>::const_iterator it;
         for (it = box_coords.begin(); it != box_coords.end(); ++it)
         {
-            uint64_t tile_index = it->y * floor_cols + it->x;
-            uint64_t bitfield_index = tile_index / kBitfieldWidth;
-            uint64_t bit_offset = tile_index % kBitfieldWidth;
-            bitfields[bitfield_index] |= ((uint64_t)1 << bit_offset);
+            set_box_bit( floor_cols, *it );
         }
         for (size_t i = 0; i < bitfields.size(); i++)//TODO: remove
         {
             fprintf(stderr, "bitfields[%d]=0x%016lx\n", (int)i, bitfields[i]);
         }
+    }
+
+    void set_box_bit( int floor_width, const Coord& coord )
+    {
+        int tile_index = get_tile_index( floor_width, coord );
+        int bitfield_index = get_bitfield_index( tile_index );
+        int bit_offset = get_bit_offset( tile_index );
+        bitfields[bitfield_index] |= ((uint64_t)1 << bit_offset);
+    }
+    
+    void clear_box_bit( int floor_width, const Coord& coord )
+    {
+        int tile_index = get_tile_index( floor_width, coord );
+        int bitfield_index = get_bitfield_index( tile_index );
+        int bit_offset = get_bit_offset( tile_index );
+        bitfields[bitfield_index] &= ~((uint64_t)1 << bit_offset);
+    }
+    
+    int get_tile_index( int floor_width, const Coord& coord )
+    {
+        return (int)coord.y * floor_width + coord.x;
+    }
+    
+    int get_bitfield_index( int tile_index )
+    {
+        return tile_index / kBitfieldWidth;
+    }
+
+    int get_bit_offset( int tile_index )
+    {
+        return tile_index % kBitfieldWidth;
+    }
+    
+    void MoveUp( int floor_width, const Coord& box_coord )
+    {
+        clear_box_bit( floor_width, box_coord );
+        Coord new_box_coord( box_coord.x, box_coord.y-1 );
+        set_box_bit( floor_width, new_box_coord );
+    }
+    
+    void MoveDown( int floor_width, const Coord& box_coord )
+    {
+        clear_box_bit( floor_width, box_coord );
+        Coord new_box_coord( box_coord.x, box_coord.y+1 );
+        set_box_bit( floor_width, new_box_coord );
+    }
+    
+    void MoveLeft( int floor_width, const Coord& box_coord )
+    {
+        clear_box_bit( floor_width, box_coord );
+        Coord new_box_coord( box_coord.x-1, box_coord.y );
+        set_box_bit( floor_width, new_box_coord );
+    }
+    
+    void MoveRight( int floor_width, const Coord& box_coord )
+    {
+        clear_box_bit( floor_width, box_coord );
+        Coord new_box_coord( box_coord.x+1, box_coord.y );
+        set_box_bit( floor_width, new_box_coord );
     }
 };
 
@@ -62,6 +118,50 @@ struct GearDescriptorLite
             bitfield |= ((uint16_t)1 << i);
         }
     }
+
+    void ClearGearBit( const vector<Coord>& gear_coords, const Coord& clear_coord )
+    {
+        int sz = (int)gear_coords.size();
+        for (int i = 0; i < sz; i++)
+        {
+            if (gear_coords[i] == clear_coord)
+            {
+                bitfield &= ~(1 << i);
+                break;
+            }
+        }
+    }
+};
+
+
+enum ActionType
+{
+  ACTION_TYPE_PICKUP_GEAR,
+  ACTION_TYPE_EXIT,
+  ACTION_TYPE_MOVE_BOX_UP,
+  ACTION_TYPE_MOVE_BOX_DOWN,
+  ACTION_TYPE_MOVE_BOX_LEFT,
+  ACTION_TYPE_MOVE_BOX_RIGHT
+};
+
+
+struct Action
+{
+    ActionType type;
+    vector<char> path;
+    Coord point;
+    Action(ActionType type, vector<char>& path, Coord& point)
+        : type(type)
+        , path(path)
+        , point(point)
+    {
+    }
+    Action(const Action& action)
+        : type(action.type)
+        , path(action.path)
+        , point(action.point)
+    {
+    }
 };
 
 
@@ -71,6 +171,8 @@ public:
     // Pointer to the Node that spawned this Node; NULL for the beginning Node
     Node* predecessor_;
 
+    vector<char> path_;
+    
     /** \name Fields that uniquely identify the Node */
 /**@{*/
     // The current coordinate of the player
@@ -104,12 +206,19 @@ public:
 
     Node(const Level& level, Heuristic& heuristic);
 
+    Node(const Level& level, Heuristic& heuristic, Node& node, const Action& action);
+
     cost_t fscore() const { return gscore_ + hscore_; }
     
     static Node* MakeStartNode(const Level& level, Heuristic& heuristic)
     {
         Node* start = new Node(level, heuristic);
         return start;
+    }
+
+    bool IsGoal(const Level& level)
+    {
+        return (gear_descriptor_.bitfield == 0) && (player_coord_ == level.exit_coord_);
     }
 };
 
