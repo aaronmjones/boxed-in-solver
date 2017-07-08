@@ -23,16 +23,16 @@ struct BoxDescriptorLite
     {
     }
     
-    BoxDescriptorLite(const vector<Coord>& box_coords, size_t floor_rows, size_t floor_cols)
+    BoxDescriptorLite(const vector<Coord>& box_coords, size_t floor_width, size_t floor_height)
     {
-        size_t num_tiles = floor_rows * floor_cols;
-        size_t bitfields_size = (num_tiles + (floor_cols - 1)) / kBitfieldWidth;
+        size_t num_tiles = floor_width * floor_height;
+        size_t bitfields_size = (num_tiles + (floor_width - 1)) / kBitfieldWidth;
         bitfields.resize( bitfields_size );
         
         vector<Coord>::const_iterator it;
         for (it = box_coords.begin(); it != box_coords.end(); ++it)
         {
-            set_box_bit( floor_cols, *it );
+            set_box_bit( floor_width, *it );
         }
         for (size_t i = 0; i < bitfields.size(); i++)//TODO: remove
         {
@@ -45,6 +45,8 @@ struct BoxDescriptorLite
         int tile_index = get_tile_index( floor_width, coord );
         int bitfield_index = get_bitfield_index( tile_index );
         int bit_offset = get_bit_offset( tile_index );
+        fprintf(stderr, "box: set bit for x=%u y=%u tile_index=%d bitfield_index=%d bit_offset=%d\n",
+                coord.x, coord.y, tile_index, bitfield_index, bit_offset);//TODO: remove
         bitfields[bitfield_index] |= ((uint64_t)1 << bit_offset);
     }
     

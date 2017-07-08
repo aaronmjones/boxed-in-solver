@@ -608,14 +608,75 @@ Node* get_next_best_fscore_node(cost_t current_fscore)
     return node;
 }
 
+bool is_box( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
+{
+    return level_map[y][x] == '+';
+}
+
+bool is_fillable( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
+{
+    switch (level_map[y][x])
+    {
+    case ' ':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+    case '*':
+    case '@':
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool can_flood( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
+{
+    switch (level_map[y][x])
+    {
+    case ' ':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool can_hold_box( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
+{
+    switch (level_map[y][x])
+    {
+    case ' ':
+    case '-':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+        return true;
+    default:
+        return false;
+    }
+}
+
 list<Action> find_actions(const Level& level, const Node& node)
 {
     list<Action> actions;
+    uint8_t floor_width = (uint8_t)level.floor_plan_[0].size();
+    uint8_t floor_height = (uint8_t)level.floor_plan_.size();
     bool draw_player = false;
-    vector<vector<char> > level_map = level.Map( node, draw_player );
+    vector<vector<char> > level_map = level.Map( node, draw_player ); // TODO: rename to level.MakeFloodFillMap()?
+
+    fprintf(stderr, "finding actions for:\n");
+    PrintCharMapInColor(cerr, level_map);
 
     //// Flood fill to find all action points ////
 
+    // TODO: should you consider the tile the robot is currently on here? it seems like
+    //       stepping off of a switch should be considered an "action"
+    
     // Queue of spaces to fill is initially the current player position
     queue<FloodFillNode> flood_fill_queue;
     flood_fill_queue.push( FloodFillNode(node.player_coord_) );
@@ -625,6 +686,9 @@ list<Action> find_actions(const Level& level, const Node& node)
         FloodFillNode ffnode = flood_fill_queue.front();
         Coord& coord = ffnode.coord;
 
+        fprintf(stderr, "flood fill map:\n");
+        PrintCharMapInColor(cerr, level_map);
+
         // Skip node if it's position has been filled
         if (level_map[coord.y][coord.x] == '-')
         {
@@ -632,79 +696,102 @@ list<Action> find_actions(const Level& level, const Node& node)
             continue;
         }
 
-#define CAN_BOX_MOVE(char1,char2) ( (char1 == BOX) && (IS_FLOOR(char2) || IS_SWITCH(char2) || (char2 == PLAYER)) )
-
         // If it's an action point, add it to the results
 
         if ( level_map[coord.y][coord.x] == '@' ) // exit
         {
             actions.push_back( Action(ACTION_TYPE_EXIT, ffnode.path, ffnode.coord) );            
         }
-        if ( level_map[coord.y][coord.x] == '*' ) // gear
+        else if ( level_map[coord.y][coord.x] == '*' ) // gear
         {
             actions.push_back( Action(ACTION_TYPE_PICKUP_GEAR, ffnode.path, ffnode.coord) );            
         }
-        if ( coord.y > 0 &&
-             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y-1][coord.x] ) ) // box up
+        else
         {
-            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_UP, ffnode.path, ffnode.coord) );            
+            // is there a box directly above that can be pushed?
+            if ( coord.y > 1 &&
+                 is_box( level_map, coord.x, coord.y-1 ) &&
+                 can_hold_box( level_map, coord.x, coord.y-2 ) )
+            {
+                Action action( ACTION_TYPE_MOVE_BOX_UP, ffnode.path, ffnode.coord );
+                action.path.push_back( 'U' );
+                action.point.y--;
+                actions.push_back( action  );            
+            }
+            // is there a box directly below that can be pushed?
+            if ( coord.y < floor_height-2 &&
+                 is_box( level_map, coord.x, coord.y+1 ) &&
+                 can_hold_box( level_map, coord.x, coord.y+2 ) )
+            {
+                Action action( ACTION_TYPE_MOVE_BOX_DOWN, ffnode.path, ffnode.coord );
+                action.path.push_back( 'D' );
+                action.point.y++;
+                actions.push_back( action  );            
+            }
+            // is there a box directly left that can be pushed?
+            if ( coord.x > 1 &&
+                 is_box( level_map, coord.x-1, coord.y ) &&
+                 can_hold_box( level_map, coord.x-2, coord.y ) )
+            {
+                Action action( ACTION_TYPE_MOVE_BOX_LEFT, ffnode.path, ffnode.coord );
+                action.path.push_back( 'L' );
+                action.point.x--;
+                actions.push_back( action  );            
+            }
+            // is there a box directly right that can be pushed?
+            if ( coord.x < floor_width-2 &&
+                 is_box( level_map, coord.x+1, coord.y ) &&
+                 can_hold_box( level_map, coord.x+2, coord.y ) )
+            {
+                Action action( ACTION_TYPE_MOVE_BOX_RIGHT, ffnode.path, ffnode.coord );
+                action.path.push_back( 'R' );
+                action.point.x++;
+                actions.push_back( action  );            
+            }
         }
-        if ( coord.y < level.floor_plan_.size() - 1  &&
-             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y+1][coord.x] ) ) // box down
+
+        if ( can_flood(level_map, coord.x, coord.y) )
         {
-            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_DOWN, ffnode.path, ffnode.coord) );            
-        }
-        if ( coord.x > 0 &&
-             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y][coord.x-1] ) ) // box left
-        {
-            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_LEFT, ffnode.path, ffnode.coord) );            
-        }
-        if ( coord.x < level.floor_plan_[0].size() - 1 &&
-             CAN_BOX_MOVE( level_map[coord.y][coord.x], level_map[coord.y][coord.x+1] ) ) // box right
-        {
-            actions.push_back( Action(ACTION_TYPE_MOVE_BOX_RIGHT, ffnode.path, ffnode.coord) );            
+            //// Add neighbor nodes in the 4 directions ////
+            
+            // UP
+            if ( (coord.y > 0) && is_fillable(level_map, coord.x, coord.y-1) )
+            {
+                FloodFillNode up( ffnode ); // copy of node
+                up.path.push_back('U');
+                up.coord.y--;
+                flood_fill_queue.push( up );
+            }
+            // DOWN
+            if ( (coord.y < floor_height-1) && is_fillable(level_map, coord.x, coord.y+1) )
+            {
+                FloodFillNode down( ffnode ); // copy of node
+                down.path.push_back('D');
+                down.coord.y++;
+                flood_fill_queue.push( down );
+            }
+            // LEFT
+            if ( (coord.x > 0) && is_fillable(level_map, coord.x-1, coord.y) )
+            {
+                FloodFillNode left( ffnode ); // copy of node
+                left.path.push_back('L');
+                left.coord.x--;
+                flood_fill_queue.push( left );
+            }
+            // RIGHT
+            if ( (coord.x < floor_width-1) && is_fillable(level_map, coord.x+1, coord.y) )
+            {
+                FloodFillNode right( ffnode ); // copy of node
+                right.path.push_back('R');
+                right.coord.x++;
+                flood_fill_queue.push( right );
+            }
         }
 
         // Mark current point as filled
         level_map[coord.y][coord.x] = '-';
-
-#if 0 // TODO: implement
-        //// Add neighbor nodes in the 4 directions ////
-
-        // UP
-        if ( (coord.y > 0) && CAN_FLOOD_FILL(lvlmap[coord.y-1][coord.x]) )
-        {
-            FloodFillNode up( ffnode ); // copy of node
-            up.path.push_back('U');
-            up.coord.y--;
-            flood_fill_queue.push( up );
-        }
-        // DOWN
-        if ( (coord.y < HEIGHT-1) && CAN_FLOOD_FILL(lvlmap[coord.y+1][coord.x]) )
-        {
-            FloodFillNode down( ffnode ); // copy of node
-            down.path.push_back('D');
-            down.coord.y++;
-            flood_fill_queue.push( down );
-        }
-        // LEFT
-        if ( (coord.x > 0) && CAN_FLOOD_FILL(lvlmap[coord.y][coord.x-1]) )
-        {
-            FloodFillNode left( ffnode ); // copy of node
-            left.path.push_back('L');
-            left.coord.x--;
-            flood_fill_queue.push( left );
-        }
-        // RIGHT
-        if ( (coord.x < WIDTH-1) && CAN_FLOOD_FILL(lvlmap[coord.y][coord.x+1]) )
-        {
-            FloodFillNode right( ffnode ); // copy of node
-            right.path.push_back('R');
-            right.coord.x++;
-            flood_fill_queue.push( right );
-        }
-#endif
-    }
+        
+    } // end while
     
     return actions;
 }
@@ -714,9 +801,10 @@ list<Node*> generate_successors(const Level& level, Heuristic& heuristic, Node& 
     list<Node*> successors;
     list<Action> actions = find_actions( level, node );
 
-#if 1 // FIXME: remove
+#if 1 // FIXME: what did I need level.Map for?
     bool draw_player = true;
     vector<vector<char> > level_map = level.Map( node, draw_player );
+    fprintf(stderr, "generating successors for:\n");
     PrintCharMapInColor(cerr, level_map);
 #endif
 

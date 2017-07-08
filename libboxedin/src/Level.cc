@@ -22,6 +22,7 @@ vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
             {
                 int tile_index = i * node.box_descriptor_.kBitfieldWidth + bit_index;
                 Coord box( tile_index % floor_width, tile_index / floor_width );
+                fprintf(stderr, "box: tile_index=%d x=%u y=%u\n", tile_index, box.x, box.y);//TODO: remove
                 level_map[box.y][box.x] = '+';
             }
         }
@@ -43,6 +44,9 @@ vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
     {
         level_map[node.player_coord_.y][node.player_coord_.x] = 'p';
     }
+
+    // set exit
+    level_map[exit_coord_.y][exit_coord_.x] = '@';
     
     // set switches and gates
     map<Color, pair<Coord, Coord> >::const_iterator it;
