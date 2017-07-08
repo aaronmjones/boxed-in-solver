@@ -121,13 +121,12 @@ int main(int argc, char* argv[])
     Level level = Level::MakeLevel(charmap);
 
     ShortestManhattenDistanceThroughGearsToExitHeuristic heuristic(level);
-    astar(level, heuristic);
+    SearchResult result = astar(level, heuristic);
     
     time(&rawtime);
     timeinfo = localtime(&rawtime);
     cerr << asctime(timeinfo) << endl;
 
-#if 0
     if (result.success)
     {
         cerr << "A* search succeeded" << endl;
@@ -150,8 +149,6 @@ int main(int argc, char* argv[])
 
     cerr << "A* search failed" << endl;
     return 1;
-#endif
-    return 0;
 }
 
 
