@@ -85,9 +85,15 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
 
 cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::get_hscore(size_t cell, uint16_t gears_bitfield)
 {
-    cost_t *cost_ptr = &hscore_table[((cell * num_gears) + gears_bitfield)];
+#if 0
+    fprintf(stderr, "cell=%lu num_gears=%lu gears=0x%04x\n", cell, num_gears, gears_bitfield);
+#endif
+    cost_t *cost_ptr = &(hscore_table[cell * (1 << num_gears) + gears_bitfield]);
     if (*cost_ptr != COST_UNKNOWN)
     {
+#if 0
+        fprintf(stderr, "    cost already known %p (%d)\n", cost_ptr, *cost_ptr);
+#endif
         return *cost_ptr;
     }
 
@@ -96,11 +102,13 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::get_hscore(size_t c
     {
         size_t exit_cell = ((level.exit_coord_.y * floor_width) + level.exit_coord_.x);
         *cost_ptr = cell_to_cell_dist(cell, exit_cell);
+#if 0
+        fprintf(stderr, "    robot-to-exit distance %lu..%lu is %d\n", cell, exit_cell, *cost_ptr);
+#endif
         return *cost_ptr;
     }
-    
+
     cost_t best_cost = COST_INFINITY;
-    size_t num_gears = level.gear_coords_.size();
     for (size_t i = 0; i < num_gears; i++)
     {
         uint16_t checkbit = 1 << i;
@@ -123,5 +131,9 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::get_hscore(const No
 {
     size_t robot_cell = ((node.player_coord_.y * floor_width) + node.player_coord_.x);
     uint16_t gears_bitfield = node.gear_descriptor_.bitfield;
-    return get_hscore(robot_cell, gears_bitfield);
+    cost_t hscore = get_hscore(robot_cell, gears_bitfield);
+#if 0
+    fprintf(stderr, "getting hscore for robot at (%u,%u)...%d\n", node.player_coord_.x, node.player_coord_.y, hscore);
+#endif
+    return hscore;
 }

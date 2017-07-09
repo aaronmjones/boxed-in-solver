@@ -146,7 +146,11 @@ struct ShortestManhattenDistanceThroughGearsToExitHeuristic : public Heuristic
         , num_gears(level.gear_coords_.size())
         , tile_to_tile_cost_table(num_tiles)
     {
-        size_t sz = num_tiles * (2 ^ num_gears);
+        size_t sz = num_tiles * (1 << num_gears);
+#if 0
+        fprintf(stderr, "floor_width %lu floor_height %lu num_tiles %lu num_gears %lu\n", floor_width, floor_height, num_tiles, num_gears);
+        fprintf(stderr, "allocating hscore_table of size %lu ===========================================\n", sz);
+#endif
         hscore_table = new cost_t[sz];
         for (size_t i = 0; i < sz; i++)
         {

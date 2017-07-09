@@ -82,7 +82,6 @@ int main(int argc, char* argv[])
     }
 
     // Parse the level
-    LevelState lvlstate;//TODO: remove
     vector<vector<char> > charmap;
     if (filename)
     {

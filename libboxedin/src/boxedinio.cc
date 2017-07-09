@@ -109,6 +109,10 @@ void ParseCharMap(istream& in, vector<vector<char> >& charmap)
             break;
         }
     }
+    if (!row.empty())
+    {
+        charmap.push_back(row);
+    }
 }
 
 bool IsValidBoxedInLevel(vector<vector<char> >& charmap)

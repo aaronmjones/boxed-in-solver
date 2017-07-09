@@ -22,7 +22,9 @@ vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
             {
                 int tile_index = i * node.box_descriptor_.kBitfieldWidth + bit_index;
                 Coord box( tile_index % floor_width, tile_index / floor_width );
+#if 0
                 fprintf(stderr, "box: tile_index=%d x=%u y=%u\n", tile_index, box.x, box.y);//TODO: remove
+#endif
                 level_map[box.y][box.x] = '+';
             }
         }

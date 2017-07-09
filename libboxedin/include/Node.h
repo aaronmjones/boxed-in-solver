@@ -34,10 +34,12 @@ struct BoxDescriptorLite
         {
             set_box_bit( floor_width, *it );
         }
+#if 0
         for (size_t i = 0; i < bitfields.size(); i++)//TODO: remove
         {
             fprintf(stderr, "bitfields[%d]=0x%016lx\n", (int)i, bitfields[i]);
         }
+#endif
     }
 
     void set_box_bit( int floor_width, const Coord& coord )
@@ -45,8 +47,10 @@ struct BoxDescriptorLite
         int tile_index = get_tile_index( floor_width, coord );
         int bitfield_index = get_bitfield_index( tile_index );
         int bit_offset = get_bit_offset( tile_index );
+#if 0
         fprintf(stderr, "box: set bit for x=%u y=%u tile_index=%d bitfield_index=%d bit_offset=%d\n",
                 coord.x, coord.y, tile_index, bitfield_index, bit_offset);//TODO: remove
+#endif
         bitfields[bitfield_index] |= ((uint64_t)1 << bit_offset);
     }
     

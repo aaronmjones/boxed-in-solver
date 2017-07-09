@@ -148,8 +148,8 @@ typedef size_t key_type;
 /** The type used for f, g and h values. */
 typedef int cost_t;
 
-#define COST_INFINITY (INT_MAX-0)
-#define COST_UNKNOWN  (INT_MAX-1)
+#define COST_INFINITY ((cost_t)(INT_MAX-0))
+#define COST_UNKNOWN  ((cost_t)(INT_MAX-1))
 
 /**
    \struct ActionPoint

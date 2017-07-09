@@ -50,7 +50,7 @@ Node::Node(const Level& level, Heuristic& heuristic, Node& node, const Action& a
         box_descriptor_.MoveRight( (int)level.floor_plan_[0].size(), action.point );
         break;
     }
-    hscore_ = heuristic.get_hscore(*this);
+    hscore_ = heuristic.get_hscore(*this); //FIXME: hscore seems to always be the same value; is there a bug here?
 }
     
 bool operator<(const BoxDescriptorLite& l, const BoxDescriptorLite& r)

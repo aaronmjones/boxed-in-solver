@@ -590,15 +590,21 @@ set<Node*, NodeCompare> open_set;
 
 vector<list<Node*> > openset_fscore_nodes;
 
+// FIXME: this doesn't work as well as I hoped; have to continuously iterate over openset_fscore_nodes from index 0
+// to find the next best fscore
 Node* get_next_best_fscore_node(cost_t current_fscore)
 {
     Node* node = NULL;
-    cost_t fscore = current_fscore;
-    while ( fscore < MAX_FSCORE )
+//    cost_t fscore = current_fscore;
+    cost_t fscore = 0; //FIXME (debugging)
+    while ( (node == NULL) && (fscore < MAX_FSCORE) )
     {
         list<Node*>& nodes = openset_fscore_nodes[fscore];
         if ( nodes.empty() )
         {
+#if 0
+            fprintf(stderr, "empty node list at index %d\n", (int)fscore);
+#endif
             fscore++;
             continue;
         }
@@ -668,10 +674,10 @@ list<Action> find_actions(const Level& level, const Node& node)
     uint8_t floor_height = (uint8_t)level.floor_plan_.size();
     bool draw_player = false;
     vector<vector<char> > level_map = level.Map( node, draw_player ); // TODO: rename to level.MakeFloodFillMap()?
-
+#if 0
     fprintf(stderr, "finding actions for:\n");
     PrintCharMapInColor(cerr, level_map);
-
+#endif
     //// Flood fill to find all action points ////
 
     // TODO: should you consider the tile the robot is currently on here? it seems like
@@ -685,10 +691,10 @@ list<Action> find_actions(const Level& level, const Node& node)
     {
         FloodFillNode ffnode = flood_fill_queue.front();
         Coord& coord = ffnode.coord;
-
+#if 0
         fprintf(stderr, "flood fill map:\n");
         PrintCharMapInColor(cerr, level_map);
-
+#endif
         // Skip node if it's position has been filled
         if (level_map[coord.y][coord.x] == '-')
         {
@@ -801,11 +807,12 @@ list<Node*> generate_successors(const Level& level, Heuristic& heuristic, Node& 
     list<Node*> successors;
     list<Action> actions = find_actions( level, node );
 
-#if 1 // FIXME: what did I need level.Map for?
+#if 0 // FIXME: what did I need level.Map for?
     bool draw_player = true;
     vector<vector<char> > level_map = level.Map( node, draw_player );
-    fprintf(stderr, "generating successors for:\n");
+    fprintf(stderr, "generating successors for: ==============================================\n");
     PrintCharMapInColor(cerr, level_map);
+    fprintf(stderr, "f = g + h  g=%u h=%u\n", node.gscore_, node.hscore_);
 #endif
 
     list<Action>::iterator it;
@@ -818,8 +825,9 @@ list<Node*> generate_successors(const Level& level, Heuristic& heuristic, Node& 
     return successors;
 }
 
-void astar(Level& level, Heuristic& heuristic)
+SearchResult astar(Level& level, Heuristic& heuristic)
 {
+    SearchResult result;
     Node* start = Node::MakeStartNode(level, heuristic);
     
     open_set.insert(start);
@@ -835,7 +843,9 @@ void astar(Level& level, Heuristic& heuristic)
     while ( (node = get_next_best_fscore_node(fscore)) != NULL )
     {
         fscore = node->fscore();
-
+#if 1
+        fprintf(stderr, "fscore is %d\n", fscore);
+#endif
         if (node->better_gscore_found_)
         {
             delete node;
@@ -845,22 +855,36 @@ void astar(Level& level, Heuristic& heuristic)
         if ( node->IsGoal(level) )
         {
             fprintf(stderr, "astar search found solution!!!\n");
-            return;
+            result.SetSucceeded( node );
+            return result;
         }
 
         open_set.erase(node);
         closed_set.insert(node);
 
         list<Node*> successors = generate_successors(level, heuristic, *node);
-        
+
+#if 0
+        fprintf(stderr, "%lu successors found\n", successors.size());
+#endif
         for ( list<Node*>::iterator it = successors.begin(); it != successors.end(); ++it )
         {
             Node* successor = *it;
 
+#if 0
+            bool draw_player = true;
+            vector<vector<char> > level_map = level.Map( *successor, draw_player );
+            fprintf(stderr, "successor -------------------------------------------\n");
+            PrintCharMapInColor(cerr, level_map);
+#endif
+            
             // successor already in closed set?
             set<Node*, NodeCompare>::iterator it_closed = closed_set.find(successor);
             if ( it_closed != closed_set.end() )
             {
+#if 0
+                fprintf(stderr, "dropping node already in closedset\n");
+#endif
                 delete successor;
                 continue;
             }
@@ -871,6 +895,7 @@ void astar(Level& level, Heuristic& heuristic)
             {
                 if ( successor->gscore_ < (*it_open)->gscore_)
                 {
+                    fprintf(stderr, "found better gscore!\n");
                     // better gscore found!!!
                     // Optimization: instead of removing the old node from the open_set and openset_fscore_nodes,
                     // just flag it for deletion.
@@ -878,6 +903,9 @@ void astar(Level& level, Heuristic& heuristic)
                 }
                 else
                 {
+#if 0
+                    fprintf(stderr, "dropping node already in openset\n");
+#endif
                     delete successor;
                     continue;
                 }
@@ -886,13 +914,18 @@ void astar(Level& level, Heuristic& heuristic)
             // new search node!!!
             if ( successor->fscore() < MAX_FSCORE)
             {
+#if 0
+                fprintf(stderr, " inserting successor with fscore=%d\n", successor->fscore());
+#endif
                 open_set.insert( successor );
                 openset_fscore_nodes[successor->fscore()].push_back( successor );
             }
             else
             {
+#if 0
                 fprintf(stderr, "warning: dropping node with fscore %d (>%d)\n",
                         successor->fscore(), MAX_FSCORE);
+#endif
                 delete successor;
                 continue;
             }            
@@ -901,6 +934,8 @@ void astar(Level& level, Heuristic& heuristic)
     } // end while
 
     //TODO: delete heap memory
+    result.SetFailed();
+    return result;
 }
 
 } // namespace boxedin
