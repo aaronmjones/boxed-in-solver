@@ -1,9 +1,14 @@
 #include "Heuristic.h"
 #include "Node.h"
 
+using namespace boost;
+
 namespace boxedin
 {
 
+#if USE_NODE_MEMORY_POOL
+pool<default_user_allocator_new_delete> memory_pool(sizeof(Node), MEMORY_POOL_NCHUNKS_START_SIZE);
+#endif
 
 Node::Node(const Level& level, Heuristic& heuristic)
     : predecessor_(NULL)
@@ -52,7 +57,19 @@ Node::Node(const Level& level, Heuristic& heuristic, Node& node, const Action& a
     }
     hscore_ = heuristic.get_hscore(*this); //FIXME: hscore seems to always be the same value; is there a bug here?
 }
-    
+
+#ifdef USE_NODE_MEMORY_POOL
+void* Node::operator new(size_t sz)
+{
+    return memory_pool.malloc();
+}
+
+void Node::operator delete(void* p)
+{
+    memory_pool.free(p);
+}
+#endif
+
 bool operator<(const BoxDescriptorLite& l, const BoxDescriptorLite& r)
 {
     if (l.bitfields.size() == r.bitfields.size())

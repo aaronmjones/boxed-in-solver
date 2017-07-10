@@ -31,7 +31,8 @@ CXXSOURCES += \
 	src/Heuristic.cc
 
 INCPATH += \
-	-Iinclude
+	-Iinclude \
+	-I../boost_1_64_0
 
 #LIBPATH +=
 #LIBS += -lstdc++

@@ -590,13 +590,11 @@ set<Node*, NodeCompare> open_set;
 
 vector<list<Node*> > openset_fscore_nodes;
 
-// FIXME: this doesn't work as well as I hoped; have to continuously iterate over openset_fscore_nodes from index 0
-// to find the next best fscore
 Node* get_next_best_fscore_node(cost_t current_fscore)
 {
     Node* node = NULL;
-//    cost_t fscore = current_fscore;
-    cost_t fscore = 0; //FIXME (debugging)
+    cost_t fscore = current_fscore;
+//    cost_t fscore = 0; //FIXME (debugging)
     while ( (node == NULL) && (fscore < MAX_FSCORE) )
     {
         list<Node*>& nodes = openset_fscore_nodes[fscore];
@@ -802,17 +800,86 @@ list<Action> find_actions(const Level& level, const Node& node)
     return actions;
 }
 
+int is_boxing_char(char c)
+{
+    switch (c)
+    {
+    case '\'':
+    case 'x':
+    case '+':
+        return 1;
+    default:
+        return 0;
+    }
+}
+
+bool boxed_in(const Coord& coord, vector<vector<char> >& level_map)
+{
+    uint8_t x = coord.x;
+    uint8_t y = coord.y;
+    uint8_t floor_width = (uint8_t)level_map[0].size();
+    uint8_t floor_height = (uint8_t)level_map.size();
+    
+    int nw = (x > 0 && y > 0) ? is_boxing_char(level_map[y-1][x-1]) : 0;
+    int n = (y > 0) ? is_boxing_char(level_map[y-1][x]) : 0;
+    int ne = (x < floor_width-1 && y > 0) ? is_boxing_char(level_map[y-1][x+1]) : 0;
+    int e = (x < floor_width-1) ? is_boxing_char(level_map[y][x+1]) : 0;
+    int se = (x < floor_width-1 && y < floor_height-1) ? is_boxing_char(level_map[y+1][x+1]) : 0;
+    int s = (y < floor_height-1) ? is_boxing_char(level_map[y+1][x]) : 0;
+    int sw = (x > 0 && y < floor_height-1) ? is_boxing_char(level_map[y+1][x-1]) : 0;
+    int w = (x > 0) ? is_boxing_char(level_map[y][x-1]) : 0;
+#if 0
+    fprintf(stderr, "-----------\n");
+    fprintf(stderr, "  %d%d%d\n", nw, n, ne);
+    fprintf(stderr, "  %d %d\n", w, e);
+    fprintf(stderr, "  %d%d%d\n", sw, s, se);
+#endif
+    if ( (n + s + e + w == 4) &&
+         (nw + ne + se + sw >= 3) )
+    {
+        return true; // char c is boxed in!
+    }
+    return false;
+}
+
+bool is_unsolvable(const Level& level, Node& node, vector<vector<char> >& level_map)
+{
+    if ( boxed_in(level.exit_coord_, level_map) )
+    {
+        return true;
+    }
+
+    int sz = (int)level.gear_coords_.size();
+    for (int i = 0; i < sz; i++)
+    {
+        uint16_t bitmask = (uint16_t)1 << i;
+        if ( ((bitmask & node.gear_descriptor_.bitfield) == bitmask) )
+        {
+            if ( boxed_in(level.gear_coords_[i], level_map) )
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 list<Node*> generate_successors(const Level& level, Heuristic& heuristic, Node& node)
 {
     list<Node*> successors;
     list<Action> actions = find_actions( level, node );
 
-#if 0 // FIXME: what did I need level.Map for?
+#if 1
     bool draw_player = true;
     vector<vector<char> > level_map = level.Map( node, draw_player );
-    fprintf(stderr, "generating successors for: ==============================================\n");
-    PrintCharMapInColor(cerr, level_map);
-    fprintf(stderr, "f = g + h  g=%u h=%u\n", node.gscore_, node.hscore_);
+    if ( is_unsolvable(level, node, level_map) )
+    {
+#if 0
+        fprintf(stderr, "pruning unsolvable level---------------------------\n");
+        PrintCharMapInColor(cerr, level_map);
+#endif
+        return successors;
+    }
 #endif
 
     list<Action>::iterator it;
@@ -842,20 +909,26 @@ SearchResult astar(Level& level, Heuristic& heuristic)
     
     while ( (node = get_next_best_fscore_node(fscore)) != NULL )
     {
-        fscore = node->fscore();
 #if 1
-        fprintf(stderr, "fscore is %d\n", fscore);
+        if ( fscore != node->fscore() )
+        {
+            fprintf(stderr, "fscore is %d\n", fscore);
+        }
 #endif
+        fscore = node->fscore();
+
         if (node->better_gscore_found_)
         {
+#if 0
+            fprintf(stderr, "dropping a node (better gscore was found)\n");
+#endif
             delete node;
             continue;
         }
 
         if ( node->IsGoal(level) )
         {
-            fprintf(stderr, "astar search found solution!!!\n");
-            result.SetSucceeded( node );
+            result.SetSucceeded( node, open_set.size(), closed_set.size() );
             return result;
         }
 
@@ -895,9 +968,10 @@ SearchResult astar(Level& level, Heuristic& heuristic)
             {
                 if ( successor->gscore_ < (*it_open)->gscore_)
                 {
+#if 0
                     fprintf(stderr, "found better gscore!\n");
-                    // better gscore found!!!
-                    // Optimization: instead of removing the old node from the open_set and openset_fscore_nodes,
+#endif
+                    // Instead of removing the old node from the open_set and openset_fscore_nodes,
                     // just flag it for deletion.
                     (*it_open)->better_gscore_found_ = true;
                 }
@@ -934,7 +1008,7 @@ SearchResult astar(Level& level, Heuristic& heuristic)
     } // end while
 
     //TODO: delete heap memory
-    result.SetFailed();
+    result.SetFailed(open_set.size(), closed_set.size());
     return result;
 }
 

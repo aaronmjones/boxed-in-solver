@@ -19,7 +19,8 @@ CXXSOURCES += \
 	ViewSolution.cc
 
 INCPATH += \
-	-I../libboxedin/include
+	-I../libboxedin/include \
+	-I../boost_1_64_0
 
 LIBPATH += \
 	-L../libboxedin

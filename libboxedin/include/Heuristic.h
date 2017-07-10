@@ -44,8 +44,9 @@ struct Heuristic
 //     table_offset = rect_offset - (∑ 1 to y);
 //     table_offset = rect_offset - ((y * (y + 1)) / 2);
 
-struct SymmetricCostTable
+class SymmetricCostTable
 {
+public:
     cost_t* table;
     size_t table_width;
     
@@ -103,6 +104,9 @@ struct SymmetricCostTable
         cost_t* cost = &table[memory_offset];
         return cost;
     }
+private:
+    SymmetricCostTable(SymmetricCostTable& other); // no copy
+    SymmetricCostTable& operator=(SymmetricCostTable& other); // no copy
 };
 
 

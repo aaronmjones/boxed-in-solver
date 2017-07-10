@@ -6,6 +6,15 @@
 #include "Heuristic.h"
 #include "Level.h"
 
+
+#define USE_NODE_MEMORY_POOL 1
+
+
+#if USE_NODE_MEMORY_POOL
+#include <boost/pool/pool.hpp>
+#define MEMORY_POOL_NCHUNKS_START_SIZE 4096
+#endif
+
 using namespace std;
 
 namespace boxedin
@@ -226,7 +235,14 @@ public:
     {
         return (gear_descriptor_.bitfield == 0) && (player_coord_ == level.exit_coord_);
     }
+
+#ifdef USE_NODE_MEMORY_POOL
+    void* operator new(size_t sz);
+
+    void operator delete(void* p);
+#endif
 };
+
 
 
 bool operator<(const BoxDescriptorLite& l, const BoxDescriptorLite& r);

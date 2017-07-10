@@ -116,7 +116,6 @@ int main(int argc, char* argv[])
     timeinfo = localtime(&rawtime);
     cerr << asctime(timeinfo) << endl;
 
-    fprintf(stderr, "making level\n");
     Level level = Level::MakeLevel(charmap);
 
     ShortestManhattenDistanceThroughGearsToExitHeuristic heuristic(level);

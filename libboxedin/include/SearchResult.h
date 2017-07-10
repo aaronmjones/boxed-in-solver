@@ -50,7 +50,7 @@ namespace boxedin {
 
             GetMemUsage(memusage);
         }
-
+#if 0
         void SetFailed()
         {
             search_stop_time = std::chrono::steady_clock::now();
@@ -58,9 +58,9 @@ namespace boxedin {
 
             GetMemUsage(memusage);
         }
-
+#endif
         void SetSucceeded(const BoxedInNode* node,
-            size_t openset_size, size_t closedset_size)
+                          size_t openset_size, size_t closedset_size)
         {
             search_stop_time = std::chrono::steady_clock::now();
             success = true;
@@ -78,10 +78,12 @@ namespace boxedin {
             }
         }
 
-        void SetSucceeded(const Node* node)
+        void SetSucceeded(const Node* node, size_t openset_size, size_t closedset_size)
         {
             search_stop_time = std::chrono::steady_clock::now();
             success = true;
+            this->openset_size = openset_size;
+            this->closedset_size = closedset_size;
 
             GetMemUsage(memusage);
 
