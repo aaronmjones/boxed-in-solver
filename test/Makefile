@@ -3,7 +3,9 @@ GTEST_DIR=/home/ajones/development/googletest/googletest
 
 LIBGTEST=libgtest.a
 GTESTALL=gtest-all.o
-SUBDIRS=symmetric_cost_table
+SUBDIRS=\
+	symmetric_cost_table \
+	encoded_path
 
 all: $(LIBGTEST) $(SUBDIRS)
 
