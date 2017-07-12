@@ -21,7 +21,6 @@ CXXFLAGS+=-O3
 endif
 
 CXXSOURCES += \
-	src/BoxedInNode.cc \
 	src/LevelState.cc \
 	src/boxedinio.cc \
 	src/astar.cc \

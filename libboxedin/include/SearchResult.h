@@ -13,6 +13,7 @@
 #include "memusage.h"
 #include "boxedintypes.h"
 #include "Node.h"
+#include "EncodedPath.h"
 
 namespace boxedin {
 
@@ -29,7 +30,7 @@ namespace boxedin {
         size_t closedset_size;
         std::chrono::steady_clock::time_point search_start_time;
         std::chrono::steady_clock::time_point search_stop_time;
-        std::list<Path> solution; // if search succeeded
+        std::string solution; // if search succeeded
         MemUsage memusage;
 
         SearchResult()
@@ -50,34 +51,6 @@ namespace boxedin {
 
             GetMemUsage(memusage);
         }
-#if 0
-        void SetFailed()
-        {
-            search_stop_time = std::chrono::steady_clock::now();
-            success = false;
-
-            GetMemUsage(memusage);
-        }
-#endif
-        void SetSucceeded(const BoxedInNode* node,
-                          size_t openset_size, size_t closedset_size)
-        {
-            search_stop_time = std::chrono::steady_clock::now();
-            success = true;
-            this->openset_size = openset_size;
-            this->closedset_size = closedset_size;
-
-            GetMemUsage(memusage);
-
-            num_moves = 0;
-            while (node)
-            {
-                num_moves += (int)node->path.size();
-                solution.push_front(node->path);
-                node = node->parent;
-            }
-        }
-
         void SetSucceeded(const Node* node, size_t openset_size, size_t closedset_size)
         {
             search_stop_time = std::chrono::steady_clock::now();
@@ -91,7 +64,24 @@ namespace boxedin {
             while (node)
             {
                 num_moves += (int)node->path_.size();
-                solution.push_front(node->path_);
+                for (int i = 0; i < (int)node->path_.size(); i++)
+                {
+                    switch (node->path_.at(i))
+                    {
+                    case ENCODED_PATH_DIRECTION_UP:
+                        solution.insert(0, 1, 'U');
+                        break;
+                    case ENCODED_PATH_DIRECTION_DOWN:
+                        solution.insert(0, 1, 'D');
+                        break;
+                    case ENCODED_PATH_DIRECTION_LEFT:
+                        solution.insert(0, 1, 'L');
+                        break;
+                    case ENCODED_PATH_DIRECTION_RIGHT:
+                        solution.insert(0, 1, 'R');
+                        break;
+                    }
+                }
                 node = node->predecessor_;
             }
         }

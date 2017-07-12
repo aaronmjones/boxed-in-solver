@@ -1,4 +1,5 @@
 #include "boxedintypes.h" // cost_t
+#include "FloodFillNode.h"
 #include "Heuristic.h"
 #include "Node.h"
 
@@ -48,7 +49,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
         if ( (coord.y > 0) && (floor_plan[coord.y-1][coord.x] == ' ') )
         {
             FloodFillNode up( ffnode ); // copy of node
-            up.path.push_back('U');
+            up.path.push_back(ENCODED_PATH_DIRECTION_UP);
             up.coord.y--;
             flood_fill_queue.push( up );
         }
@@ -56,7 +57,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
         if ( (coord.y < floor_height-1) && (floor_plan[coord.y+1][coord.x] == ' ') )
         {
             FloodFillNode down( ffnode ); // copy of node
-            down.path.push_back('D');
+            down.path.push_back(ENCODED_PATH_DIRECTION_DOWN);
             down.coord.y++;
             flood_fill_queue.push( down );
         }
@@ -64,7 +65,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
         if ( (coord.x > 0) && (floor_plan[coord.y][coord.x-1] == ' ') )
         {
             FloodFillNode left( ffnode ); // copy of node
-            left.path.push_back('L');
+            left.path.push_back(ENCODED_PATH_DIRECTION_LEFT);
             left.coord.x--;
             flood_fill_queue.push( left );
         }
@@ -72,7 +73,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
         if ( (coord.x < floor_width-1) && (floor_plan[coord.y][coord.x+1] == ' ') )
         {
             FloodFillNode right( ffnode ); // copy of node
-            right.path.push_back('R');
+            right.path.push_back(ENCODED_PATH_DIRECTION_RIGHT);
             right.coord.x++;
             flood_fill_queue.push( right );
         }

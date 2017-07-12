@@ -30,6 +30,7 @@ void usage(void);
 
 int main(int argc, char* argv[])
 {
+#if 0
     /* run count -1 means infinite */
     int run_count = -1;
     int run_index = 0;
@@ -74,10 +75,10 @@ int main(int argc, char* argv[])
         solution_path = argv[optind];
     }
 
-        ifstream level_istream(level_path);
-        ifstream solution_istream(solution_path);
+    ifstream level_istream(level_path);
+    ifstream solution_istream(solution_path);
 
-        /* Parse the level */
+    /* Parse the level */
     LevelState initialLevelState;
     boxedin::io::ParseLevel(level_istream, initialLevelState);
 
@@ -139,7 +140,7 @@ int main(int argc, char* argv[])
             run_index++;
         }
     }
-
+#endif
     return 0;
 }
 

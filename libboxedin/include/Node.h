@@ -2,7 +2,9 @@
 #define BOXED_IN_NODE
 
 #include <stdio.h>
+#include <string.h>
 #include "boxedintypes.h"
+#include "EncodedPath.h"
 #include "Heuristic.h"
 #include "Level.h"
 
@@ -28,10 +30,6 @@ struct BoxDescriptorLite
     vector<uint64_t> bitfields;
     static const int kBitfieldWidth = (sizeof(uint64_t) * 8);
 
-    BoxDescriptorLite()
-    {
-    }
-    
     BoxDescriptorLite(const vector<Coord>& box_coords, size_t floor_width, size_t floor_height)
     {
         size_t num_tiles = floor_width * floor_height;
@@ -163,9 +161,9 @@ enum ActionType
 struct Action
 {
     ActionType type;
-    vector<char> path;
+    EncodedPath path;
     Coord point;
-    Action(ActionType type, vector<char>& path, Coord& point)
+    Action(ActionType type, EncodedPath& path, Coord& point)
         : type(type)
         , path(path)
         , point(point)
@@ -186,8 +184,8 @@ public:
     // Pointer to the Node that spawned this Node; NULL for the beginning Node
     Node* predecessor_;
 
-    vector<char> path_;
-    
+    EncodedPath path_;
+
     /** \name Fields that uniquely identify the Node */
 /**@{*/
     // The current coordinate of the player
@@ -211,13 +209,6 @@ public:
 
     cost_t gscore_; // cost from start to this node
     cost_t hscore_; // estimated cost form this node to goal
-    Node()
-        : predecessor_(NULL)
-        , better_gscore_found_(false)
-        , gscore_(0)
-        , hscore_(0)
-    {
-    }
 
     Node(const Level& level, Heuristic& heuristic);
 

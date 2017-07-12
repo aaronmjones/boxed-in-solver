@@ -15,55 +15,10 @@
 
 #include "boxedindefs.h"
 #include "boxedintypes.h"
-#include "BoxedInNode.h"
 #include "LevelState.h"
 #include "SearchResult.h"
 
 namespace boxedin {
-/**
- \namespace boxedin::io
- \brief Classes and static functions use for I/O.
-
- \section levelfile_sec Level File
-
- \subsection levelfilechars_sec Level File Characters
- \brief A level file is composed of the following characters
- \verbatim
- ' space
- x wall
-   floor (space character)
- + box
- * gear
- r red switch
- g green switch
- b blue switch
- y yellow switch
- R red gate
- G green gate
- B blue gate
- Y yellow gate
- @ exit
-  \endverbatim
-
-  \subsection levelfileexample_sec Level File Example
-  \brief Game 1, Level 37 (levels/01/37.txt):
-  \verbatim
-''''''''''
-xxxxxxxxxx
-xp   +   x
-xr Y + x x
-x  x*x   x
-x   +xx yx
-xxx++ x x'
-x +     x'
-'x xx x x'
-'x      x'
-'xRxxxxGx'
-'xg*x'x@x'
-'xxxx'xxx'
-''''''''''
-  \endverbatim
- */
 namespace io {
 
 /** This is a flag indicating whether to print Boxed In levels in color. */
@@ -87,13 +42,6 @@ std::ostream& operator<<(std::ostream& out, const boxedin::charmap& lvlmap);
 std::ostream& operator<<(std::ostream& out, const boxedin::Path& path);
 /** \relates Coord */
 std::ostream& operator<<(std::ostream& out, const boxedin::Coord& coord);
-/**
-   \relates boxedin::BoxedInNode
-   Print a BoxedInNode.
- */
-std::ostream& operator<<(std::ostream& out, const boxedin::BoxedInNode* goal);
-std::ostream& operator<<(std::ostream& out, const boxedin::BoxedInNode& node);
-std::ostream& operator<<(std::ostream& out, const boxedin::ActionPoints& actionPoints);
 std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Path>& solution);
 std::ostream& operator<<(std::ostream& out, const boxedin::SearchResult& result);
 
