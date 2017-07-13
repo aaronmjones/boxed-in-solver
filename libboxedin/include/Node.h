@@ -27,26 +27,22 @@ struct Heuristic; // forward
 
 struct BoxDescriptorLite
 {
-    vector<uint64_t> bitfields;
+    static const int size = 3;
+    uint64_t bitfields[size];
     static const int kBitfieldWidth = (sizeof(uint64_t) * 8);
 
     BoxDescriptorLite(const vector<Coord>& box_coords, size_t floor_width, size_t floor_height)
     {
-        size_t num_tiles = floor_width * floor_height;
-        size_t bitfields_size = (num_tiles + (floor_width - 1)) / kBitfieldWidth;
-        bitfields.resize( bitfields_size );
+        for (size_t i = 0; i < size; i++)
+        {
+            bitfields[i] = 0;
+        }
         
         vector<Coord>::const_iterator it;
         for (it = box_coords.begin(); it != box_coords.end(); ++it)
         {
             set_box_bit( floor_width, *it );
         }
-#if 0
-        for (size_t i = 0; i < bitfields.size(); i++)//TODO: remove
-        {
-            fprintf(stderr, "bitfields[%d]=0x%016lx\n", (int)i, bitfields[i]);
-        }
-#endif
     }
 
     void set_box_bit( int floor_width, const Coord& coord )

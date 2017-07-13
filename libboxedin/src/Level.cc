@@ -11,7 +11,7 @@ vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
     vector<vector<char> > level_map = floor_plan_;
     
     // set boxes
-    sz = (int)node.box_descriptor_.bitfields.size();
+    sz = (int)node.box_descriptor_.size;
     for (int i = 0; i < sz; i++)
     {
         uint64_t bitfield = node.box_descriptor_.bitfields[i];
