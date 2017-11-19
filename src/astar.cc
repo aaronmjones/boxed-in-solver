@@ -36,7 +36,6 @@ Node* get_next_best_fscore_node(cost_t current_fscore)
 {
     Node* node = NULL;
     cost_t fscore = current_fscore;
-//    cost_t fscore = 0; //FIXME (debugging)
     while ( (node == NULL) && (fscore < MAX_FSCORE) )
     {
         list<Node*>& nodes = openset_fscore_nodes[fscore];

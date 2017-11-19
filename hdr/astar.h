@@ -19,7 +19,6 @@
 
 #include "boxedindefs.h"
 #include "boxedintypes.h"
-#include "LevelState.h"
 #include "SearchResult.h"
 #include "Node.h"
 #include "Level.h"

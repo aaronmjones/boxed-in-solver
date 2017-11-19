@@ -8,9 +8,8 @@
 #include "Heuristic.h"
 #include "Level.h"
 
-
+// Use memory pool for Node allocation?
 #define USE_NODE_MEMORY_POOL 1
-
 
 #if USE_NODE_MEMORY_POOL
 #include <boost/pool/pool.hpp>

@@ -37,3 +37,12 @@ To run the solver on Boxed In 3, Level 7 data, execute the following from the **
 bin/solve data/levels/3/07.txt
 ```
 
+## view-solution
+
+To run the solution viewer on Boxed In 1, Level 7 data, execute the following from the **boxed-in-solver** directory:
+
+```
+bin/view-solution data/levels/1/07.txt data/solutions/1/07.txt
+```
+
+![view-solution](images/view-solution.png)

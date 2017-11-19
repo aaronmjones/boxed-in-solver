@@ -30,7 +30,7 @@ void usage(void);
 
 int main(int argc, char* argv[])
 {
-#if 0
+#if 1
     /* run count -1 means infinite */
     int run_count = -1;
     int run_index = 0;
@@ -62,9 +62,11 @@ int main(int argc, char* argv[])
     }
 
     /* Handle remaining command line arguments */
-        char* level_path = NULL;
-        char* solution_path = NULL;
+    char* level_path = NULL;
+    char* solution_path = NULL;
 
+    // FIXME: error if level path and solution path not given
+    
     if (optind < argc)
     {
         level_path = argv[optind++];
@@ -79,66 +81,67 @@ int main(int argc, char* argv[])
     ifstream solution_istream(solution_path);
 
     /* Parse the level */
-    LevelState initialLevelState;
-    boxedin::io::ParseLevel(level_istream, initialLevelState);
+    vector<vector<char> > charmap;
+    boxedin::io::ParseCharMap(level_istream, charmap);
+    Level level = Level::MakeLevel(charmap);
 
     /* Parse the solution */
     Path path;
     boxedin::io::ParseSolution(solution_istream, path);
 
-    LevelState currentLevelState(initialLevelState);
-    charmap lvlmap;
     while (run_count == -1 || run_index < run_count)
     {
-        // Reset level state
-        currentLevelState = initialLevelState;
-        LevelState::MakeLevelMap(lvlmap, currentLevelState);
+      // Reset level state
+      Level currentLevel = level;
+      charmap = currentLevel.Map();
 
-        int move_index = 0;
-        int move_count = (int)path.size();
+      int move_index = 0;
+      int move_count = (int)path.size();
 
+      cout << clear_screen;
+      cout << "Move " << move_index++ << " / " << move_count << endl;
+//      cout << charmap << endl;
+      PrintCharMapInColor(cout, charmap);
+      this_thread::sleep_for(chrono::seconds(1));
+
+      for (Path::iterator it = path.begin(); it != path.end(); ++it)
+      {
+        char c = toupper(*it);
+        switch (c)
+        {
+        case 'U':
+          currentLevel.MoveUp();
+          break;
+        case 'D':
+          currentLevel.MoveDown();
+          break;
+        case 'L':
+          currentLevel.MoveLeft();
+          break;
+        case 'R':
+          currentLevel.MoveRight();
+          break;
+        default:
+          cerr << "Unrecognized char in path file: " << c << endl;
+          exit(1);
+        }
+        currentLevel.TryPickupGear();
+
+        charmap = currentLevel.Map();
         cout << clear_screen;
         cout << "Move " << move_index++ << " / " << move_count << endl;
-        cout << lvlmap << endl;
-        this_thread::sleep_for(chrono::seconds(1));
+//        cout << charmap << endl;
+        PrintCharMapInColor(cout, charmap);
+        cout.flush();
 
-        for (Path::iterator it = path.begin(); it != path.end(); ++it)
-        {
-            char c = toupper(*it);
-            switch (c)
-            {
-            case 'U':
-                currentLevelState.MoveUp();
-                break;
-            case 'D':
-                currentLevelState.MoveDown();
-                break;
-            case 'L':
-                currentLevelState.MoveLeft();
-                break;
-            case 'R':
-                currentLevelState.MoveRight();
-                break;
-            default:
-                cerr << "Unrecognized char in path file: " << c << endl;
-                exit(1);
-            }
-            currentLevelState.PickupGear();
+        this_thread::sleep_for(chrono::milliseconds(250));
+      }
 
-            LevelState::MakeLevelMap(lvlmap, currentLevelState);
-            cout << clear_screen;
-            cout << "Move " << move_index++ << " / " << move_count << endl;
-            cout << lvlmap << endl;
-            cout.flush();
-
-            this_thread::sleep_for(chrono::milliseconds(250));
-        }
-
-        this_thread::sleep_for(chrono::seconds(2));
-        if (run_index != -1)
-        {
-            run_index++;
-        }
+      this_thread::sleep_for(chrono::seconds(2));
+      if (run_index != -1)
+      {
+        run_index++;
+      }
     }
 #endif
     return 0;

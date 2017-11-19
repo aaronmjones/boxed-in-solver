@@ -14,7 +14,6 @@ add_executable(solve
                src/BoxedInSolver.cc
                src/Heuristic.cc
                src/Level.cc
-               src/LevelState.cc
                src/memusage.cc
                src/Node.cc
 )
@@ -28,6 +27,7 @@ target_include_directories(solve PRIVATE
 
 add_executable(view-solution
                src/boxedinio.cc
+               src/Level.cc
                src/ViewSolution.cc
 )
 

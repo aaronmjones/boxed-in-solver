@@ -15,7 +15,6 @@
 
 #include "boxedindefs.h"
 #include "boxedintypes.h"
-#include "LevelState.h"
 #include "SearchResult.h"
 
 namespace boxedin {
@@ -24,7 +23,6 @@ namespace io {
 /** This is a flag indicating whether to print Boxed In levels in color. */
 extern bool use_colors;
 
-bool ParseLevel(std::istream& in, LevelState& levelState);
 bool ParseSolution(std::istream& in, Path& path);
 void ParseCharMap(std::istream& in, std::vector<std::vector<char> >& charmap);
 bool IsValidBoxedInLevel(std::vector<std::vector<char> >& charmap);
