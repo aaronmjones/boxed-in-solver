@@ -350,10 +350,10 @@ SearchResult astar(Level& level, Heuristic& heuristic)
     
     while ( (node = get_next_best_fscore_node(fscore)) != NULL )
     {
-#if 1
+#if 0
         if ( fscore != node->fscore() )
         {
-            fprintf(stderr, "fscore is %d\n", fscore);
+          fprintf(stderr, "fscore is %d: %d + %d\n", fscore, node->gscore_, node->hscore_);
         }
 #endif
         fscore = node->fscore();
