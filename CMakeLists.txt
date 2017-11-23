@@ -6,7 +6,7 @@ find_package(Boost COMPONENTS program_options)
 
 set (CMAKE_CXX_STANDARD 11)
 
-# solve
+# solve ------------------------------------------------------------------------
 
 add_executable(solve
                src/astar.cc
@@ -23,7 +23,11 @@ target_include_directories(solve PRIVATE
                            ${Boost_INCLUDE_DIRS}
 )
 
-# view-solution
+target_link_libraries(solve PRIVATE
+                      ${Boost_LIBRARIES}
+)
+
+# view-solution ----------------------------------------------------------------
 
 add_executable(view-solution
                src/boxedinio.cc
@@ -36,7 +40,7 @@ target_include_directories(view-solution PRIVATE
                            ${Boost_INCLUDE_DIRS}
 )
 
-target_link_libraries(solve PRIVATE
+target_link_libraries(view-solution PRIVATE
                       ${Boost_LIBRARIES}
 )
 
