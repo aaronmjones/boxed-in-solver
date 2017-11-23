@@ -9,7 +9,7 @@ namespace boxedin
     
 #define ENCODED_PATH_LENGTH_MAX 256
 #define ENCODED_PATH_DATA_SIZE (ENCODED_PATH_LENGTH_MAX / 4)
-enum EncodedPathDirection
+enum EncodedPathDirection // TODO: change to enum class
 {
     ENCODED_PATH_DIRECTION_UP = 0,
     ENCODED_PATH_DIRECTION_RIGHT,
@@ -30,7 +30,7 @@ public:
         memcpy(data_, other.data_, ENCODED_PATH_DATA_SIZE);
     }
     uint8_t size() const { return size_; }
-    EncodedPathDirection at(int i) const
+    EncodedPathDirection at(int i) const // TODO: why not overload operator[] too?
     {
         uint8_t data_index = (uint8_t)i / 4;
         int shift = i % 4;

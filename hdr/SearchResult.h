@@ -64,24 +64,26 @@ namespace boxedin {
             while (node)
             {
                 num_moves += (int)node->path_.size();
+                string nodepath;
                 for (int i = 0; i < (int)node->path_.size(); i++)
                 {
                     switch (node->path_.at(i))
                     {
                     case ENCODED_PATH_DIRECTION_UP:
-                        solution.insert(0, 1, 'U');
+                        nodepath.push_back('U');
                         break;
                     case ENCODED_PATH_DIRECTION_DOWN:
-                        solution.insert(0, 1, 'D');
+                        nodepath.push_back('D');
                         break;
                     case ENCODED_PATH_DIRECTION_LEFT:
-                        solution.insert(0, 1, 'L');
+                        nodepath.push_back('L');
                         break;
                     case ENCODED_PATH_DIRECTION_RIGHT:
-                        solution.insert(0, 1, 'R');
+                        nodepath.push_back('R');
                         break;
                     }
                 }
+                solution = nodepath + solution;
                 node = node->predecessor_;
             }
         }

@@ -34,27 +34,29 @@ Node::Node(const Level& level, Heuristic& heuristic, Node& node, const Action& a
     , gscore_(node.gscore_ + action.path.size())
     , hscore_((cost_t)0)
 {
-    switch (action.type)
+    // If there is a gear at the action point, this will clear it.
+    gear_descriptor_.ClearGearBit( level.gear_coords_, action.point );
+
+    if (box_descriptor_.HasBoxAt( (int)level.floor_plan_[0].size(), action.point ) )
     {
-    case ACTION_TYPE_PICKUP_GEAR:
-        gear_descriptor_.ClearGearBit( level.gear_coords_, action.point );
-        break;
-    case ACTION_TYPE_EXIT:
-        // Nothing to do; player coord and gscore updated above; hscore updated below
-        break;
-    case ACTION_TYPE_MOVE_BOX_UP:
+      EncodedPathDirection direction = action.path.at(action.path.size() - 1);
+      switch (direction)
+      {
+      case ENCODED_PATH_DIRECTION_UP:
         box_descriptor_.MoveUp( (int)level.floor_plan_[0].size(), action.point );
         break;
-    case ACTION_TYPE_MOVE_BOX_DOWN:
+      case ENCODED_PATH_DIRECTION_DOWN:
         box_descriptor_.MoveDown( (int)level.floor_plan_[0].size(), action.point );
         break;
-    case ACTION_TYPE_MOVE_BOX_LEFT:
+      case ENCODED_PATH_DIRECTION_LEFT:
         box_descriptor_.MoveLeft( (int)level.floor_plan_[0].size(), action.point );
         break;
-    case ACTION_TYPE_MOVE_BOX_RIGHT:
+      case ENCODED_PATH_DIRECTION_RIGHT:
         box_descriptor_.MoveRight( (int)level.floor_plan_[0].size(), action.point );
         break;
+      }
     }
+        
     hscore_ = heuristic.get_hscore(*this);
 }
 

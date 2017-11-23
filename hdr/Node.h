@@ -64,6 +64,14 @@ struct BoxDescriptorLite
         bitfields[bitfield_index] &= ~((uint64_t)1 << bit_offset);
     }
     
+    bool HasBoxAt( int floor_width, const Coord& coord )
+    {
+        int tile_index = get_tile_index( floor_width, coord );
+        int bitfield_index = get_bitfield_index( tile_index );
+        int bit_offset = get_bit_offset( tile_index );
+        return bitfields[bitfield_index] & ((uint64_t)1 << bit_offset);
+    }
+  
     int get_tile_index( int floor_width, const Coord& coord )
     {
         return (int)coord.y * floor_width + coord.x;
@@ -78,7 +86,7 @@ struct BoxDescriptorLite
     {
         return tile_index % kBitfieldWidth;
     }
-    
+
     void MoveUp( int floor_width, const Coord& box_coord )
     {
         clear_box_bit( floor_width, box_coord );
@@ -142,31 +150,17 @@ struct GearDescriptorLite
 };
 
 
-enum ActionType
-{
-  ACTION_TYPE_PICKUP_GEAR,
-  ACTION_TYPE_EXIT,
-  ACTION_TYPE_MOVE_BOX_UP,
-  ACTION_TYPE_MOVE_BOX_DOWN,
-  ACTION_TYPE_MOVE_BOX_LEFT,
-  ACTION_TYPE_MOVE_BOX_RIGHT
-};
-
-
 struct Action
 {
-    ActionType type;
     EncodedPath path;
     Coord point;
-    Action(ActionType type, EncodedPath& path, Coord& point)
-        : type(type)
-        , path(path)
+    Action(EncodedPath& path, Coord& point)
+        : path(path)
         , point(point)
     {
     }
     Action(const Action& action)
-        : type(action.type)
-        , path(action.path)
+        : path(action.path)
         , point(action.point)
     {
     }

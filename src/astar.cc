@@ -145,11 +145,11 @@ list<Action> find_actions(const Level& level, const Node& node)
 
         if ( level_map[coord.y][coord.x] == '@' ) // exit
         {
-            actions.push_back( Action(ACTION_TYPE_EXIT, ffnode.path, ffnode.coord) );            
+            actions.push_back( Action(ffnode.path, ffnode.coord) );            
         }
         else if ( level_map[coord.y][coord.x] == '*' ) // gear
         {
-            actions.push_back( Action(ACTION_TYPE_PICKUP_GEAR, ffnode.path, ffnode.coord) );            
+            actions.push_back( Action(ffnode.path, ffnode.coord) );            
         }
         else
         {
@@ -158,7 +158,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                  is_box( level_map, coord.x, coord.y-1 ) &&
                  can_hold_box( level_map, coord.x, coord.y-2 ) )
             {
-                Action action( ACTION_TYPE_MOVE_BOX_UP, ffnode.path, ffnode.coord );
+                Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_UP );
                 action.point.y--;
                 actions.push_back( action  );            
@@ -168,7 +168,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                  is_box( level_map, coord.x, coord.y+1 ) &&
                  can_hold_box( level_map, coord.x, coord.y+2 ) )
             {
-                Action action( ACTION_TYPE_MOVE_BOX_DOWN, ffnode.path, ffnode.coord );
+                Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_DOWN );
                 action.point.y++;
                 actions.push_back( action  );            
@@ -178,7 +178,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                  is_box( level_map, coord.x-1, coord.y ) &&
                  can_hold_box( level_map, coord.x-2, coord.y ) )
             {
-                Action action( ACTION_TYPE_MOVE_BOX_LEFT, ffnode.path, ffnode.coord );
+                Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_LEFT );
                 action.point.x--;
                 actions.push_back( action  );            
@@ -188,7 +188,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                  is_box( level_map, coord.x+1, coord.y ) &&
                  can_hold_box( level_map, coord.x+2, coord.y ) )
             {
-                Action action( ACTION_TYPE_MOVE_BOX_RIGHT, ffnode.path, ffnode.coord );
+                Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_RIGHT );
                 action.point.x++;
                 actions.push_back( action  );            
