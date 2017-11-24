@@ -18,9 +18,6 @@ namespace boxedin {
 namespace io {
 
 
-bool use_colors = false;
-
-
 void ParseCharMap(istream& in, vector<vector<char> >& charmap)
 {
     char c;
@@ -152,95 +149,46 @@ ostream& clear_screen(ostream& out)
 
 
 
-void PrintCharMapInColor(ostream& out, vector<vector<char> >& charmap)
+void PrintCharMap(ostream& out, vector<vector<char> >& charmap, bool use_color/*=true*/)
 {
-    // Display level, optionally with color
-    for (size_t y = 0; y < charmap.size(); y++)
+  // Display level, optionally with color
+  for (size_t y = 0; y < charmap.size(); y++)
+  {
+    for (size_t x = 0; x < charmap[y].size(); x++)
     {
-        for (size_t x = 0; x < charmap[y].size(); x++)
+      if (use_color)
+      {
+        switch (charmap[y][x])
         {
-            switch (charmap[y][x])
-            {
-            case BOX:
-                out << brown;   break;
-            case PLAYER:
-                out << cyan;    break;
-            case EXIT:
-                out << magenta; break;
-            case GEAR:
-                out << white;   break;
-            case SWITCH_RED:
-            case GATE_RED:
-                out << red;     break;
-            case SWITCH_YELLOW:
-            case GATE_YELLOW:
-                out << yellow;  break;
-            case SWITCH_GREEN:
-            case GATE_GREEN:
-                out << green;   break;
-            case SWITCH_BLUE:
-            case GATE_BLUE:
-                out << blue;    break;
-            default:
-                out << normal;  break;
-            }
-            out << charmap[y][x];
+        case BOX:
+          out << brown;   break;
+        case PLAYER:
+          out << cyan;    break;
+        case EXIT:
+          out << magenta; break;
+        case GEAR:
+          out << white;   break;
+        case SWITCH_RED:
+        case GATE_RED:
+          out << red;     break;
+        case SWITCH_YELLOW:
+        case GATE_YELLOW:
+          out << yellow;  break;
+        case SWITCH_GREEN:
+        case GATE_GREEN:
+          out << green;   break;
+        case SWITCH_BLUE:
+        case GATE_BLUE:
+          out << blue;    break;
+        default:
+          out << normal;  break;
         }
-        out << endl;
+      }
+      out << charmap[y][x];
     }
+    out << endl;
+  }
 }
-
-/**
-   \relates boxedin::charmap
-   \brief Print the map of level characters.
-   \details Certain characters are printed in color if use_color is true.
-   \param[in,out] out ostream to print to.
-   \param[in] lvlmap Character map to print.
-   \returns A reference to the ostream.
-*/
-ostream& operator<<(ostream& out, const charmap& lvlmap)
-{
-    // Display level, optionally with color
-    for (uint8_t y = 0; y < HEIGHT; y++)
-    {
-        for (uint8_t x = 0; x < WIDTH; x++)
-        {
-            char c = lvlmap[y][x];
-            if (boxedin::io::use_colors)
-            {
-                switch (c)
-                {
-                case BOX:
-                    out << brown;   break;
-                case PLAYER:
-                    out << cyan;    break;
-                case EXIT:
-                    out << magenta; break;
-                case GEAR:
-                    out << white;   break;
-                case SWITCH_RED:
-                case GATE_RED:
-                    out << red;     break;
-                case SWITCH_YELLOW:
-                case GATE_YELLOW:
-                    out << yellow;  break;
-                case SWITCH_GREEN:
-                case GATE_GREEN:
-                    out << green;   break;
-                case SWITCH_BLUE:
-                case GATE_BLUE:
-                    out << blue;    break;
-                default:
-                    out << normal;  break;
-                }
-            }
-            out << c;
-        }
-        out << endl;
-    }
-    return out;
-}
-
 
 
 /**
@@ -258,7 +206,6 @@ ostream& operator<<(ostream& out, const Path& path)
     }
     return out;
 }
-
 
 
 /**

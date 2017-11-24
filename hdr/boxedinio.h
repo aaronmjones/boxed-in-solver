@@ -20,9 +20,6 @@
 namespace boxedin {
 namespace io {
 
-/** This is a flag indicating whether to print Boxed In levels in color. */
-extern bool use_colors;
-
 bool ParseSolution(std::istream& in, Path& path);
 void ParseCharMap(std::istream& in, std::vector<std::vector<char> >& charmap);
 bool IsValidBoxedInLevel(std::vector<std::vector<char> >& charmap);
@@ -33,9 +30,8 @@ bool IsValidBoxedInLevel(std::vector<std::vector<char> >& charmap);
 
 std::ostream& clear_screen(std::ostream& out);
 
-void PrintCharMapInColor(std::ostream& out, std::vector<std::vector<char> >& charmap);
+void PrintCharMap(std::ostream& out, std::vector<std::vector<char> >& charmap, bool use_color = true);
 
-std::ostream& operator<<(std::ostream& out, const boxedin::charmap& lvlmap);
 /** \relates Path */
 std::ostream& operator<<(std::ostream& out, const boxedin::Path& path);
 /** \relates Coord */
