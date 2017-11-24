@@ -38,6 +38,7 @@ int main(int argc, char* argv[])
 {
   string stats_path;
   string level_path;
+  bool use_color = true;
   
 #if defined (__linux__) || defined (__APPLE__)
   // Setup process signal handlers
@@ -45,12 +46,14 @@ int main(int argc, char* argv[])
 #endif
 
   try {
-    boost::program_options::options_description desc("solve OPTIONS");
+    boost::program_options::options_description desc(
+      "solve OPTIONS <level-file>\nOPTIONS"
+      );
     desc.add_options()
-      ("help,h",                                                                  "Display help"             )
-      ("color,c", boost::program_options::value<bool>(&boxedin::io::use_colors),  "Display level in color"   )
-      ("stats,s", boost::program_options::value<string>(&stats_path),             "Output stats file"        )
-      ("level,l",   boost::program_options::value<string>(&level_path)->required(), "Input boxed-in level file")
+      ("help,h",                                                                  "Display help"                  )
+      ("no-color,n",                                                              "Do not display level in color" )
+      ("stats,s", boost::program_options::value<string>(&stats_path),             "Output stats file"             )
+      ("level,l", boost::program_options::value<string>(&level_path)->required(), "Input boxed-in level file"     )
       ;
     
     boost::program_options::positional_options_description positionalOptions;
@@ -71,6 +74,11 @@ int main(int argc, char* argv[])
     }
 
     boost::program_options::notify(variablesMap);
+
+    if (variablesMap.count("no-color"))
+    {
+      use_color = false;
+    }
   }
   catch (boost::program_options::error& e)
   {
@@ -101,7 +109,7 @@ int main(int argc, char* argv[])
   }
 
   cerr << "Boxed In Level:" << endl;
-  PrintCharMapInColor(cerr, charmap);
+  PrintCharMap(cerr, charmap, use_color);
 
   // TODO: trim unnecessary rows and columns and re-print the level
     

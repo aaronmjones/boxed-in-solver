@@ -26,18 +26,19 @@ int main(int argc, char* argv[])
 {
   string level_path;
   string solution_path;
+  bool use_color = true;
   /* run count -1 means infinite */
   int run_count = -1;
   int run_index = 0;
 
   try {
-    boost::program_options::options_description desc("view-solution OPTIONS");
+    boost::program_options::options_description desc("view-solution OPTIONS <level-file> <solution-file>\nOPTIONS");
     desc.add_options()
-      ("help,h",                                                                        "Display help"             )
-      ("color,c",    boost::program_options::value<bool>(&boxedin::io::use_colors),     "View solution in color"   )
-      ("level,l",    boost::program_options::value<string>(&level_path)->required(),    "Input boxed-in level file")
-      ("solution,s", boost::program_options::value<string>(&solution_path)->required(), "Input solution file"      )
-      ("num,n",      boost::program_options::value<int>(&run_count),                    "View solution n times"    )
+      ("help,h",                                                                        "Display help"                   )
+      ("no-color,n",                                                                    "Do not display output in color" )
+      ("level,l",    boost::program_options::value<string>(&level_path)->required(),    "Input boxed-in level file"      )
+      ("solution,s", boost::program_options::value<string>(&solution_path)->required(), "Input solution file"            )
+      ("count,c",    boost::program_options::value<int>(&run_count),                    "View solution N times"          )
       ;
     
     boost::program_options::positional_options_description positionalOptions;
@@ -59,6 +60,11 @@ int main(int argc, char* argv[])
     }
 
     boost::program_options::notify(variablesMap);
+
+    if (variablesMap.count("no-color"))
+    {
+      use_color = false;
+    }
   }
   catch (boost::program_options::error& e)
   {
@@ -91,7 +97,7 @@ int main(int argc, char* argv[])
 
     cout << clear_screen;
     cout << "Move " << move_index++ << " / " << move_count << endl;
-    PrintCharMapInColor(cout, charmap);
+    PrintCharMap(cout, charmap, use_color);
     this_thread::sleep_for(chrono::seconds(1));
 
     for (Path::iterator it = path.begin(); it != path.end(); ++it)
@@ -120,7 +126,7 @@ int main(int argc, char* argv[])
       charmap = currentLevel.Map();
       cout << clear_screen;
       cout << "Move " << move_index++ << " / " << move_count << endl;
-      PrintCharMapInColor(cout, charmap);
+      PrintCharMap(cout, charmap, use_color);
       cout.flush();
 
       this_thread::sleep_for(chrono::milliseconds(250));

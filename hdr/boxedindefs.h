@@ -8,16 +8,7 @@
 #ifndef BOXED_IN_DEFS_H__
 #define BOXED_IN_DEFS_H__
 
-
-// Board map width and height
-#define WIDTH 10
-#define HEIGHT 14
-
-// Define max number of gears allowed
-#define GEARS_8 8
-#define GEARS_16 16
-#define GEARS_32 32
-#define GEARS_MAX GEARS_16
+#include "config.h"
 
 // All valid level characters
 #define SPACE         '\''

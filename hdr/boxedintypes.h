@@ -9,8 +9,6 @@
 #ifndef BOXED_IN_TYPES_H__
 #define BOXED_IN_TYPES_H__
 
-#include "boxedindefs.h"
-
 #include <stdint.h>
 #include <stddef.h>
 #include <limits.h>
@@ -22,6 +20,8 @@
 #include <utility>
 #include <vector>
 
+#include "config.h"
+#include "boxedindefs.h"
 
 namespace boxedin {
 
@@ -101,9 +101,6 @@ typedef uint32_t gears_bitfield_t;
 /**@}*/
 
 
-
-/** A 2D char array the size of a Boxed In level. */
-typedef char charmap[HEIGHT][WIDTH];
 
 /** An x/y coordinate. */
 typedef Coordinate<uint8_t> Coord;
