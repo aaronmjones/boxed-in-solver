@@ -77,10 +77,19 @@ bool IsValidBoxedInLevel(vector<vector<char> >& charmap)
                 exit_chars_found++;
                 break;
             default:
+                fprintf(stderr, "Invalid char '%c' found in level file\n", charmap[y][x]);
                 invalid_chars_found++;
                 break;
             }
         }
+    }
+    if (player_chars_found != 1)
+    {
+        fprintf(stderr, "Invalid level file: %d player chars found\n", player_chars_found);
+    }
+    if (exit_chars_found != 1)
+    {
+        fprintf(stderr, "Invalid level file: %d exit chars found\n", exit_chars_found);
     }
     return ( player_chars_found == 1 && exit_chars_found == 1 &&
              invalid_chars_found == 0);
