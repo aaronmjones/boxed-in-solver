@@ -6,3 +6,5 @@
 #define GEARS_32 32
 #define GEARS_MAX GEARS_16
 
+// Limit the search for solutions to this number of moves
+#define MAX_FSCORE 200

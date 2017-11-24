@@ -5,22 +5,20 @@
  * \date 2014
  * \copyright GNU Public License.
  */
-#include "astar.h"
 
+#include <iostream>
+#include <boxedinio.h>
+
+#include "astar.h"
+#include "config.h"
 #include "Node.h"
 #include "Level.h"
 #include "Heuristic.h"
 #include "FloodFillNode.h"
 
-#include <iostream>
-#include <boxedinio.h>
-
 using namespace std;
 
 namespace boxedin {
-
-
-#define MAX_FSCORE 200
 
 
 // The set of nodes already evaluated
@@ -58,7 +56,7 @@ bool is_box( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
     return level_map[y][x] == '+';
 }
 
-bool is_fillable( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
+bool is_walkable( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
 {
     switch (level_map[y][x])
     {
@@ -69,6 +67,20 @@ bool is_fillable( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
     case 'b':
     case '*':
     case '@':
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool is_switch( const vector<vector<char> >& level_map, uint8_t x, uint8_t y )
+{
+    switch (level_map[y][x])
+    {
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
         return true;
     default:
         return false;
@@ -119,13 +131,12 @@ list<Action> find_actions(const Level& level, const Node& node)
 #endif
     //// Flood fill to find all action points ////
 
-    // TODO: should you consider the tile the robot is currently on here? it seems like
-    //       stepping off of a switch should be considered an "action"
-    
     // Queue of spaces to fill is initially the current player position
     queue<FloodFillNode> flood_fill_queue;
     flood_fill_queue.push( FloodFillNode(node.player_coord_) );
 
+    bool is_player_on_switch = is_switch(level_map, node.player_coord_.x, node.player_coord_.y);
+    
     while ( !flood_fill_queue.empty() )
     {
         FloodFillNode ffnode = flood_fill_queue.front();
@@ -195,12 +206,56 @@ list<Action> find_actions(const Level& level, const Node& node)
             }
         }
 
+        // If player is on a switch, stepping off of the switch is an "action".
+        // Step off the switch in any possible directions and do not continue
+        // the flood fill algorithm.
+        if (is_player_on_switch)
+        {
+            // is the tile above walkable?
+            if ( coord.y > 1 &&
+                 is_walkable( level_map, coord.x, coord.y-1 ) )
+            {
+                Action action( ffnode.path, ffnode.coord );
+                action.path.push_back( ENCODED_PATH_DIRECTION_UP );
+                action.point.y--;
+                actions.push_back( action  );            
+            }
+            // is the tile below walkable?
+            if ( coord.y < floor_height-2 &&
+                 is_walkable( level_map, coord.x, coord.y+1 ) )
+            {
+                Action action( ffnode.path, ffnode.coord );
+                action.path.push_back( ENCODED_PATH_DIRECTION_DOWN );
+                action.point.y++;
+                actions.push_back( action  );            
+            }
+            // is the tile left walkable?
+            if ( coord.x > 1 &&
+                 is_walkable( level_map, coord.x-1, coord.y ) )
+            {
+                Action action( ffnode.path, ffnode.coord );
+                action.path.push_back( ENCODED_PATH_DIRECTION_LEFT );
+                action.point.x--;
+                actions.push_back( action  );            
+            }
+            // is the tile right walkable?
+            if ( coord.x < floor_width-2 &&
+                 is_walkable( level_map, coord.x+1, coord.y ) )
+            {
+                Action action( ffnode.path, ffnode.coord );
+                action.path.push_back( ENCODED_PATH_DIRECTION_RIGHT );
+                action.point.x++;
+                actions.push_back( action  );            
+            }
+            break;
+        }
+        
         if ( can_flood(level_map, coord.x, coord.y) )
         {
             //// Add neighbor nodes in the 4 directions ////
             
             // UP
-            if ( (coord.y > 0) && is_fillable(level_map, coord.x, coord.y-1) )
+            if ( (coord.y > 0) && is_walkable(level_map, coord.x, coord.y-1) )
             {
                 FloodFillNode up( ffnode ); // copy of node
                 up.path.push_back( ENCODED_PATH_DIRECTION_UP );
@@ -208,7 +263,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 flood_fill_queue.push( up );
             }
             // DOWN
-            if ( (coord.y < floor_height-1) && is_fillable(level_map, coord.x, coord.y+1) )
+            if ( (coord.y < floor_height-1) && is_walkable(level_map, coord.x, coord.y+1) )
             {
                 FloodFillNode down( ffnode ); // copy of node
                 down.path.push_back( ENCODED_PATH_DIRECTION_DOWN );
@@ -216,7 +271,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 flood_fill_queue.push( down );
             }
             // LEFT
-            if ( (coord.x > 0) && is_fillable(level_map, coord.x-1, coord.y) )
+            if ( (coord.x > 0) && is_walkable(level_map, coord.x-1, coord.y) )
             {
                 FloodFillNode left( ffnode ); // copy of node
                 left.path.push_back( ENCODED_PATH_DIRECTION_LEFT );
@@ -224,7 +279,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 flood_fill_queue.push( left );
             }
             // RIGHT
-            if ( (coord.x < floor_width-1) && is_fillable(level_map, coord.x+1, coord.y) )
+            if ( (coord.x < floor_width-1) && is_walkable(level_map, coord.x+1, coord.y) )
             {
                 FloodFillNode right( ffnode ); // copy of node
                 right.path.push_back( ENCODED_PATH_DIRECTION_RIGHT );
@@ -350,7 +405,7 @@ SearchResult astar(Level& level, Heuristic& heuristic)
     
     while ( (node = get_next_best_fscore_node(fscore)) != NULL )
     {
-#if 0
+#if 1 //TODO: use program option to display fscore
         if ( fscore != node->fscore() )
         {
           fprintf(stderr, "fscore is %d: %d + %d\n", fscore, node->gscore_, node->hscore_);
