@@ -16,19 +16,30 @@ tar xf <BOOST-ARCHIVE>
 cd <BOOST-DIRECTORY>
 ./bootstrap.sh
 ```
-1. Clone boxed-in-solver source: `git clone <BOXED-IN-SOLVER-URL>`
+1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
 1. Build
 ```
 cd boxed-in-solver
 mkdir build
+cd build
 cmake -DCMAKE_INSTALL_PREFIX=.. ..
-cmake --build build --target install
+make install
 ```
 _Binaries will be in boxed-in-solver/bin directory_
 
 ## Build Instructions - Windows
 
-TODO: Add boost install instructions and build commands.
+1. Install cmake
+1. Install boost
+1. Install git
+1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
+1. Build
+```
+mkdir build
+cd build
+cmake -G"Visual Studio 15 2017" -DBOOST_ROOT=C:\boost_1_65_1 -DCMAKE_INSTALL_PREFIX=.. ..
+```
+Open the generated visual studio solution (in build folder) and build the INSTALL project.
 
 ## Build Instructions - Mac
 
