@@ -37,7 +37,7 @@ _Binaries will be in boxed-in-solver/bin directory_
 ```
 mkdir build
 cd build
-cmake -G"Visual Studio 15 2017" -DBOOST_ROOT=C:\boost_1_65_1 -DCMAKE_INSTALL_PREFIX=.. ..
+cmake -G"Visual Studio 15 2017" -DBOOST_ROOT=C:\boost_1_65_1 -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=.. ..
 ```
 Open the generated visual studio solution (in build folder) and build the INSTALL project.
 

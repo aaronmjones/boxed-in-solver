@@ -232,7 +232,7 @@ bool operator<(const GearDescriptorLite& l, const GearDescriptorLite& r);
 
 struct NodeCompare
 {
-    bool operator()(const Node* l, const Node* r)
+    bool operator()(const Node* l, const Node* r) const
     {
         if (l->player_coord_ == r->player_coord_)
         {

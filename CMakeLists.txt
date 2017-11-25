@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.5)
 
 project(BoxedInSolver)
 
-find_package(Boost COMPONENTS program_options)
+find_package(Boost REQUIRED COMPONENTS program_options)
 
 set (CMAKE_CXX_STANDARD 11)
 

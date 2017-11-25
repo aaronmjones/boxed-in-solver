@@ -80,7 +80,7 @@ vector<vector<char> > Level::Map() const
   int sz = 0;
   int floor_width = (int)floor_plan_[0].size();
   vector<vector<char> > level_map = floor_plan_;
-    
+
   // set boxes
   for (auto box : box_coords_)
   {
@@ -124,13 +124,17 @@ vector<vector<char> > Level::Map() const
   int player_coords_found = 0;
   int exit_coords_found = 0;
   int invalid_chars_found = 0;
+  uint8_t width;
+  uint8_t height;
 
   // Create the floor plan; the level elements that can change become
   // spaces (' ') here.
   level.floor_plan_ = charmap;
+  height = static_cast<uint8_t>(charmap.size());
   for (size_t y = 0; y < charmap.size(); y++)
   {
-    for (size_t x = 0; x < charmap[y].size(); x++)
+    width = static_cast<uint8_t>(charmap[y].size());
+    for (size_t x = 0; x < width; x++)
     {
       char c = charmap[y][x];
       switch (c)
@@ -160,9 +164,11 @@ vector<vector<char> > Level::Map() const
   }
 
   // Get coordinates of player, exit, gears, etc.
-  for (size_t y = 0; y < charmap.size(); y++)
+  height = static_cast<uint8_t>(charmap.size());
+  for (uint8_t y = 0; y < height; y++)
   {
-    for (size_t x = 0; x < charmap[y].size(); x++)
+    width = static_cast<uint8_t>(charmap[y].size());
+    for (size_t x = 0; x < width; x++)
     {
       char c = charmap[y][x];
       switch (c)
