@@ -37,9 +37,11 @@ class BoxedInNode;
 enum Color
 {
     RED,
+    ORANGE,
     YELLOW,
     GREEN,
-    BLUE
+    BLUE,
+    VIOLET
 };
 
 
@@ -95,6 +97,8 @@ typedef uint8_t gears_bitfield_t;
 typedef uint16_t gears_bitfield_t;
 #elif GEARS_MAX == GEARS_32
 typedef uint32_t gears_bitfield_t;
+#elif GEARS_MAX == GEARS_64
+typedef uint64_t gears_bitfield_t;
 #else
 #error "GEARS_MAX is undefined or invalid"
 #endif

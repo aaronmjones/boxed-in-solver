@@ -63,13 +63,17 @@ bool IsValidBoxedInLevel(vector<vector<char> >& charmap)
             case '+':  // box
             case '*':  // gear
             case 'r':  // switch
+            case 'o':  // switch
             case 'y':  // switch
             case 'g':  // switch
             case 'b':  // switch
+            case 'v':  // switch
             case 'R':  // gate
+            case 'O':  // gate
             case 'Y':  // gate
             case 'G':  // gate
             case 'B':  // gate
+            case 'V':  // gate
                 break;
             case 'p':  // player
                 player_chars_found++;
@@ -135,8 +139,8 @@ bool ParseSolution(istream& in, Path& path)
 #if defined(__linux__) || defined(__APPLE__)
 const char* normal  = "\x1b[0;39m";
 const char* red     = "\x1b[1;31m";
-const char* green   = "\x1b[1;32m";
 const char* yellow  = "\x1b[1;33m";
+const char* green   = "\x1b[1;32m";
 const char* blue    = "\x1b[1;34m";
 const char* magenta = "\x1b[1;35m";
 const char* cyan    = "\x1b[1;36m";
@@ -144,11 +148,11 @@ const char* brown   = "\x1b[0;33m";
 const char* white   = "\x1b[1;37m";
 #elif defined(_WIN32)
 #include <windows.h>
-inline std::ostream& blue(std::ostream &s)
+inline std::ostream& normal(std::ostream &s)
 {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hStdout, FOREGROUND_BLUE
-			    | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hStdout,
+        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     return s;
 }
 
@@ -160,6 +164,14 @@ inline std::ostream& red(std::ostream &s)
     return s;
 }
 
+inline std::ostream& yellow(std::ostream &s)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdout,
+        FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY);
+    return s;
+}
+
 inline std::ostream& green(std::ostream &s)
 {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -168,11 +180,11 @@ inline std::ostream& green(std::ostream &s)
     return s;
 }
 
-inline std::ostream& yellow(std::ostream &s)
+inline std::ostream& blue(std::ostream &s)
 {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hStdout,
-        FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY);
+    SetConsoleTextAttribute(hStdout, FOREGROUND_BLUE
+			    | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
     return s;
 }
 
@@ -205,14 +217,6 @@ inline std::ostream& white(std::ostream &s)
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hStdout,
 	FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-    return s;
-}
-
-inline std::ostream& normal(std::ostream &s)
-{
-    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hStdout,
-        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     return s;
 }
 
@@ -266,6 +270,9 @@ void PrintCharMap(ostream& out, vector<vector<char> >& charmap, bool use_color/*
         case SWITCH_RED:
         case GATE_RED:
           out << red;     break;
+        case SWITCH_ORANGE:
+        case GATE_ORANGE:
+          out << yellow;  break; // I don't know how to display orange text, so reuse yellow
         case SWITCH_YELLOW:
         case GATE_YELLOW:
           out << yellow;  break;
@@ -275,6 +282,9 @@ void PrintCharMap(ostream& out, vector<vector<char> >& charmap, bool use_color/*
         case SWITCH_BLUE:
         case GATE_BLUE:
           out << blue;    break;
+        case SWITCH_VIOLET:
+        case GATE_VIOLET:
+          out << magenta; break;
         default:
           out << normal;  break;
         }

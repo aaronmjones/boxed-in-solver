@@ -16,13 +16,17 @@
 #define WALL          'x'
 #define BOX           '+'
 #define SWITCH_RED    'r'
+#define SWITCH_ORANGE 'o'
+#define SWITCH_YELLOW 'y'
 #define SWITCH_GREEN  'g'
 #define SWITCH_BLUE   'b'
-#define SWITCH_YELLOW 'y'
+#define SWITCH_VIOLET 'v'
 #define GATE_RED      'R'
+#define GATE_ORANGE   'O'
+#define GATE_YELLOW   'Y'
 #define GATE_GREEN    'G'
 #define GATE_BLUE     'B'
-#define GATE_YELLOW   'Y'
+#define GATE_VIOLET   'V'
 #define GEAR          '*'
 #define EXIT          '@'
 #define PLAYER        'p'
@@ -55,24 +59,32 @@
 
 #define COLOR_TO_SWITCH_CHAR(c) \
         c == RED    ? 'r' :     \
+        c == ORANGE ? 'o' :     \
         c == YELLOW ? 'y' :     \
         c == GREEN  ? 'g' :     \
-        c == BLUE   ? 'b' : 'b'
+        c == BLUE   ? 'b' :     \
+        c == VIOLET ? 'v' : 'v'
 #define COLOR_TO_GATE_CHAR(c)   \
         c == RED    ? 'R' :     \
+        c == ORANGE ? 'O' :     \
         c == YELLOW ? 'Y' :     \
         c == GREEN  ? 'G' :     \
-        c == BLUE   ? 'B' : 'B'
+        c == BLUE   ? 'B' :     \
+        c == VIOLET ? 'V' : 'V'
 #define SWITCH_CHAR_TO_COLOR(c) \
         c == 'r'? RED    :      \
+        c == 'o'? ORANGE :      \
         c == 'y'? YELLOW :      \
         c == 'g'? GREEN  :      \
-        c == 'b'? BLUE   : BLUE
+        c == 'b'? BLUE   :      \
+        c == 'v'? VIOLET : VIOLET
 #define GATE_CHAR_TO_COLOR(c)   \
         c == 'R'? RED    :      \
+        c == 'O'? ORANGE :      \
         c == 'Y'? YELLOW :      \
         c == 'G'? GREEN  :      \
-        c == 'B'? BLUE   : BLUE
+        c == 'B'? BLUE   :      \
+        c == 'V'? VIOLET : VIOLET
 
 
 #endif
