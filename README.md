@@ -15,6 +15,7 @@ wget <BOOST-URL>
 tar xf <BOOST-ARCHIVE>
 cd <BOOST-DIRECTORY>
 ./bootstrap.sh
+./b2 install
 ```
 1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
 1. Build
