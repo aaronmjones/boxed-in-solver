@@ -408,7 +408,7 @@ SearchResult astar(Level& level, Heuristic& heuristic)
 #if 1 //TODO: use program option to display fscore
         if ( fscore != node->fscore() )
         {
-          fprintf(stderr, "fscore is %d: %d + %d\n", fscore, node->gscore_, node->hscore_);
+          fprintf(stderr, "fscore is %d: %d + %d\n", node->fscore(), node->gscore_, node->hscore_);
         }
 #endif
         fscore = node->fscore();
