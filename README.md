@@ -31,8 +31,8 @@ _Binaries will be in boxed-in-solver/bin directory_
 
 1. Install cmake
 1. Install boost
-  1. Download boost 1.65.1
-  1. Build and install
+   * Download boost 1.65.1
+   * Build and install
 ```
 bootstrap.bat
 b2.exe --prefix=C:\boost_1_65_1
