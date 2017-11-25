@@ -36,7 +36,7 @@ _Binaries will be in boxed-in-solver/bin directory_
    * Build and install
 ```
 bootstrap.bat
-b2.exe --prefix=C:\boost_1_65_1
+b2.exe --prefix=C:\boost_1_65_1 install
 ```
 1. Download solver source
 1. Build
