@@ -37,13 +37,12 @@ _Binaries will be in boxed-in-solver/bin directory_
 bootstrap.bat
 b2.exe --prefix=C:\boost_1_65_1
 ```
-1. Install git
-1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
+1. Download solver source
 1. Build
 ```
 mkdir build
 cd build
-cmake -G"Visual Studio 15 2017" -DBOOST_ROOT=C:\boost_1_65_1 -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=.. ..
+cmake -G"Visual Studio 15 2017" --config Release -DBOOST_ROOT=C:\boost_1_65_1 -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=.. ..
 ```
 Open the generated visual studio solution (in build folder) and build the INSTALL project.
 
