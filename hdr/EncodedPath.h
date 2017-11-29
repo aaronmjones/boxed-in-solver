@@ -6,7 +6,11 @@
 
 namespace boxedin
 {
-    
+
+//FIXME: move to config.h and bump it up. there are known optimal solutions
+//       around 256 moves.
+//TODO: can you #pragma pack to reduce the size of Node and it's contained
+//      types?
 #define ENCODED_PATH_LENGTH_MAX 256
 #define ENCODED_PATH_DATA_SIZE (ENCODED_PATH_LENGTH_MAX / 4)
 enum EncodedPathDirection // TODO: change to enum class

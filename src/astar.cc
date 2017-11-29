@@ -402,6 +402,7 @@ SearchResult astar(Level& level, Heuristic& heuristic)
 
     Node* node = NULL;
     cost_t fscore = start->fscore();
+    uint64_t better_g_score_count = 0;
     
     while ( (node = get_next_best_fscore_node(fscore)) != NULL )
     {
@@ -464,9 +465,7 @@ SearchResult astar(Level& level, Heuristic& heuristic)
             {
                 if ( successor->gscore_ < (*it_open)->gscore_)
                 {
-#if 0
-                    fprintf(stderr, "found better gscore!\n");
-#endif
+                    ++better_g_score_count;
                     // Instead of removing the old node from the open_set and openset_fscore_nodes,
                     // just flag it for deletion.
                     (*it_open)->better_gscore_found_ = true;
@@ -501,6 +500,32 @@ SearchResult astar(Level& level, Heuristic& heuristic)
             }            
         } // end for (successors)
 
+        // housekeeping; once we cross a threshold, delete nodes that aren't needed because
+        // a better gscore was found
+        if (better_g_score_count > 1000000)
+        {
+          fprintf(stderr, "cleaning stale Node's from openset_fscore_nodes\n");
+          better_g_score_count = 0;
+          size_t sz = openset_fscore_nodes.size();
+          for (auto i = 0; i < sz; ++i)
+          {
+            list<Node*>& nodes = openset_fscore_nodes[i];
+            list<Node*>::iterator it = nodes.begin();
+            while (it != nodes.end())
+            {
+              Node* node = *it;
+              if (node->better_gscore_found_)
+              {
+                nodes.erase(it++);
+                delete node;
+              }
+              else
+              {
+                ++it;
+              }
+            }
+          }
+        }
     } // end while
 
     //TODO: delete heap memory
