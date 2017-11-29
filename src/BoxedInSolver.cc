@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
 
   Level level = Level::MakeLevel(charmap);
 
-  ShortestManhattenDistanceThroughGearsToExitHeuristic heuristic(level);
+  ShortestDistanceThroughGearsToExitHeuristic heuristic(level);
   SearchResult result = astar(level, heuristic);
     
   time(&rawtime);

@@ -110,7 +110,7 @@ private:
 };
 
 
-struct ShortestManhattenDistanceThroughGearsToExitHeuristic : public Heuristic
+struct ShortestDistanceThroughGearsToExitHeuristic : public Heuristic
 {
     const Level& level;
 
@@ -142,7 +142,7 @@ struct ShortestManhattenDistanceThroughGearsToExitHeuristic : public Heuristic
     //       140 * (2^12) = 573440!
     cost_t *hscore_table;
     
-    ShortestManhattenDistanceThroughGearsToExitHeuristic(const Level& level)
+    ShortestDistanceThroughGearsToExitHeuristic(const Level& level)
         : level(level)
         , floor_width(level.floor_plan_[0].size())
         , floor_height(level.floor_plan_.size())
@@ -162,7 +162,7 @@ struct ShortestManhattenDistanceThroughGearsToExitHeuristic : public Heuristic
         }
     }
     
-    ~ShortestManhattenDistanceThroughGearsToExitHeuristic()
+    ~ShortestDistanceThroughGearsToExitHeuristic()
     {
         delete hscore_table;
     }

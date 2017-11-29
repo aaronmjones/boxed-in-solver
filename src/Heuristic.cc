@@ -5,7 +5,7 @@
 
 using namespace boxedin;
 
-cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(size_t cell1, size_t cell2)
+cost_t ShortestDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(size_t cell1, size_t cell2)
 {
     cost_t *cost_ptr = tile_to_tile_cost_table.Cost(cell1, cell2);
     if (*cost_ptr != COST_UNKNOWN)
@@ -84,7 +84,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::cell_to_cell_dist(s
 }
 
 
-cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::get_hscore(size_t cell, uint16_t gears_bitfield)
+cost_t ShortestDistanceThroughGearsToExitHeuristic::get_hscore(size_t cell, uint16_t gears_bitfield)
 {
 #if 0
     fprintf(stderr, "cell=%lu num_gears=%lu gears=0x%04x\n", cell, num_gears, gears_bitfield);
@@ -128,7 +128,7 @@ cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::get_hscore(size_t c
 
 
 // virtual
-cost_t ShortestManhattenDistanceThroughGearsToExitHeuristic::get_hscore(const Node& node)
+cost_t ShortestDistanceThroughGearsToExitHeuristic::get_hscore(const Node& node)
 {
     size_t robot_cell = ((node.player_coord_.y * floor_width) + node.player_coord_.x);
     uint16_t gears_bitfield = node.gear_descriptor_.bitfield;
