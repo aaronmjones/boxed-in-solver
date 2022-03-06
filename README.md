@@ -51,6 +51,21 @@ Open the generated visual studio solution (in build folder) and build the INSTAL
 
 TODO: same as Linux instructions?
 
+## Docker instructions
+
+Build the docker image
+```
+docker build -t boxed-in-solver-debian-buster docker/debian-buster
+```
+A docker image is created with the tag `boxed-in-solver-debian-buster` from a Dockerfile located in `build/docker/debian-buster`.
+
+Build the project
+```
+sudo docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
+                -t boxed-in-solver-debian-buster \
+                bash -c "cmake .. && cmake --build ."
+```
+
 ## Running the solver
 
 To run the solver on Boxed In 1, Level 1 data, execute the following from the **boxed-in-solver** directory:
