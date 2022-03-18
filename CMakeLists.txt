@@ -5,6 +5,7 @@ project(BoxedInSolver)
 find_package(Boost REQUIRED COMPONENTS program_options)
 
 set (CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE Debug)
 
 # solve ------------------------------------------------------------------------
 

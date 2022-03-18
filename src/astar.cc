@@ -124,7 +124,7 @@ list<Action> find_actions(const Level& level, const Node& node)
     uint8_t floor_width = (uint8_t)level.floor_plan_[0].size();
     uint8_t floor_height = (uint8_t)level.floor_plan_.size();
     bool draw_player = false;
-    vector<vector<char> > level_map = level.Map( node, draw_player ); // TODO: rename to level.MakeFloodFillMap()?
+    vector<vector<char> > level_map = level.MakeFloodFillMap( node, draw_player );
 #if 0
     fprintf(stderr, "finding actions for:\n");
     PrintCharMapInColor(cerr, level_map);
@@ -367,7 +367,7 @@ list<Node*> generate_successors(const Level& level, Heuristic& heuristic, Node& 
 
 #if 1
     bool draw_player = true;
-    vector<vector<char> > level_map = level.Map( node, draw_player );
+    vector<vector<char> > level_map = level.MakeFloodFillMap( node, draw_player );
     if ( is_unsolvable(level, node, level_map) )
     {
 #if 0

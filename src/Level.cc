@@ -8,7 +8,7 @@ namespace boxedin
 // Create a 2D character "map" representation using the floor plan of the Level
 // and the gear, box and player position from the Node. This function is used
 // by the astar search.
-vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
+vector<vector<char> > Level::MakeFloodFillMap(const Node& node, bool draw_player) const
 {
   int sz = 0;
   int floor_width = (int)floor_plan_[0].size();
@@ -75,7 +75,7 @@ vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
 
 // Create a 2D character "map" representation of the Level. This function is
 // used by the solution viewer.
-vector<vector<char> > Level::Map() const
+vector<vector<char> > Level::MakeMap() const
 {
   int sz = 0;
   int floor_width = (int)floor_plan_[0].size();
@@ -117,8 +117,29 @@ vector<vector<char> > Level::Map() const
   return level_map;
 }
 
+Level Level::MakeLevel(const string& levelString)
+{
+  // First make a 2D vector from the string
+  vector<vector<char> > charMap;
+  vector<char> charRow;
+  for (const auto& c : levelString)
+  {
+    if (c == '\n')
+    {
+      charMap.push_back(charRow);
+      charRow.clear();
+    }
+    else
+    {
+      charRow.push_back(c);
+    }
+  }
 
-/*static*/ Level Level::MakeLevel(vector<vector<char> >& charmap)
+  return MakeLevel(charMap);
+}
+
+
+Level Level::MakeLevel(const vector<vector<char> >& charmap)
 {
   Level level;
   int player_coords_found = 0;

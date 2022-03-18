@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
   {
     // Reset level state
     Level currentLevel = level;
-    charmap = currentLevel.Map();
+    charmap = currentLevel.MakeMap();
 
     int move_index = 0;
     int move_count = (int)path.size();
@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
       }
       currentLevel.TryPickupGear();
 
-      charmap = currentLevel.Map();
+      charmap = currentLevel.MakeMap();
       cout << clear_screen;
       cout << "Move " << move_index++ << " / " << move_count << endl;
       PrintCharMap(cout, charmap, use_color);

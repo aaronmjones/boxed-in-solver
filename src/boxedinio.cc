@@ -10,6 +10,7 @@
 #include <cstring>
 #include <chrono>
 #include <iostream>
+#include <map>
 
 using namespace std;
 using namespace std::chrono;
@@ -425,3 +426,60 @@ ostream& operator<<(ostream& out, const SearchResult& result)
     return out;
 }
 
+std::ostream& operator<<(std::ostream& out, const boxedin::Action& action)
+{
+    out << "PATH: ";
+    const auto& encodedPath = action.path;
+    for (int i = 0; i < (int)encodedPath.size(); i++)
+    {
+        switch (encodedPath.at(i))
+        {
+        case ENCODED_PATH_DIRECTION_UP:
+            out << 'U';
+            break;
+        case ENCODED_PATH_DIRECTION_DOWN:
+            out << 'D';
+            break;
+        case ENCODED_PATH_DIRECTION_LEFT:
+            out << 'L';
+            break;
+        case ENCODED_PATH_DIRECTION_RIGHT:
+            out << 'R';
+            break;
+        }
+    }
+    out << std::endl;
+
+    const auto& point = action.point;
+    out << "POINT: " << point << std::endl;
+    return out;
+}
+
+
+std::ostream& operator<<(std::ostream& out, const boxedin::Level& level)
+{
+    auto charMap = level.floor_plan_;
+    auto player = level.player_coord_;
+    charMap[player.y][player.x] = PLAYER;
+    auto boxes = level.box_coords_;
+    for (auto box : boxes)
+    {
+        charMap[box.y][box.x] = BOX;
+    }
+    auto gears = level.gear_coords_;
+    for (auto gear : gears)
+    {
+        charMap[gear.y][gear.x] = GEAR;
+    }
+    auto switchGatePairs = level.switch_gate_pairs_;
+    for (auto switchGatePair : switchGatePairs)
+    {
+        auto color = switchGatePair.first;
+        auto swtch = switchGatePair.second.first; // yuck
+        auto gate = switchGatePair.second.second; // yuck
+        charMap[swtch.y][swtch.x] = COLOR_TO_SWITCH_CHAR(color);
+        charMap[gate.y][gate.x] = COLOR_TO_GATE_CHAR(color);
+    }
+    PrintCharMap(out, charMap);
+    return out;
+}

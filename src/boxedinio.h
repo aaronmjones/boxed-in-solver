@@ -39,5 +39,8 @@ std::ostream& operator<<(std::ostream& out, const boxedin::Coord& coord);
 std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Path>& solution);
 std::ostream& operator<<(std::ostream& out, const boxedin::SearchResult& result);
 
+std::ostream& operator<<(std::ostream& out, const boxedin::Action& action);
+std::ostream& operator<<(std::ostream& out, const boxedin::Level& level);
+
 
 #endif

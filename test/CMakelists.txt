@@ -19,7 +19,6 @@ target_link_libraries(
   GTest::Main
 )
 
-gtest_discover_tests(encoded_path_test)
 
 add_executable(
   symmetric_cost_table_test
@@ -38,4 +37,31 @@ target_link_libraries(
   GTest::Main
 )
 
+
+add_executable(
+  FloodFillTest
+  FloodFillTest.cc
+  ${CMAKE_SOURCE_DIR}/src/astar.cc
+  ${CMAKE_SOURCE_DIR}/src/boxedinio.cc
+  ${CMAKE_SOURCE_DIR}/src/Heuristic.cc
+  ${CMAKE_SOURCE_DIR}/src/Level.cc
+  ${CMAKE_SOURCE_DIR}/src/memusage.cc
+  ${CMAKE_SOURCE_DIR}/src/Node.cc
+)
+
+target_include_directories(
+  FloodFillTest PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${Boost_INCLUDE_DIRS}
+)
+
+target_link_libraries(
+  FloodFillTest
+  GTest::GTest
+  GTest::Main
+)
+
+
+gtest_discover_tests(encoded_path_test)
 gtest_discover_tests(symmetric_cost_table_test)
+gtest_discover_tests(FloodFillTest)

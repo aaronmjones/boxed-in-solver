@@ -151,7 +151,7 @@ struct ShortestDistanceThroughGearsToExitHeuristic : public Heuristic
         , tile_to_tile_cost_table(num_tiles)
     {
         size_t sz = num_tiles * (1 << num_gears);
-#if 0
+#if 1
         fprintf(stderr, "floor_width %lu floor_height %lu num_tiles %lu num_gears %lu\n", floor_width, floor_height, num_tiles, num_gears);
         fprintf(stderr, "allocating hscore_table of size %lu ===========================================\n", sz);
 #endif

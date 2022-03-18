@@ -34,9 +34,9 @@ public:
   // The floor switch and corresponding gate for each color
   map<Color, pair<Coord, Coord> > switch_gate_pairs_;
 
-  vector<vector<char> > Map(const Node& node, bool draw_player) const;
+  vector<vector<char> > MakeFloodFillMap(const Node& node, bool draw_player) const;
 
-  vector<vector<char> > Map() const;
+  vector<vector<char> > MakeMap() const;
 
   void TryPickupGear();
   void MoveUp();
@@ -44,7 +44,8 @@ public:
   void MoveLeft();
   void MoveRight();
   
-  static Level MakeLevel(vector<vector<char> >& charmap);
+  static Level MakeLevel(const string& levelString);
+  static Level MakeLevel(const vector<vector<char> >& charmap);
 };
 
 } // namespace boxedin

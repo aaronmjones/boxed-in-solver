@@ -7,6 +7,8 @@
 namespace boxedin
 {
 
+//FIXME: Do not use size, at, push_back function names in EncodePath class.
+//       This isn't a std container.
 //FIXME: move to config.h and bump it up. there are known optimal solutions
 //       around 256 moves.
 //TODO: can you #pragma pack to reduce the size of Node and it's contained
