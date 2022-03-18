@@ -31,6 +31,7 @@
 namespace boxedin {
 
 SearchResult astar(Level& level, Heuristic& heuristic);
+std::list<Action> find_actions(const Level& level, const Node& node);
 
 } // namespace
 

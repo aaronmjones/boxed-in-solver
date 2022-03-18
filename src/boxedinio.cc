@@ -5,11 +5,12 @@
  * \date 2014
  * \copyright GNU Public License.
  */
-#include <boxedinio.h>
+#include "boxedinio.h"
 
 #include <cstring>
 #include <chrono>
 #include <iostream>
+#include <map>
 
 using namespace std;
 using namespace std::chrono;
@@ -110,7 +111,7 @@ bool IsValidBoxedInLevel(vector<vector<char> >& charmap)
 // up,down,left,right
 // UP,DOWN,LEFT,RIGHT
 // where the delimiter can be any of the delimiters listed above.
-bool ParseSolution(istream& in, Path& path)
+bool ParseSolution(istream& in, std::vector<char>& path)
 {
     char c = 0;
     while (in.get(c))
@@ -133,8 +134,7 @@ bool ParseSolution(istream& in, Path& path)
 }
 
 
-} // namespace
-} // namespace
+} // boxedin::io namespace
 
 #if defined(__linux__) || defined(__APPLE__)
 const char* normal  = "\x1b[0;39m";
@@ -297,17 +297,16 @@ void PrintCharMap(ostream& out, vector<vector<char> >& charmap, bool use_color/*
 
 
 /**
-   \relates boxedin::Path
    \brief Print the path characters with no delimiters.
    \param[in,out] out ostream to print to.
    \param[in] path Characters to print.
    \returns A reference to the ostream.
 */
-ostream& operator<<(ostream& out, const Path& path)
+ostream& operator<<(ostream& out, const vector<char>& path)
 {
-    for (PathCit it = path.begin(); it != path.end(); ++it)
+    for (auto c : path)
     {
-        out << *it;
+        out << c;
     }
     return out;
 }
@@ -328,21 +327,16 @@ ostream& operator<<(ostream& out, const Coord& coord)
 
 
 /**
-   \relates boxedin::Path
    \brief Displays the solution chars with no delimiter.
    \param[in,out] out ostream to print to.
    \param[in] solution A list of Path's to display.
    \returns A reference to the ostream.
 */
-ostream& operator<<(ostream& out, const list<Path>& solution)
+ostream& operator<<(ostream& out, const list<vector<char> >& solution)
 {
-    list<Path>::const_iterator cit = solution.begin();
-
-    while (cit != solution.end())
+    for (const auto & path : solution)
     {
-        const Path& path = *cit;
         out << path;
-        ++cit;
     }
 
     return out;
@@ -425,3 +419,68 @@ ostream& operator<<(ostream& out, const SearchResult& result)
     return out;
 }
 
+void PrintTo(const boxedin::Action& action, std::ostream& out)
+{
+    out << "PATH: " << action.path << ", " << "POINT: " << action.point << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& out, const boxedin::Action& action)
+{
+    out << "PATH: " << action.path << ", " << "POINT: " << action.point << std::endl;
+    return out;
+}
+
+
+std::ostream& operator<<(std::ostream& out, const boxedin::EncodedPath& path)
+{
+    for (int i = 0; i < (int)path.size(); i++)
+    {
+        switch (path.at(i))
+        {
+        case ENCODED_PATH_DIRECTION_UP:
+            out << 'U';
+            break;
+        case ENCODED_PATH_DIRECTION_DOWN:
+            out << 'D';
+            break;
+        case ENCODED_PATH_DIRECTION_LEFT:
+            out << 'L';
+            break;
+        case ENCODED_PATH_DIRECTION_RIGHT:
+            out << 'R';
+            break;
+        }
+    }
+    return out;
+}
+
+
+std::ostream& operator<<(std::ostream& out, const boxedin::Level& level)
+{
+    auto charMap = level.floor_plan_;
+    auto player = level.player_coord_;
+    charMap[player.y][player.x] = PLAYER;
+    auto boxes = level.box_coords_;
+    for (auto box : boxes)
+    {
+        charMap[box.y][box.x] = BOX;
+    }
+    auto gears = level.gear_coords_;
+    for (auto gear : gears)
+    {
+        charMap[gear.y][gear.x] = GEAR;
+    }
+    auto switchGatePairs = level.switch_gate_pairs_;
+    for (auto switchGatePair : switchGatePairs)
+    {
+        auto color = switchGatePair.first;
+        auto swtch = switchGatePair.second.first; // yuck
+        auto gate = switchGatePair.second.second; // yuck
+        charMap[swtch.y][swtch.x] = COLOR_TO_SWITCH_CHAR(color);
+        charMap[gate.y][gate.x] = COLOR_TO_GATE_CHAR(color);
+    }
+    PrintCharMap(out, charMap);
+    return out;
+}
+
+} // namespace boxedin

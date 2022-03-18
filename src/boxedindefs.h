@@ -2,12 +2,13 @@
  * \file boxedindefs.h
  * \brief This file contains macro definitions.
  * \author Aaron Jones
- * \date 2014
+ * \date 2014-2022
  * \copyright GNU Public License.
  */
 #ifndef BOXED_IN_DEFS_H__
 #define BOXED_IN_DEFS_H__
 
+#include <stdexcept>
 #include "config.h"
 
 // All valid level characters
@@ -85,6 +86,5 @@
         c == 'G'? GREEN  :      \
         c == 'B'? BLUE   :      \
         c == 'V'? VIOLET : VIOLET
-
 
 #endif

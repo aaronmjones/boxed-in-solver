@@ -18,11 +18,11 @@
 #include <iostream>
 #include <string>
 #include <boost/program_options.hpp>
-#include <boxedinio.h>
-#include <astar.h>
-#include <Heuristic.h>
-#include <Level.h>
-#include <Node.h>
+#include "boxedinio.h"
+#include "astar.h"
+#include "Heuristic.h"
+#include "Level.h"
+#include "Node.h"
 
 
 #if defined (__linux__) || defined (__APPLE__)

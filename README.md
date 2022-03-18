@@ -8,50 +8,65 @@ TODO: Add example level image and corresponding level file.
 
 ## Build Instructions - Linux
 
-1. Install cmake: `apt install cmake`
-1. Install boost:
-```
-wget <BOOST-URL>
-tar xf <BOOST-ARCHIVE>
-cd <BOOST-DIRECTORY>
-./bootstrap.sh
-./b2 install
-```
-1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
+1. Install dependencies: see Dockerfile for dependencies
 1. Build
 ```
 cd boxed-in-solver
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=.. ..
-make install
+cmake ..
+cmake --build . # Or run make all
 ```
-_Binaries will be in boxed-in-solver/bin directory_
 
 ## Build Instructions - Windows
 
-1. Install cmake
-1. Install boost
-   * Download boost 1.65.1
-   * Build and install
-```
-bootstrap.bat
-b2.exe --prefix=C:\boost_1_65_1 install
-```
-1. Download solver source
+1. Install dependencies
+   1. Install cmake
+   1. Install boost
+      * Download boost 1.65.1 # or whatever version
+      * Build and install
+      ```
+      bootstrap.bat
+      b2.exe --prefix=C:\boost_1_65_1 install
+      ```
+   1. Install googletest
+   1. Install fmtlib
 1. Build
 ```
 mkdir build
 cd build
-cmake -G"Visual Studio 15 2017" --config Release -DBOOST_ROOT=C:\boost_1_65_1 -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=.. ..
+cmake -G"Visual Studio 15 2017" --config Release -DBOOST_ROOT=C:\boost_1_65_1 -DBoost_USE_STATIC_LIBS=ON ..
+cmake --build . # Or open the generated visual studio solution (in build folder) and build project.
 ```
-Open the generated visual studio solution (in build folder) and build the INSTALL project.
 
 ## Build Instructions - Mac
 
-TODO: same as Linux instructions?
+1. Install dependencies:
+```
+brew install boost
+brew install cmake
+brew install fmt
+brew install googletest
+```
+1. Build
+```
+cd boxed-in-solver
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+## Run Unit Tests
+
+```
+cd build/test
+ctest # Or run an individual test binary in build/test directory
+```
 
 ## Docker instructions
+
+### Debian Buster Docker Container
 
 Build the docker image
 ```
@@ -61,17 +76,29 @@ A docker image is created with the tag `boxed-in-solver-debian-buster` from a Do
 
 Build the project
 ```
-sudo docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
-                -t boxed-in-solver-debian-buster \
-                bash -c "cmake .. && cmake --build ."
+docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
+           -t boxed-in-solver-debian-buster \
+           bash -c "cmake .. && cmake --build ."
+```
+
+Run interactive shell
+```
+docker run -v ~/git/boxed-in-solver:/boxed-in-solver -it boxed-in-solver-debian-buster bash
+```
+
+Run unit tests
+```
+docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
+           -t boxed-in-solver-debian-buster \
+           bash -c "cd test && ctest"
 ```
 
 ## Running the solver
 
-To run the solver on Boxed In 1, Level 1 data, execute the following from the **boxed-in-solver** directory:
+To run the solver on Boxed In 1, Level 1 data, execute the following from the **boxed-in-solver/build** directory:
 
 ```
-bin/solve data/levels/1/01.txt
+./solve -l level-data/1/01.txt
 ```
 The level and some statistics will be written to stderr. If the search was successful, the solution will be written to stdout. The solution is a string of {U,D,L,R} characters.
 
@@ -107,19 +134,20 @@ MAXRSS 4212000
 RRRURDR
 ```
 
-You can write the solution to a file by redirecting stdout to a solution file. You can then use this solution with the _view-solution_ utility to view a animation of the level being solved in the console.
+You can write the solution to a file by redirecting stdout to a solution file. You can then use this solution with the `validate` utility to view a animation of the level being solved in the console.
 
-Solve boxed-in 3, level 2 and write solution to file:
+To solve boxed-in 3, level 2 and write solution to file, execute the following from teh **boxed-in-solver/build** directory:
 ```
-bin/solve data/levels/3/02.txt >data/solutions/3/02.txt
-```
-
-## view-solution
-
-To run the solution viewer on Boxed In 1, Level 7 data, execute the following from the **boxed-in-solver** directory:
-
-```
-bin/view-solution data/levels/1/07.txt data/solutions/1/07.txt
+./solve -l level-data/3/02.txt > solution-data/3/02.txt
 ```
 
+## Validating a solution
+
+To run the solution validator on Boxed In 1, Level 7 data, execute the following from the **boxed-in-solver/build** directory:
+
+```
+./validate -l level-data/1/07.txt -s solution-data/1/07.txt
+```
+
+TODO: replace with animated GIF
 ![view-solution](images/view-solution.png)

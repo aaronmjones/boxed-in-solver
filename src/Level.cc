@@ -8,7 +8,7 @@ namespace boxedin
 // Create a 2D character "map" representation using the floor plan of the Level
 // and the gear, box and player position from the Node. This function is used
 // by the astar search.
-vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
+vector<vector<char> > Level::MakeFloodFillMap(const Node& node, bool draw_player) const
 {
   int sz = 0;
   int floor_width = (int)floor_plan_[0].size();
@@ -75,7 +75,7 @@ vector<vector<char> > Level::Map(const Node& node, bool draw_player) const
 
 // Create a 2D character "map" representation of the Level. This function is
 // used by the solution viewer.
-vector<vector<char> > Level::Map() const
+vector<vector<char> > Level::Render() const
 {
   int sz = 0;
   int floor_width = (int)floor_plan_[0].size();
@@ -117,8 +117,29 @@ vector<vector<char> > Level::Map() const
   return level_map;
 }
 
+Level Level::MakeLevel(const string& levelString)
+{
+  // First make a 2D vector from the string
+  vector<vector<char> > charMap;
+  vector<char> charRow;
+  for (const auto& c : levelString)
+  {
+    if (c == '\n')
+    {
+      charMap.push_back(charRow);
+      charRow.clear();
+    }
+    else
+    {
+      charRow.push_back(c);
+    }
+  }
 
-/*static*/ Level Level::MakeLevel(vector<vector<char> >& charmap)
+  return MakeLevel(charMap);
+}
+
+
+Level Level::MakeLevel(const vector<vector<char> >& charmap)
 {
   Level level;
   int player_coords_found = 0;
@@ -226,6 +247,21 @@ vector<vector<char> > Level::Map() const
 }
 
 
+int Level::GearsLeft(const vector<vector<char> >& charmap)
+{
+  int gearsLeft = 0;
+  for (const auto & row : charmap)
+  {
+    for (const auto & c : row)
+    {
+      if (c == GEAR)
+        ++gearsLeft;
+    }
+  }
+  return gearsLeft;
+}
+
+
 /**
    \brief Remove the gear at the current player coordinate.
  */
@@ -233,7 +269,6 @@ void Level::TryPickupGear()
 {
   gear_coords_.erase(std::remove(gear_coords_.begin(), gear_coords_.end(), player_coord_), gear_coords_.end());
 }
-
 
 
 /**
@@ -253,7 +288,6 @@ void Level::MoveUp()
 }
 
 
-
 /**
    \brief Move player down, pushing a box if there is one.
    \details Assumes the move is legal; no validation is performed.
@@ -269,7 +303,6 @@ void Level::MoveDown()
         it->y++;
     }
 }
-
 
 
 /**
@@ -289,7 +322,6 @@ void Level::MoveLeft()
 }
 
 
-
 /**
    \brief Move player right, pushing a box if there is one.
    \details Assumes the move is legal; no validation is performed.
@@ -303,6 +335,150 @@ void Level::MoveRight()
     if (it != box_coords_.end())
     {
         it->x++;
+    }
+}
+
+
+bool Level::IsBoxAndCanMoveUp(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  return (y > 0 && is_box(charmap, x, y) && can_hold_box(charmap, x, y-1));
+}
+
+
+bool Level::IsBoxAndCanMoveDown(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  uint8_t floor_height = (uint8_t)charmap.size();
+  return (y < floor_height - 1 && is_box(charmap, x, y) && can_hold_box(charmap, x, y + 1));
+}
+
+
+bool Level::IsBoxAndCanMoveLeft(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  return (x > 0 && is_box(charmap, x, y) && can_hold_box(charmap, x-1, y));
+}
+
+
+bool Level::IsBoxAndCanMoveRight(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  uint8_t floor_width = (uint8_t)charmap[0].size();
+  return (x < floor_width - 1 && is_box(charmap, x, y) && can_hold_box(charmap, x+1, y));
+}
+
+
+bool Level::CanMoveUp(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  // Can walk up?
+  if ((y > 0) && is_walkable(charmap, x, y-1))
+    return true;
+  // Can move box up?
+  if (Level::IsBoxAndCanMoveUp(charmap, x, y-1))
+    return true;
+  return false;
+}
+
+
+bool Level::CanMoveDown(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  uint8_t floor_height = (uint8_t)charmap.size();
+  // Can walk up?
+  if ( (y < floor_height-1) && is_walkable(charmap, x, y+1) )
+    return true;
+  // Can move box up?
+  if (Level::IsBoxAndCanMoveDown(charmap, x, y+1))
+    return true;
+  return false;
+}
+
+
+bool Level::CanMoveLeft(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  // Can walk up?
+  if ((x > 0) && is_walkable(charmap, x-1, y))
+    return true;
+  // Can move box up?
+  if (Level::IsBoxAndCanMoveLeft(charmap, x-1, y))
+    return true;
+  return false;
+}
+
+
+bool Level::CanMoveRight(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  uint8_t floor_width = (uint8_t)charmap[0].size();
+  // Can walk up?
+  if ((x < floor_width - 1) && is_walkable(charmap, x + 1, y))
+    return true;
+  // Can move box up?
+  if (Level::IsBoxAndCanMoveRight(charmap, x+1, y))
+    return true;
+  return false;
+}
+
+
+bool is_box(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    return charmap[y][x] == '+';
+}
+
+
+bool is_walkable(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case ' ':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+    case '*':
+    case '@':
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool is_switch(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool can_flood(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case ' ':
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool can_hold_box(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case ' ':
+    case '-':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+        return true;
+    default:
+        return false;
     }
 }
 

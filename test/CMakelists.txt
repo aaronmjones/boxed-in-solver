@@ -1,0 +1,70 @@
+
+enable_testing()
+find_package(GTest REQUIRED)
+
+add_executable(
+  encoded_path_test
+  encoded_path_test.cc
+)
+
+target_include_directories(
+  encoded_path_test PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${Boost_INCLUDE_DIRS}
+)
+
+target_link_libraries(
+  encoded_path_test
+  fmt::fmt
+  GTest::GTest
+  GTest::Main
+)
+
+
+add_executable(
+  symmetric_cost_table_test
+  symmetric_cost_table_test.cc
+)
+
+target_include_directories(
+  symmetric_cost_table_test PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${Boost_INCLUDE_DIRS}
+)
+
+target_link_libraries(
+  symmetric_cost_table_test
+  fmt::fmt
+  GTest::GTest
+  GTest::Main
+)
+
+
+add_executable(
+  FloodFillTest
+  FloodFillTest.cc
+  ${CMAKE_SOURCE_DIR}/src/astar.cc
+  ${CMAKE_SOURCE_DIR}/src/boxedinio.cc
+  ${CMAKE_SOURCE_DIR}/src/Heuristic.cc
+  ${CMAKE_SOURCE_DIR}/src/Level.cc
+  ${CMAKE_SOURCE_DIR}/src/memusage.cc
+  ${CMAKE_SOURCE_DIR}/src/Node.cc
+)
+
+target_include_directories(
+  FloodFillTest PRIVATE
+    ${CMAKE_SOURCE_DIR}/src
+    ${Boost_INCLUDE_DIRS}
+)
+
+target_link_libraries(
+  FloodFillTest
+  fmt::fmt
+  GTest::GTest
+  GTest::Main
+)
+
+
+gtest_discover_tests(encoded_path_test)
+gtest_discover_tests(symmetric_cost_table_test)
+gtest_discover_tests(FloodFillTest)
