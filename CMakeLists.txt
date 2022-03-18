@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.11)
 project(BoxedInSolver)
 
 find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(fmt)
 
 set (CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE Debug)
@@ -25,6 +26,7 @@ target_include_directories(solve PRIVATE
 
 target_link_libraries(solve PRIVATE
                       ${Boost_LIBRARIES}
+                      fmt::fmt
 )
 
 # view-solution ----------------------------------------------------------------
@@ -41,6 +43,7 @@ target_include_directories(view-solution PRIVATE
 
 target_link_libraries(view-solution PRIVATE
                       ${Boost_LIBRARIES}
+                      fmt::fmt
 )
 
 install(TARGETS solve view-solution

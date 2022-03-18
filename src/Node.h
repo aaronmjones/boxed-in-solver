@@ -24,6 +24,7 @@ namespace boxedin
 struct Heuristic; // forward
 
 
+// TODO: Needs documentation. I don't remember what this was for.
 struct BoxDescriptorLite
 {
     static const int size = 3;
@@ -163,6 +164,31 @@ struct Action
         : path(action.path)
         , point(action.point)
     {
+    }
+    bool operator<(const Action& other) const
+    {
+        if (path < other.path)
+          return true;
+        if (other.path < path)
+          return false;
+        if (point.x != other.point.x)
+          return point.x < other.point.x;
+        if (point.y != other.point.y)
+          return point.y < other.point.y;
+        return false;
+    }
+    bool operator==(const Action& other) const
+    {
+        if (!(path == other.path))
+            return false;
+        if (!(point == other.point))
+            return false;
+        return true;
+    }
+    static Action MakeAction(std::string pathStr, Coord point)
+    {
+        EncodedPath encodedPath(pathStr);
+        return Action(encodedPath, point);
     }
 };
 

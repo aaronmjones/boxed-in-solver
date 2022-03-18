@@ -25,16 +25,25 @@ TEST(FloodFill, canFindExpectedActionsLevel1State1) {
       "''''''''''\n"
   );
   
+  list<Action> expectedActions;
+  expectedActions.push_back(Action::MakeAction("RR", {4, 6}));
+  expectedActions.push_back(Action::MakeAction("URR", {4, 5}));
+  expectedActions.push_back(Action::MakeAction("DRR", {4, 7}));
+  expectedActions.sort();
+
   ShortestDistanceThroughGearsToExitHeuristic heuristic(level);
   auto node = Node::MakeStartNode(level, heuristic);
   auto actions = find_actions(level, *node);
-  //delete node;
+  actions.sort();
+  delete node;
   std::cerr << level << std::endl;
   for (const auto& action : actions)
   {
       std::cerr << action << std::endl;
   }
   EXPECT_EQ(actions.size(), 3);
+  // FIXME: get this test working
+  // EXPECT_EQ(actions, expectedActions);
 }
 
 TEST(FloodFill, FloodFill_canFindExpectedActionsLevel3State1)
@@ -56,14 +65,23 @@ TEST(FloodFill, FloodFill_canFindExpectedActionsLevel3State1)
       "''''''''''\n"
   );
 
+  list<Action> expectedActions;
+  expectedActions.push_back(Action::MakeAction("RR", {4, 6}));
+  expectedActions.push_back(Action::MakeAction("URR", {4, 5}));
+  expectedActions.push_back(Action::MakeAction("DRR", {4, 7}));
+  expectedActions.sort();
+
   ShortestDistanceThroughGearsToExitHeuristic heuristic(level);
   auto node = Node::MakeStartNode(level, heuristic);
   auto actions = find_actions(level, *node);
-  //delete node;
+  actions.sort();
+  delete node;
   std::cerr << level << std::endl;
   for (const auto& action : actions)
   {
       std::cerr << action << std::endl;
   }
   EXPECT_EQ(actions.size(), 2);
+  // FIXME: get this test working
+  // EXPECT_EQ(actions, expectedActions);
 }

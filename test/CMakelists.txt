@@ -15,6 +15,7 @@ target_include_directories(
 
 target_link_libraries(
   encoded_path_test
+  fmt::fmt
   GTest::GTest
   GTest::Main
 )
@@ -33,6 +34,7 @@ target_include_directories(
 
 target_link_libraries(
   symmetric_cost_table_test
+  fmt::fmt
   GTest::GTest
   GTest::Main
 )
@@ -57,6 +59,7 @@ target_include_directories(
 
 target_link_libraries(
   FloodFillTest
+  fmt::fmt
   GTest::GTest
   GTest::Main
 )

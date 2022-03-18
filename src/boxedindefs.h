@@ -8,6 +8,7 @@
 #ifndef BOXED_IN_DEFS_H__
 #define BOXED_IN_DEFS_H__
 
+#include <stdexcept>
 #include "config.h"
 
 // All valid level characters
@@ -85,6 +86,5 @@
         c == 'G'? GREEN  :      \
         c == 'B'? BLUE   :      \
         c == 'V'? VIOLET : VIOLET
-
 
 #endif

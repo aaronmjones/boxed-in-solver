@@ -74,36 +74,28 @@ void Node::operator delete(void* p)
 
 bool operator<(const BoxDescriptorLite& l, const BoxDescriptorLite& r)
 {
-    if (l.size == r.size)
+    for (size_t i = 0; i < l.size; i++)
     {
-        for (size_t i = 0; i < l.size; i++)
+        if (l.bitfields[i] == r.bitfields[i])
         {
-            if (l.bitfields[i] == r.bitfields[i])
-            {
-                continue;
-            }
-            return (l.bitfields[i] < r.bitfields[i]);
+            continue;
         }
-        return false; // box descriptor bitfields have equal size and values
+        return (l.bitfields[i] < r.bitfields[i]);
     }
-    return (l.size < r.size);
+    return false; // box descriptor bitfields have equal size and values
 }
 
 bool operator==(const BoxDescriptorLite& l, const BoxDescriptorLite& r)
 {
-    if (l.size == r.size)
+    for (size_t i = 0; i < l.size; i++)
     {
-        for (size_t i = 0; i < l.size; i++)
+        if (l.bitfields[i] == r.bitfields[i])
         {
-            if (l.bitfields[i] == r.bitfields[i])
-            {
-                continue;
-            }
-            return false;
+            continue;
         }
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
 bool operator<(const GearDescriptorLite& l, const GearDescriptorLite& r)
