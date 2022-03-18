@@ -7,9 +7,9 @@
  */
 
 #include <iostream>
-#include <boxedinio.h>
 
 #include "astar.h"
+#include "boxedinio.h"
 #include "config.h"
 #include "Node.h"
 #include "Level.h"

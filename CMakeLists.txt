@@ -19,7 +19,6 @@ add_executable(solve
 )
 
 target_include_directories(solve PRIVATE
-                           ${CMAKE_SOURCE_DIR}/hdr
                            ${Boost_INCLUDE_DIRS}
 )
 
@@ -36,7 +35,6 @@ add_executable(view-solution
 )
 
 target_include_directories(view-solution PRIVATE
-                           ${CMAKE_SOURCE_DIR}/hdr
                            ${Boost_INCLUDE_DIRS}
 )
 

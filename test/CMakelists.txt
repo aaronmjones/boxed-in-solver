@@ -9,7 +9,7 @@ add_executable(
 
 target_include_directories(
   encoded_path_test PRIVATE
-    ${CMAKE_SOURCE_DIR}/hdr
+    ${CMAKE_SOURCE_DIR}/src
     ${Boost_INCLUDE_DIRS}
 )
 
@@ -28,7 +28,7 @@ add_executable(
 
 target_include_directories(
   symmetric_cost_table_test PRIVATE
-    ${CMAKE_SOURCE_DIR}/hdr
+    ${CMAKE_SOURCE_DIR}/src
     ${Boost_INCLUDE_DIRS}
 )
 

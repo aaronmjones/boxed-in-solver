@@ -5,7 +5,7 @@
  * \date 2014
  * \copyright GNU Public License.
  */
-#include <memusage.h>
+#include "memusage.h"
 
 #if defined(__linux__) || defined(__APPLE__)
 
