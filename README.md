@@ -61,9 +61,14 @@ A docker image is created with the tag `boxed-in-solver-debian-buster` from a Do
 
 Build the project
 ```
-sudo docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
-                -t boxed-in-solver-debian-buster \
-                bash -c "cmake .. && cmake --build ."
+docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
+           -t boxed-in-solver-debian-buster \
+           bash -c "cmake .. && cmake --build ."
+```
+
+Run interactive shell
+```
+docker run -v ~/git/boxed-in-solver:/boxed-in-solver -it boxed-in-solver-debian-buster bash
 ```
 
 ## Running the solver

@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.5)
+cmake_minimum_required (VERSION 3.11)
 
 project(BoxedInSolver)
 
@@ -47,3 +47,7 @@ target_link_libraries(view-solution PRIVATE
 install(TARGETS solve view-solution
         RUNTIME DESTINATION bin
 )
+
+# tests ------------------------------------------------------------------------
+
+add_subdirectory(test)
