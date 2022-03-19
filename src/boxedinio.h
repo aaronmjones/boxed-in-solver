@@ -40,6 +40,14 @@ std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Path>& solu
 std::ostream& operator<<(std::ostream& out, const boxedin::SearchResult& result);
 
 std::ostream& operator<<(std::ostream& out, const boxedin::Action& action);
+inline std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Action>& actions)
+{
+  for (auto action : actions)
+      std::cerr << action << std::endl;
+  return out;
+}
+//std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Action>& actions);
+std::ostream& operator<<(std::ostream& out, const boxedin::EncodedPath& path);
 std::ostream& operator<<(std::ostream& out, const boxedin::Level& level);
 
 

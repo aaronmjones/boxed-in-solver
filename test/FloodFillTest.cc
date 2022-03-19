@@ -29,12 +29,10 @@ TEST(FloodFill, canFindExpectedActionsLevel1State1) {
   expectedActions.push_back(Action::MakeAction("RR", {4, 6}));
   expectedActions.push_back(Action::MakeAction("URR", {4, 5}));
   expectedActions.push_back(Action::MakeAction("DRR", {4, 7}));
-  expectedActions.sort();
 
   ShortestDistanceThroughGearsToExitHeuristic heuristic(level);
   auto node = Node::MakeStartNode(level, heuristic);
   auto actions = find_actions(level, *node);
-  actions.sort();
   delete node;
   std::cerr << level << std::endl;
   for (const auto& action : actions)
@@ -42,8 +40,19 @@ TEST(FloodFill, canFindExpectedActionsLevel1State1) {
       std::cerr << action << std::endl;
   }
   EXPECT_EQ(actions.size(), 3);
-  // FIXME: get this test working
-  // EXPECT_EQ(actions, expectedActions);
+
+  // If action lists are equal, then the difference list will be empty.
+  list<Action> difference;
+  set_difference(std::begin(expectedActions),
+                 std::end(expectedActions),
+                 std::begin(actions),
+                 std::end(actions),
+                 std::back_inserter(difference));
+  // FIXME: Does not print lists as expected
+  EXPECT_EQ(difference.size(), 0)
+    << "EXPECTED:\n" << ::testing::PrintToString(expectedActions)
+    << "ACTUAL:\n" << ::testing::PrintToString(actions)
+    << "DIFFERENCE:\n" << ::testing::PrintToString(difference);
 }
 
 TEST(FloodFill, FloodFill_canFindExpectedActionsLevel3State1)
@@ -66,15 +75,12 @@ TEST(FloodFill, FloodFill_canFindExpectedActionsLevel3State1)
   );
 
   list<Action> expectedActions;
-  expectedActions.push_back(Action::MakeAction("RR", {4, 6}));
-  expectedActions.push_back(Action::MakeAction("URR", {4, 5}));
-  expectedActions.push_back(Action::MakeAction("DRR", {4, 7}));
-  expectedActions.sort();
+  expectedActions.push_back(Action::MakeAction("UULUUUUU", {4, 4}));
+  expectedActions.push_back(Action::MakeAction("UULUULLUUU", {2, 4}));
 
   ShortestDistanceThroughGearsToExitHeuristic heuristic(level);
   auto node = Node::MakeStartNode(level, heuristic);
   auto actions = find_actions(level, *node);
-  actions.sort();
   delete node;
   std::cerr << level << std::endl;
   for (const auto& action : actions)
@@ -82,6 +88,17 @@ TEST(FloodFill, FloodFill_canFindExpectedActionsLevel3State1)
       std::cerr << action << std::endl;
   }
   EXPECT_EQ(actions.size(), 2);
-  // FIXME: get this test working
-  // EXPECT_EQ(actions, expectedActions);
+
+  // If action lists are equal, then the difference list will be empty.
+  list<Action> difference;
+  set_difference(std::begin(expectedActions),
+                 std::end(expectedActions),
+                 std::begin(actions),
+                 std::end(actions),
+                 std::back_inserter(difference));
+  // FIXME: Does not print lists as expected
+  EXPECT_EQ(difference.size(), 0)
+    << "EXPECTED:\n" << ::testing::PrintToString(expectedActions)
+    << "ACTUAL:\n" << ::testing::PrintToString(actions)
+    << "DIFFERENCE:\n" << ::testing::PrintToString(difference);
 }

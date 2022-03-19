@@ -428,11 +428,17 @@ ostream& operator<<(ostream& out, const SearchResult& result)
 
 std::ostream& operator<<(std::ostream& out, const boxedin::Action& action)
 {
-    out << "PATH: ";
-    const auto& encodedPath = action.path;
-    for (int i = 0; i < (int)encodedPath.size(); i++)
+    out << "PATH: " << action.path << std::endl;
+    out << "POINT: " << action.point << std::endl;
+    return out;
+}
+
+
+std::ostream& operator<<(std::ostream& out, const boxedin::EncodedPath& path)
+{
+    for (int i = 0; i < (int)path.size(); i++)
     {
-        switch (encodedPath.at(i))
+        switch (path.at(i))
         {
         case ENCODED_PATH_DIRECTION_UP:
             out << 'U';
@@ -448,10 +454,6 @@ std::ostream& operator<<(std::ostream& out, const boxedin::Action& action)
             break;
         }
     }
-    out << std::endl;
-
-    const auto& point = action.point;
-    out << "POINT: " << point << std::endl;
     return out;
 }
 

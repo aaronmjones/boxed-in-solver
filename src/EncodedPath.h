@@ -37,7 +37,6 @@ inline EncodedPathDirection CharToDirection(char c)
       return ENCODED_PATH_DIRECTION_RIGHT;
     default:
       // FIXME: throw custom exception type
-      // FIXME: fmtlib for string formatting
       throw std::runtime_error(fmt::format("Invalid direction char: {}", c));
     }
 }
@@ -58,6 +57,7 @@ public:
     EncodedPath(const std::string& pathStr)
         : size_(0)
     {
+        memset(data_, 0, ENCODED_PATH_DATA_SIZE);
         for (auto c : pathStr)
         {
             push_back(CharToDirection(c));
@@ -79,6 +79,7 @@ public:
             int shift = size_ % 4;
             data_[data_index] |= ((uint8_t)direction << (shift * 2));
             size_++;
+            // fmt::print("data[{}]={:#010b}\n", data_index, data_[data_index]);
         }
         else
         {
