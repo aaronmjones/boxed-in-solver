@@ -25,7 +25,6 @@ void ParseCharMap(std::istream& in, std::vector<std::vector<char> >& charmap);
 bool IsValidBoxedInLevel(std::vector<std::vector<char> >& charmap);
 
 } // namespace
-} // namespace
 
 
 std::ostream& clear_screen(std::ostream& out);
@@ -40,15 +39,16 @@ std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Path>& solu
 std::ostream& operator<<(std::ostream& out, const boxedin::SearchResult& result);
 
 std::ostream& operator<<(std::ostream& out, const boxedin::Action& action);
-inline std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Action>& actions)
-{
-  for (auto action : actions)
-      std::cerr << action << std::endl;
-  return out;
-}
-//std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Action>& actions);
+void PrintTo(const boxedin::Action& action, std::ostream& out);
+// inline std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Action>& actions)
+// {
+//   for (auto action : actions)
+//       out << action << std::endl;
+//   return out;
+// }
 std::ostream& operator<<(std::ostream& out, const boxedin::EncodedPath& path);
 std::ostream& operator<<(std::ostream& out, const boxedin::Level& level);
 
+} // namespace
 
 #endif

@@ -134,8 +134,7 @@ bool ParseSolution(istream& in, Path& path)
 }
 
 
-} // namespace
-} // namespace
+} // boxedin::io namespace
 
 #if defined(__linux__) || defined(__APPLE__)
 const char* normal  = "\x1b[0;39m";
@@ -426,10 +425,14 @@ ostream& operator<<(ostream& out, const SearchResult& result)
     return out;
 }
 
+void PrintTo(const boxedin::Action& action, std::ostream& out)
+{
+    out << "PATH: " << action.path << ", " << "POINT: " << action.point << std::endl;
+}
+
 std::ostream& operator<<(std::ostream& out, const boxedin::Action& action)
 {
-    out << "PATH: " << action.path << std::endl;
-    out << "POINT: " << action.point << std::endl;
+    out << "PATH: " << action.path << ", " << "POINT: " << action.point << std::endl;
     return out;
 }
 
@@ -485,3 +488,5 @@ std::ostream& operator<<(std::ostream& out, const boxedin::Level& level)
     PrintCharMap(out, charMap);
     return out;
 }
+
+} // namespace boxedin
