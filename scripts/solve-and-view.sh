@@ -27,17 +27,23 @@ AUTHOR
 
 for GAME in {1..3}; do
     if [ ! -d "stats/$GAME" ]; then
-	mkdir -p "stats/$GAME"
+        mkdir -p "stats/$GAME"
     fi
     if [ ! -d "solutions/$GAME" ]; then
-	mkdir -p "solutions/$GAME"
+        mkdir -p "solutions/$GAME"
     fi
 done
 
+# TODO: rename view-solution program to validate-solution and use it
+#       for automated testing. Add a flag to view the animated solution.
+#       Print UDLR movements while animating solution. Throw exception
+#       if solution violates game physics.
 for GAMELEVEL; do
     IFS=':' read GAME LEVEL <<< "$GAMELEVEL"
-    FILE=$(printf %02d.txt $LEVEL)
-    if bin/BoxedInSolver -c levels/$GAME/$FILE -s stats/$GAME/$FILE > solutions/$GAME/$FILE; then
-	bin/ViewSolution -c levels/$GAME/$FILE solutions/$GAME/$FILE
+    LEVEL_FILE=$(printf %02d.txt $LEVEL)
+    SOLUTION_FILE=$(printf %02d.txt $LEVEL)
+    STATS_FILE=$(printf %02d.stats $LEVEL)
+    if ./solve -l level-data/$GAME/$LEVEL_FILE -s solution-data/$GAME/$STATS_FILE > solution-data/$GAME/$SOLUTION_FILE; then
+        ./view-solution -l level-data/$GAME/$LEVEL_FILE -s solution-data/$GAME/$SOLUTION_FILE
     fi
 done

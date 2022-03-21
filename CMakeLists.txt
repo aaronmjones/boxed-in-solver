@@ -50,6 +50,12 @@ install(TARGETS solve view-solution
         RUNTIME DESTINATION bin
 )
 
+# files ------------------------------------------------------------------------
+
+file(COPY scripts DESTINATION .)
+file(COPY level-data DESTINATION .)
+file(COPY solution-data DESTINATION .)
+
 # tests ------------------------------------------------------------------------
 
 add_subdirectory(test)
