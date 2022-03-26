@@ -2,7 +2,7 @@
  * \file ViewSolution.cc
  * \brief This file contains the main() function for ViewSolution.
  * \author Aaron Jones
- * \date 2014
+ * \date 2014-2022
  * \copyright GNU Public License.
  */
 
@@ -11,6 +11,7 @@
 #include <chrono>
 #include <iostream>
 #include <fstream>
+#include <fmt/core.h>
 #include <string>
 #include <thread>
 #include <boost/program_options.hpp>
@@ -21,24 +22,35 @@
 using namespace std;
 using namespace boxedin;
 
+void Print(vector<vector<char> > charmap, int move_index, vector<char> path, bool use_color)
+{
+  cout << clear_screen;
+
+  cout << "Move " << move_index++ << " / " << path.size() << endl;
+
+  PrintCharMap(cout, charmap, use_color);
+
+  // Print solution moves thus far
+  for (size_t i=0; i<move_index; ++i)
+    cout << path[i];
+  cout << endl;
+}
 
 int main(int argc, char* argv[])
 {
   string level_path;
   string solution_path;
   bool use_color = true;
-  /* run count -1 means infinite */
-  int run_count = -1;
-  int run_index = 0;
+  bool animate = false;
 
   try {
     boost::program_options::options_description desc("view-solution OPTIONS <level-file> <solution-file>\nOPTIONS");
     desc.add_options()
       ("help,h",                                                                        "Display help"                   )
       ("no-color,n",                                                                    "Do not display output in color" )
+      ("animate,a",                                                                     "Print animated solution"        )
       ("level,l",    boost::program_options::value<string>(&level_path)->required(),    "Input boxed-in level file"      )
       ("solution,s", boost::program_options::value<string>(&solution_path)->required(), "Input solution file"            )
-      ("count,c",    boost::program_options::value<int>(&run_count),                    "View solution N times"          )
       ;
     
     boost::program_options::positional_options_description positionalOptions;
@@ -62,9 +74,9 @@ int main(int argc, char* argv[])
     boost::program_options::notify(variablesMap);
 
     if (variablesMap.count("no-color"))
-    {
       use_color = false;
-    }
+    if (variablesMap.count("animate"))
+      animate = true;
   }
   catch (boost::program_options::error& e)
   {
@@ -81,41 +93,55 @@ int main(int argc, char* argv[])
   Level level = Level::MakeLevel(charmap);
 
   /* Parse the solution */
-  Path path;
+  vector<char> path;
   boxedin::io::ParseSolution(solution_istream, path);
 
-  cout << clear_screen;
-
-  while (run_count == -1 || run_index < run_count)
+  do
   {
     // Reset level state
     Level currentLevel = level;
-    charmap = currentLevel.MakeMap();
+    charmap = currentLevel.Render();
 
-    int move_index = 0;
+    int move_index = -1;
     int move_count = (int)path.size();
 
-    cout << clear_screen;
-    cout << "Move " << move_index++ << " / " << move_count << endl;
-    PrintCharMap(cout, charmap, use_color);
-    this_thread::sleep_for(chrono::seconds(1));
-
-    for (Path::iterator it = path.begin(); it != path.end(); ++it)
+    if (animate)
     {
-      char c = toupper(*it);
+      Print(charmap, move_index, path, use_color);
+      this_thread::sleep_for(chrono::seconds(1));
+    }
+
+    move_index = 0;
+
+    for (auto c : path)
+    {
+      auto & coord = currentLevel.player_coord_;
+      c = toupper(c);
       switch (c)
       {
       case 'U':
-        currentLevel.MoveUp();
+        if (currentLevel.CanMoveUp(charmap))
+          currentLevel.MoveUp();
+        else
+          throw std::runtime_error(fmt::format("Cannot move up from ({},{})", coord.x, coord.y));
         break;
       case 'D':
-        currentLevel.MoveDown();
+        if (currentLevel.CanMoveDown(charmap))
+          currentLevel.MoveDown();
+        else
+          throw std::runtime_error(fmt::format("Cannot move down from ({},{})", coord.x, coord.y));
         break;
       case 'L':
-        currentLevel.MoveLeft();
+        if (currentLevel.CanMoveLeft(charmap))
+          currentLevel.MoveLeft();
+        else
+          throw std::runtime_error(fmt::format("Cannot move left from ({},{})", coord.x, coord.y));
         break;
       case 'R':
-        currentLevel.MoveRight();
+        if (currentLevel.CanMoveRight(charmap))
+          currentLevel.MoveRight();
+        else
+          throw std::runtime_error(fmt::format("Cannot move right from ({},{})", coord.x, coord.y));
         break;
       default:
         cerr << "Unrecognized char in path file: " << c << endl;
@@ -123,21 +149,43 @@ int main(int argc, char* argv[])
       }
       currentLevel.TryPickupGear();
 
-      charmap = currentLevel.MakeMap();
-      cout << clear_screen;
-      cout << "Move " << move_index++ << " / " << move_count << endl;
-      PrintCharMap(cout, charmap, use_color);
-      cout.flush();
+      charmap = currentLevel.Render();
 
-      this_thread::sleep_for(chrono::milliseconds(250));
+      if (animate)
+      {
+        Print(charmap, move_index, path, use_color);
+        this_thread::sleep_for(chrono::milliseconds(500));
+      }
+      move_index++;
     }
 
-    this_thread::sleep_for(chrono::seconds(2));
-    if (run_index != -1)
+    if (animate)
     {
-      run_index++;
+      this_thread::sleep_for(chrono::seconds(2));
     }
-  }
+    else
+    {
+      // If we're not animating, then return success if level was solved.
+      auto gearsLeft = Level::GearsLeft(charmap);
+      if (gearsLeft != 0)
+      {
+        Print(charmap, move_index, path, use_color);
+        fmt::print("Invalid solution: there are still {} gears remaining\n", gearsLeft);
+        exit(1);
+      }
+      if (!(currentLevel.player_coord_ == currentLevel.exit_coord_))
+      {
+        Print(charmap, move_index, path, use_color);
+        fmt::print("Invalid solution: player did not reach exit\n");
+        exit(1);
+      }
+      Print(charmap, move_index, path, use_color);
+      fmt::print("Solution is valid!\n");
+      exit(0); // Success
+    }
+
+  } while (animate);
+
   return 0;
 }
 

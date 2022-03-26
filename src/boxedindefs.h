@@ -2,7 +2,7 @@
  * \file boxedindefs.h
  * \brief This file contains macro definitions.
  * \author Aaron Jones
- * \date 2014
+ * \date 2014-2022
  * \copyright GNU Public License.
  */
 #ifndef BOXED_IN_DEFS_H__

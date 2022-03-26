@@ -136,13 +136,6 @@ typedef Gears::iterator GearsIt;
 /** Gears const iterator. */
 typedef Gears::const_iterator GearsCit;
 
-/** Path of direction chars {u,d,l,r}. */
-typedef std::vector<char> Path;
-/** Path iterator. */
-typedef Path::iterator PathIt;
-/** Path const iterator. */
-typedef Path::const_iterator PathCit;
-
 /** The type used for a key for open set and closed set containers. */
 typedef size_t key_type;
 

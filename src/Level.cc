@@ -75,7 +75,7 @@ vector<vector<char> > Level::MakeFloodFillMap(const Node& node, bool draw_player
 
 // Create a 2D character "map" representation of the Level. This function is
 // used by the solution viewer.
-vector<vector<char> > Level::MakeMap() const
+vector<vector<char> > Level::Render() const
 {
   int sz = 0;
   int floor_width = (int)floor_plan_[0].size();
@@ -247,6 +247,21 @@ Level Level::MakeLevel(const vector<vector<char> >& charmap)
 }
 
 
+int Level::GearsLeft(const vector<vector<char> >& charmap)
+{
+  int gearsLeft = 0;
+  for (const auto & row : charmap)
+  {
+    for (const auto & c : row)
+    {
+      if (c == GEAR)
+        ++gearsLeft;
+    }
+  }
+  return gearsLeft;
+}
+
+
 /**
    \brief Remove the gear at the current player coordinate.
  */
@@ -254,7 +269,6 @@ void Level::TryPickupGear()
 {
   gear_coords_.erase(std::remove(gear_coords_.begin(), gear_coords_.end(), player_coord_), gear_coords_.end());
 }
-
 
 
 /**
@@ -274,7 +288,6 @@ void Level::MoveUp()
 }
 
 
-
 /**
    \brief Move player down, pushing a box if there is one.
    \details Assumes the move is legal; no validation is performed.
@@ -290,7 +303,6 @@ void Level::MoveDown()
         it->y++;
     }
 }
-
 
 
 /**
@@ -310,7 +322,6 @@ void Level::MoveLeft()
 }
 
 
-
 /**
    \brief Move player right, pushing a box if there is one.
    \details Assumes the move is legal; no validation is performed.
@@ -324,6 +335,140 @@ void Level::MoveRight()
     if (it != box_coords_.end())
     {
         it->x++;
+    }
+}
+
+
+bool Level::CanMoveUp(vector<vector<char> > charmap)
+{
+  // Can walk up?
+  if ((player_coord_.y > 0) && is_walkable(charmap, player_coord_.x, player_coord_.y-1))
+    return true;
+  // Can move box up?
+  if (player_coord_.y > 1 &&
+      is_box(charmap, player_coord_.x, player_coord_.y-1) &&
+      can_hold_box(charmap, player_coord_.x, player_coord_.y-2))
+    return true;
+  return false;
+}
+
+
+bool Level::CanMoveDown(vector<vector<char> > charmap)
+{
+  uint8_t floor_width = (uint8_t)charmap[0].size();
+  uint8_t floor_height = (uint8_t)charmap.size();
+  // Can walk up?
+  if ( (player_coord_.y < floor_height-1) && is_walkable(charmap, player_coord_.x, player_coord_.y+1) )
+    return true;
+  // Can move box up?
+  if (player_coord_.y < floor_height - 2 &&
+      is_box(charmap, player_coord_.x, player_coord_.y + 1) &&
+      can_hold_box(charmap, player_coord_.x, player_coord_.y + 2))
+    return true;
+  return false;
+}
+
+
+bool Level::CanMoveLeft(vector<vector<char> > charmap)
+{
+  uint8_t floor_width = (uint8_t)charmap[0].size();
+  uint8_t floor_height = (uint8_t)charmap.size();
+  // Can walk up?
+  if ((player_coord_.x > 0) && is_walkable(charmap, player_coord_.x - 1, player_coord_.y))
+    return true;
+  // Can move box up?
+  if (player_coord_.x > 1 &&
+      is_box(charmap, player_coord_.x - 1, player_coord_.y) &&
+      can_hold_box(charmap, player_coord_.x - 2, player_coord_.y))
+    return true;
+  return false;
+}
+
+
+bool Level::CanMoveRight(vector<vector<char> > charmap)
+{
+  uint8_t floor_width = (uint8_t)charmap[0].size();
+  uint8_t floor_height = (uint8_t)charmap.size();
+  // Can walk up?
+  if ((player_coord_.x < floor_width - 1) && is_walkable(charmap, player_coord_.x + 1, player_coord_.y))
+    return true;
+  // Can move box up?
+  if (player_coord_.x < floor_width - 2 &&
+      is_box(charmap, player_coord_.x + 1, player_coord_.y) &&
+      can_hold_box(charmap, player_coord_.x + 2, player_coord_.y))
+    return true;
+  return false;
+}
+
+
+bool is_box(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    return charmap[y][x] == '+';
+}
+
+
+bool is_walkable(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case ' ':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+    case '*':
+    case '@':
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool is_switch(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool can_flood(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case ' ':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+        return true;
+    default:
+        return false;
+    }
+}
+
+
+bool can_hold_box(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+    switch (charmap[y][x])
+    {
+    case ' ':
+    case '-':
+    case 'r':
+    case 'y':
+    case 'g':
+    case 'b':
+        return true;
+    default:
+        return false;
     }
 }
 

@@ -20,7 +20,7 @@
 namespace boxedin {
 namespace io {
 
-bool ParseSolution(std::istream& in, Path& path);
+bool ParseSolution(std::istream& in, std::vector<char>& path);
 void ParseCharMap(std::istream& in, std::vector<std::vector<char> >& charmap);
 bool IsValidBoxedInLevel(std::vector<std::vector<char> >& charmap);
 
@@ -31,11 +31,10 @@ std::ostream& clear_screen(std::ostream& out);
 
 void PrintCharMap(std::ostream& out, std::vector<std::vector<char> >& charmap, bool use_color = true);
 
-/** \relates Path */
-std::ostream& operator<<(std::ostream& out, const boxedin::Path& path);
+std::ostream& operator<<(std::ostream& out, const std::vector<char>& path);
 /** \relates Coord */
 std::ostream& operator<<(std::ostream& out, const boxedin::Coord& coord);
-std::ostream& operator<<(std::ostream& out, const std::list<boxedin::Path>& solution);
+std::ostream& operator<<(std::ostream& out, const std::list<std::vector<char> >& solution);
 std::ostream& operator<<(std::ostream& out, const boxedin::SearchResult& result);
 
 std::ostream& operator<<(std::ostream& out, const boxedin::Action& action);

@@ -36,17 +36,29 @@ public:
 
   vector<vector<char> > MakeFloodFillMap(const Node& node, bool draw_player) const;
 
-  vector<vector<char> > MakeMap() const;
+  vector<vector<char> > Render() const;
 
   void TryPickupGear();
   void MoveUp();
   void MoveDown();
   void MoveLeft();
   void MoveRight();
+
+  bool CanMoveUp(std::vector<std::vector<char> > charmap);
+  bool CanMoveDown(std::vector<std::vector<char> > charmap);
+  bool CanMoveLeft(std::vector<std::vector<char> > charmap);
+  bool CanMoveRight(std::vector<std::vector<char> > charmap);
   
   static Level MakeLevel(const string& levelString);
   static Level MakeLevel(const vector<vector<char> >& charmap);
+  static int GearsLeft(const vector<vector<char> >& charmap);
 };
+
+bool is_box(const std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
+bool is_walkable(const std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
+bool is_switch(const std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
+bool can_flood(const std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
+bool can_hold_box(const std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
 
 } // namespace boxedin
 

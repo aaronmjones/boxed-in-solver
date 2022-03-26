@@ -111,7 +111,7 @@ bool IsValidBoxedInLevel(vector<vector<char> >& charmap)
 // up,down,left,right
 // UP,DOWN,LEFT,RIGHT
 // where the delimiter can be any of the delimiters listed above.
-bool ParseSolution(istream& in, Path& path)
+bool ParseSolution(istream& in, std::vector<char>& path)
 {
     char c = 0;
     while (in.get(c))
@@ -297,17 +297,16 @@ void PrintCharMap(ostream& out, vector<vector<char> >& charmap, bool use_color/*
 
 
 /**
-   \relates boxedin::Path
    \brief Print the path characters with no delimiters.
    \param[in,out] out ostream to print to.
    \param[in] path Characters to print.
    \returns A reference to the ostream.
 */
-ostream& operator<<(ostream& out, const Path& path)
+ostream& operator<<(ostream& out, const vector<char>& path)
 {
-    for (PathCit it = path.begin(); it != path.end(); ++it)
+    for (auto c : path)
     {
-        out << *it;
+        out << c;
     }
     return out;
 }
@@ -328,21 +327,16 @@ ostream& operator<<(ostream& out, const Coord& coord)
 
 
 /**
-   \relates boxedin::Path
    \brief Displays the solution chars with no delimiter.
    \param[in,out] out ostream to print to.
    \param[in] solution A list of Path's to display.
    \returns A reference to the ostream.
 */
-ostream& operator<<(ostream& out, const list<Path>& solution)
+ostream& operator<<(ostream& out, const list<vector<char> >& solution)
 {
-    list<Path>::const_iterator cit = solution.begin();
-
-    while (cit != solution.end())
+    for (const auto & path : solution)
     {
-        const Path& path = *cit;
         out << path;
-        ++cit;
     }
 
     return out;
