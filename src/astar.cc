@@ -183,7 +183,7 @@ list<Action> find_actions(const Level& level, const Node& node)
             }
             break;
         }
-        
+
         if ( can_flood(level_map, coord.x, coord.y) )
         {
             //// Add neighbor nodes in the 4 directions ////
@@ -224,7 +224,7 @@ list<Action> find_actions(const Level& level, const Node& node)
 
         // Mark current point as filled
         level_map[coord.y][coord.x] = '-';
-        
+
     } // end while
     
     return actions;

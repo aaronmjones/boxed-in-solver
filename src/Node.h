@@ -25,6 +25,7 @@ struct Heuristic; // forward
 
 
 // TODO: Needs documentation. I don't remember what this was for.
+//       Lose the stupid "Lite" nomenclature.
 struct BoxDescriptorLite
 {
     static const int size = 3;
