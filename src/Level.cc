@@ -445,10 +445,6 @@ bool can_flood(const vector<vector<char> >& charmap, uint8_t x, uint8_t y)
     switch (charmap[y][x])
     {
     case ' ':
-    case 'r':
-    case 'y':
-    case 'g':
-    case 'b':
         return true;
     default:
         return false;
