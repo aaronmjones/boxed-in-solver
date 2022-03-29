@@ -93,10 +93,10 @@ docker run -v ~/git/boxed-in-solver:/boxed-in-solver -it boxed-in-solver-debian-
 
 ## Running the solver
 
-To run the solver on Boxed In 1, Level 1 data, execute the following from the **boxed-in-solver** directory:
+To run the solver on Boxed In 1, Level 1 data, execute the following from the **boxed-in-solver/build** directory:
 
 ```
-bin/solve data/levels/1/01.txt
+./solve -l level-data/1/01.txt
 ```
 The level and some statistics will be written to stderr. If the search was successful, the solution will be written to stdout. The solution is a string of {U,D,L,R} characters.
 
@@ -132,19 +132,20 @@ MAXRSS 4212000
 RRRURDR
 ```
 
-You can write the solution to a file by redirecting stdout to a solution file. You can then use this solution with the _view-solution_ utility to view a animation of the level being solved in the console.
+You can write the solution to a file by redirecting stdout to a solution file. You can then use this solution with the `validate` utility to view a animation of the level being solved in the console.
 
-Solve boxed-in 3, level 2 and write solution to file:
+To solve boxed-in 3, level 2 and write solution to file, execute the following from teh **boxed-in-solver/build** directory:
 ```
-bin/solve data/levels/3/02.txt >data/solutions/3/02.txt
-```
-
-## view-solution
-
-To run the solution viewer on Boxed In 1, Level 7 data, execute the following from the **boxed-in-solver** directory:
-
-```
-bin/view-solution data/levels/1/07.txt data/solutions/1/07.txt
+./solve -l level-data/3/02.txt > solution-data/3/02.txt
 ```
 
+## Validating a solution
+
+To run the solution validator on Boxed In 1, Level 7 data, execute the following from the **boxed-in-solver/build** directory:
+
+```
+./validate -l level-data/1/07.txt -s solution-data/1/07.txt
+```
+
+TODO: replace with animated GIF
 ![view-solution](images/view-solution.png)
