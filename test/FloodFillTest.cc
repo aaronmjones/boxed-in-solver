@@ -39,7 +39,7 @@ TEST(FloodFill, canFindExpectedActionsLevel1State1) {
   {
       std::cerr << action << std::endl;
   }
-  EXPECT_EQ(actions.size(), 3);
+  EXPECT_EQ(actions.size(), expectedActions.size());
 
   // If action lists are equal, then the difference list will be empty.
   actions.sort();
@@ -77,8 +77,7 @@ TEST(FloodFill, canFindExpectedActionsLevel3State1)
   );
 
   list<Action> expectedActions;
-  expectedActions.push_back(Action::MakeAction("UULUUUUU", {4, 4}));
-  expectedActions.push_back(Action::MakeAction("UULUULLUUU", {2, 4}));
+  expectedActions.push_back(Action::MakeAction("UU", {5, 9}));
 
   ShortestDistanceThroughGearsToExitHeuristic heuristic(level);
   auto node = Node::MakeStartNode(level, heuristic);
@@ -89,7 +88,7 @@ TEST(FloodFill, canFindExpectedActionsLevel3State1)
   {
       std::cerr << action << std::endl;
   }
-  EXPECT_EQ(actions.size(), 2);
+  EXPECT_EQ(actions.size(), expectedActions.size());
 
   // If action lists are equal, then the difference list will be empty.
   actions.sort();
@@ -140,7 +139,7 @@ TEST(FloodFill, canFindExpectedActionsLevel4State1)
   {
       std::cerr << action << std::endl;
   }
-  EXPECT_EQ(actions.size(), 3);
+  EXPECT_EQ(actions.size(), expectedActions.size());
 
   // If action lists are equal, then the difference list will be empty.
   actions.sort();

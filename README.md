@@ -8,14 +8,13 @@ TODO: Add example level image and corresponding level file.
 
 ## Build Instructions - Linux
 
-1. Install cmake: `apt install cmake`
-1. Install boost:
+1. Install dependencies:
 ```
-wget <BOOST-URL>
-tar xf <BOOST-ARCHIVE>
-cd <BOOST-DIRECTORY>
-./bootstrap.sh
-./b2 install
+sudo apt install -y \
+  cmake \
+  googletest \
+  libboost-all-dev \
+  libfmt-dev
 ```
 1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
 1. Build
@@ -23,10 +22,9 @@ cd <BOOST-DIRECTORY>
 cd boxed-in-solver
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=.. ..
-make install
+cmake ..
+cmake --build . # Or run make all
 ```
-_Binaries will be in boxed-in-solver/bin directory_
 
 ## Build Instructions - Windows
 
@@ -43,13 +41,35 @@ b2.exe --prefix=C:\boost_1_65_1 install
 ```
 mkdir build
 cd build
-cmake -G"Visual Studio 15 2017" --config Release -DBOOST_ROOT=C:\boost_1_65_1 -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX=.. ..
+cmake -G"Visual Studio 15 2017" --config Release -DBOOST_ROOT=C:\boost_1_65_1 -DBoost_USE_STATIC_LIBS=ON ..
+cmake --build . # Or open the generated visual studio solution (in build folder) and build project.
 ```
-Open the generated visual studio solution (in build folder) and build the INSTALL project.
 
 ## Build Instructions - Mac
 
-TODO: same as Linux instructions?
+1. Install dependencies:
+```
+brew install boost
+brew install cmake
+brew install fmt
+brew install googletest
+```
+1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
+1. Build
+```
+cd boxed-in-solver
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+## Run Unit Tests
+
+```
+cd build/test
+ctest # Or run an individual test binary in build/test directory
+```
 
 ## Docker instructions
 
