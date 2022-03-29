@@ -2,8 +2,7 @@
 #
 # Filename: solve-and-view.sh
 # Description:
-# Solve level(s) using BoxedInSolver and view animated solution using
-# ViewSolution.
+# Solve level(s) using solver and view solution using validate.
 ################################################################################
 
 set -eo pipefail
@@ -27,16 +26,12 @@ AUTHOR
 " >&2
 }
 
-# TODO: rename view-solution program to validate-solution and use it
-#       for automated testing. Add a flag to view the animated solution.
-#       Print UDLR movements while animating solution. Throw exception
-#       if solution violates game physics.
 for GAMELEVEL; do
     IFS=':' read GAME LEVEL <<< "$GAMELEVEL"
     LEVEL_FILE=$(printf %02d.txt $LEVEL)
     SOLUTION_FILE=$(printf %02d.txt $LEVEL)
     STATS_FILE=$(printf %02d.stats $LEVEL)
     ./solve -l level-data/$GAME/$LEVEL_FILE -s solution-data/$GAME/$STATS_FILE > solution-data/$GAME/$SOLUTION_FILE
-    ./validate -l level-data/$GAME/$LEVEL_FILE -s solution-data/$GAME/$SOLUTION_FILE
+    ./validate -l level-data/$GAME/$LEVEL_FILE -s solution-data/$GAME/$SOLUTION_FILE --animate-once
     echo -e "\n\n"
 done

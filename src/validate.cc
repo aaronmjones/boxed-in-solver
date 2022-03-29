@@ -21,6 +21,7 @@
 
 using namespace std;
 using namespace boxedin;
+namespace po = boost::program_options;
 
 void Print(vector<vector<char> > charmap, int move_count, vector<char> path, bool use_color)
 {
@@ -38,45 +39,43 @@ int main(int argc, char* argv[])
 {
   string level_path;
   string solution_path;
-  bool use_color = true;
+  bool help = false;
+  bool no_color = false;
   bool animate = false;
+  bool animate_once = false;
 
   try {
-    boost::program_options::options_description desc("view-solution OPTIONS <level-file> <solution-file>\nOPTIONS");
+    po::options_description desc("view-solution OPTIONS <level-file> <solution-file>\nOPTIONS");
     desc.add_options()
-      ("help,h",                                                                        "Display help"                   )
-      ("no-color,n",                                                                    "Do not display output in color" )
-      ("animate,a",                                                                     "Print animated solution"        )
-      ("level,l",    boost::program_options::value<string>(&level_path)->required(),    "Input boxed-in level file"      )
-      ("solution,s", boost::program_options::value<string>(&solution_path)->required(), "Input solution file"            )
+      ("help,h",                                                       "Display help"                   )
+      ("no-color,n",     po::bool_switch(&no_color),                    "Do not display output in color" )
+      ("animate,a",      po::bool_switch(&animate),                     "Print animated solution"        )
+      ("animate-once,o", po::bool_switch(&animate_once),                "Print animated solution once"   )
+      ("level,l",        po::value<string>(&level_path)->required(),    "Input boxed-in level file"      )
+      ("solution,s",     po::value<string>(&solution_path)->required(), "Input solution file"            )
       ;
     
-    boost::program_options::positional_options_description positionalOptions;
+    po::positional_options_description positionalOptions;
     positionalOptions.add("level", 1);
     positionalOptions.add("solution", 2);
         
-    boost::program_options::variables_map variablesMap;
-    boost::program_options::store(
-      boost::program_options::command_line_parser(argc, argv)
+    po::variables_map variablesMap;
+    po::store(
+      po::command_line_parser(argc, argv)
       .options(desc)
       .positional(positionalOptions)
       .run(),
       variablesMap );
 
-    if (variablesMap.count("help"))
+    if (help)
     {
       cerr << desc << endl;
       return 0;
     }
 
-    boost::program_options::notify(variablesMap);
-
-    if (variablesMap.count("no-color"))
-      use_color = false;
-    if (variablesMap.count("animate"))
-      animate = true;
+    po::notify(variablesMap);
   }
-  catch (boost::program_options::error& e)
+  catch (po::error& e)
   {
     cerr << e.what() << std::endl;
     return 1;
@@ -93,6 +92,8 @@ int main(int argc, char* argv[])
   /* Parse the solution */
   vector<char> path;
   boxedin::io::ParseSolution(solution_istream, path);
+  bool use_color = !no_color;
+  animate = animate || animate_once;
 
   do
   {
@@ -181,6 +182,7 @@ int main(int argc, char* argv[])
       exit(0); // Success
     }
 
+    animate = animate_once ? false : animate;
   } while (animate);
 
   return 0;

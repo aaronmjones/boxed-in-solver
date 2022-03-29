@@ -26,10 +26,6 @@ AUTHOR
 " >&2
 }
 
-# TODO: rename view-solution program to validate-solution and use it
-#       for automated testing. Add a flag to view the animated solution.
-#       Print UDLR movements while animating solution. Throw exception
-#       if solution violates game physics.
 for GAMELEVEL; do
     IFS=':' read GAME LEVEL <<< "$GAMELEVEL"
     LEVEL_FILE=$(printf %02d.txt $LEVEL)
