@@ -339,13 +339,39 @@ void Level::MoveRight()
 }
 
 
+bool Level::IsBoxAndCanMoveUp(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  return (y > 0 && is_box(charmap, x, y) && can_hold_box(charmap, x, y-1));
+}
+
+
+bool Level::IsBoxAndCanMoveDown(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  uint8_t floor_height = (uint8_t)charmap.size();
+  return (y < floor_height - 1 && is_box(charmap, x, y) && can_hold_box(charmap, x, y + 1));
+}
+
+
+bool Level::IsBoxAndCanMoveLeft(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  return (x > 0 && is_box(charmap, x, y) && can_hold_box(charmap, x-1, y));
+}
+
+
+bool Level::IsBoxAndCanMoveRight(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
+{
+  uint8_t floor_width = (uint8_t)charmap[0].size();
+  return (x < floor_width - 1 && is_box(charmap, x, y) && can_hold_box(charmap, x+1, y));
+}
+
+
 bool Level::CanMoveUp(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
 {
   // Can walk up?
   if ((y > 0) && is_walkable(charmap, x, y-1))
     return true;
   // Can move box up?
-  if (y > 1 && is_box(charmap, x, y-1) && can_hold_box(charmap, x, y-2))
+  if (Level::IsBoxAndCanMoveUp(charmap, x, y-1))
     return true;
   return false;
 }
@@ -353,13 +379,12 @@ bool Level::CanMoveUp(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
 
 bool Level::CanMoveDown(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
 {
-  uint8_t floor_width = (uint8_t)charmap[0].size();
   uint8_t floor_height = (uint8_t)charmap.size();
   // Can walk up?
   if ( (y < floor_height-1) && is_walkable(charmap, x, y+1) )
     return true;
   // Can move box up?
-  if (y < floor_height - 2 && is_box(charmap, x, y + 1) && can_hold_box(charmap, x, y + 2))
+  if (Level::IsBoxAndCanMoveDown(charmap, x, y+1))
     return true;
   return false;
 }
@@ -367,13 +392,11 @@ bool Level::CanMoveDown(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
 
 bool Level::CanMoveLeft(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
 {
-  uint8_t floor_width = (uint8_t)charmap[0].size();
-  uint8_t floor_height = (uint8_t)charmap.size();
   // Can walk up?
-  if ((x > 0) && is_walkable(charmap, x - 1, y))
+  if ((x > 0) && is_walkable(charmap, x-1, y))
     return true;
   // Can move box up?
-  if (x > 1 && is_box(charmap, x - 1, y) && can_hold_box(charmap, x - 2, y))
+  if (Level::IsBoxAndCanMoveLeft(charmap, x-1, y))
     return true;
   return false;
 }
@@ -382,12 +405,11 @@ bool Level::CanMoveLeft(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
 bool Level::CanMoveRight(vector<vector<char> >& charmap, uint8_t x, uint8_t y)
 {
   uint8_t floor_width = (uint8_t)charmap[0].size();
-  uint8_t floor_height = (uint8_t)charmap.size();
   // Can walk up?
   if ((x < floor_width - 1) && is_walkable(charmap, x + 1, y))
     return true;
   // Can move box up?
-  if (x < floor_width - 2 && is_box(charmap, x + 1, y) && can_hold_box(charmap, x + 2, y))
+  if (Level::IsBoxAndCanMoveRight(charmap, x+1, y))
     return true;
   return false;
 }

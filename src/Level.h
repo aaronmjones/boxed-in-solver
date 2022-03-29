@@ -44,6 +44,11 @@ public:
   void MoveLeft();
   void MoveRight();
 
+  static bool IsBoxAndCanMoveUp(vector<vector<char> >& charmap, uint8_t x, uint8_t y);
+  static bool IsBoxAndCanMoveDown(vector<vector<char> >& charmap, uint8_t x, uint8_t y);
+  static bool IsBoxAndCanMoveLeft(vector<vector<char> >& charmap, uint8_t x, uint8_t y);
+  static bool IsBoxAndCanMoveRight(vector<vector<char> >& charmap, uint8_t x, uint8_t y);
+
   static bool CanMoveUp(std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
   static bool CanMoveDown(std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
   static bool CanMoveLeft(std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);

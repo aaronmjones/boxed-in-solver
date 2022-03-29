@@ -143,9 +143,7 @@ list<Action> find_actions(const Level& level, const Node& node)
         else
         {
             // is there a box directly above that can be pushed?
-            if ( coord.y > 1 &&
-                 is_box( charmap, coord.x, coord.y-1 ) &&
-                 can_hold_box( charmap, coord.x, coord.y-2 ) )
+            if ( Level::IsBoxAndCanMoveUp(charmap, coord.x, coord.y-1))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_UP );
@@ -153,9 +151,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 actions.push_back( action  );            
             }
             // is there a box directly below that can be pushed?
-            if ( coord.y < floor_height-2 &&
-                 is_box( charmap, coord.x, coord.y+1 ) &&
-                 can_hold_box( charmap, coord.x, coord.y+2 ) )
+            if (Level::IsBoxAndCanMoveDown(charmap, coord.x, coord.y+1))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_DOWN );
@@ -163,9 +159,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 actions.push_back( action  );            
             }
             // is there a box directly left that can be pushed?
-            if ( coord.x > 1 &&
-                 is_box( charmap, coord.x-1, coord.y ) &&
-                 can_hold_box( charmap, coord.x-2, coord.y ) )
+            if (Level::IsBoxAndCanMoveLeft(charmap, coord.x-1, coord.y))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_LEFT );
@@ -173,9 +167,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 actions.push_back( action  );            
             }
             // is there a box directly right that can be pushed?
-            if ( coord.x < floor_width-2 &&
-                 is_box( charmap, coord.x+1, coord.y ) &&
-                 can_hold_box( charmap, coord.x+2, coord.y ) )
+            if (Level::IsBoxAndCanMoveRight(charmap, coord.x+1, coord.y))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_RIGHT );
