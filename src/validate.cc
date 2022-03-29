@@ -24,8 +24,6 @@ using namespace boxedin;
 
 void Print(vector<vector<char> > charmap, int move_count, vector<char> path, bool use_color)
 {
-  cout << clear_screen;
-
   cout << "Move " << move_count << " / " << path.size() << endl;
 
   PrintCharMap(cout, charmap, use_color);
@@ -106,6 +104,7 @@ int main(int argc, char* argv[])
 
     if (animate)
     {
+      cout << clear_screen;
       Print(charmap, move_count, path, use_color);
       this_thread::sleep_for(chrono::seconds(1));
     }
@@ -151,6 +150,7 @@ int main(int argc, char* argv[])
 
       if (animate)
       {
+        cout << clear_screen;
         Print(charmap, move_count, path, use_color);
         this_thread::sleep_for(chrono::milliseconds(500));
       }
