@@ -85,8 +85,7 @@ list<Action> find_actions(const Level& level, const Node& node)
         if (is_player_on_switch)
         {
             // is the tile above walkable?
-            if ( coord.y > 1 &&
-                 is_walkable( charmap, coord.x, coord.y-1 ) )
+            if (Level::CanMoveUp(charmap, coord.x, coord.y))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_UP );
@@ -94,8 +93,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 actions.push_back( action  );            
             }
             // is the tile below walkable?
-            if ( coord.y < floor_height-2 &&
-                 is_walkable( charmap, coord.x, coord.y+1 ) )
+            if (Level::CanMoveDown(charmap, coord.x, coord.y))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_DOWN );
@@ -103,8 +101,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 actions.push_back( action  );            
             }
             // is the tile left walkable?
-            if ( coord.x > 1 &&
-                 is_walkable( charmap, coord.x-1, coord.y ) )
+            if (Level::CanMoveLeft(charmap, coord.x, coord.y))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_LEFT );
@@ -112,8 +109,7 @@ list<Action> find_actions(const Level& level, const Node& node)
                 actions.push_back( action  );            
             }
             // is the tile right walkable?
-            if ( coord.x < floor_width-2 &&
-                 is_walkable( charmap, coord.x+1, coord.y ) )
+            if (Level::CanMoveRight(charmap, coord.x, coord.y))
             {
                 Action action( ffnode.path, ffnode.coord );
                 action.path.push_back( ENCODED_PATH_DIRECTION_RIGHT );

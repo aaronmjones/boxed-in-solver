@@ -22,16 +22,16 @@
 using namespace std;
 using namespace boxedin;
 
-void Print(vector<vector<char> > charmap, int move_index, vector<char> path, bool use_color)
+void Print(vector<vector<char> > charmap, int move_count, vector<char> path, bool use_color)
 {
   cout << clear_screen;
 
-  cout << "Move " << move_index++ << " / " << path.size() << endl;
+  cout << "Move " << move_count << " / " << path.size() << endl;
 
   PrintCharMap(cout, charmap, use_color);
 
   // Print solution moves thus far
-  for (size_t i=0; i<move_index; ++i)
+  for (size_t i=0; i<move_count; ++i)
     cout << path[i];
   cout << endl;
 }
@@ -102,43 +102,41 @@ int main(int argc, char* argv[])
     Level currentLevel = level;
     charmap = currentLevel.Render();
 
-    int move_index = -1;
-    int move_count = (int)path.size();
+    int move_count = 0;
 
     if (animate)
     {
-      Print(charmap, move_index, path, use_color);
+      Print(charmap, move_count, path, use_color);
       this_thread::sleep_for(chrono::seconds(1));
     }
 
-    move_index = 0;
-
     for (auto c : path)
     {
+      move_count++;
       auto & coord = currentLevel.player_coord_;
       c = toupper(c);
       switch (c)
       {
       case 'U':
-        if (currentLevel.CanMoveUp(charmap))
+        if (Level::CanMoveUp(charmap, coord.x, coord.y))
           currentLevel.MoveUp();
         else
           throw std::runtime_error(fmt::format("Cannot move up from ({},{})", coord.x, coord.y));
         break;
       case 'D':
-        if (currentLevel.CanMoveDown(charmap))
+        if (Level::CanMoveDown(charmap, coord.x, coord.y))
           currentLevel.MoveDown();
         else
           throw std::runtime_error(fmt::format("Cannot move down from ({},{})", coord.x, coord.y));
         break;
       case 'L':
-        if (currentLevel.CanMoveLeft(charmap))
+        if (Level::CanMoveLeft(charmap, coord.x, coord.y))
           currentLevel.MoveLeft();
         else
           throw std::runtime_error(fmt::format("Cannot move left from ({},{})", coord.x, coord.y));
         break;
       case 'R':
-        if (currentLevel.CanMoveRight(charmap))
+        if (Level::CanMoveRight(charmap, coord.x, coord.y))
           currentLevel.MoveRight();
         else
           throw std::runtime_error(fmt::format("Cannot move right from ({},{})", coord.x, coord.y));
@@ -153,10 +151,9 @@ int main(int argc, char* argv[])
 
       if (animate)
       {
-        Print(charmap, move_index, path, use_color);
+        Print(charmap, move_count, path, use_color);
         this_thread::sleep_for(chrono::milliseconds(500));
       }
-      move_index++;
     }
 
     if (animate)
@@ -169,17 +166,17 @@ int main(int argc, char* argv[])
       auto gearsLeft = Level::GearsLeft(charmap);
       if (gearsLeft != 0)
       {
-        Print(charmap, move_index, path, use_color);
+        Print(charmap, move_count, path, use_color);
         fmt::print("Invalid solution: there are still {} gears remaining\n", gearsLeft);
         exit(1);
       }
       if (!(currentLevel.player_coord_ == currentLevel.exit_coord_))
       {
-        Print(charmap, move_index, path, use_color);
+        Print(charmap, move_count, path, use_color);
         fmt::print("Invalid solution: player did not reach exit\n");
         exit(1);
       }
-      Print(charmap, move_index, path, use_color);
+      Print(charmap, move_count, path, use_color);
       fmt::print("Solution is valid!\n");
       exit(0); // Success
     }

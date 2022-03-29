@@ -44,10 +44,10 @@ public:
   void MoveLeft();
   void MoveRight();
 
-  bool CanMoveUp(std::vector<std::vector<char> > charmap);
-  bool CanMoveDown(std::vector<std::vector<char> > charmap);
-  bool CanMoveLeft(std::vector<std::vector<char> > charmap);
-  bool CanMoveRight(std::vector<std::vector<char> > charmap);
+  static bool CanMoveUp(std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
+  static bool CanMoveDown(std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
+  static bool CanMoveLeft(std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
+  static bool CanMoveRight(std::vector<std::vector<char> >& charmap, uint8_t x, uint8_t y);
   
   static Level MakeLevel(const string& levelString);
   static Level MakeLevel(const vector<vector<char> >& charmap);
