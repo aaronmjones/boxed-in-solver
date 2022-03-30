@@ -16,7 +16,8 @@ RUN apt-get -y --no-install-recommends install \
   googletest \
   libboost-all-dev \
   libboost-program-options1.67.0 \
-  libfmt-dev
+  libfmt-dev \
+  libgtest-dev
 
 # Cleanup
 RUN apt-get clean && \

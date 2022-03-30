@@ -8,15 +8,7 @@ TODO: Add example level image and corresponding level file.
 
 ## Build Instructions - Linux
 
-1. Install dependencies:
-```
-sudo apt install -y \
-  cmake \
-  googletest \
-  libboost-all-dev \
-  libfmt-dev
-```
-1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
+1. Install dependencies: see Dockerfile for dependencies
 1. Build
 ```
 cd boxed-in-solver
@@ -73,6 +65,8 @@ ctest # Or run an individual test binary in build/test directory
 
 ## Docker instructions
 
+### Debian Buster Docker Container
+
 Build the docker image
 ```
 docker build -t boxed-in-solver-debian-buster docker/debian-buster
@@ -90,6 +84,21 @@ Run interactive shell
 ```
 docker run -v ~/git/boxed-in-solver:/boxed-in-solver -it boxed-in-solver-debian-buster bash
 ```
+
+Run unit tests
+```
+docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
+           -t boxed-in-solver-debian-buster \
+           bash -c "cd test && ctest"
+```
+
+### MSVC 2019 Docker Container
+
+Build the docker image
+```
+docker build -t boxed-in-solver-msvc-2019 docker/msvc-2019
+```
+
 
 ## Running the solver
 
