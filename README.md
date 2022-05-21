@@ -20,15 +20,17 @@ cmake --build . # Or run make all
 
 ## Build Instructions - Windows
 
-1. Install cmake
-1. Install boost
-   * Download boost 1.65.1
-   * Build and install
-```
-bootstrap.bat
-b2.exe --prefix=C:\boost_1_65_1 install
-```
-1. Download solver source
+1. Install dependencies
+   1. Install cmake
+   1. Install boost
+      * Download boost 1.65.1 # or whatever version
+      * Build and install
+      ```
+      bootstrap.bat
+      b2.exe --prefix=C:\boost_1_65_1 install
+      ```
+   1. Install googletest
+   1. Install fmtlib
 1. Build
 ```
 mkdir build
@@ -46,7 +48,6 @@ brew install cmake
 brew install fmt
 brew install googletest
 ```
-1. Clone boxed-in-solver source: `git clone https://github.com/aaronmjones/boxed-in-solver.git`
 1. Build
 ```
 cd boxed-in-solver
@@ -91,14 +92,6 @@ docker run -v ~/git/boxed-in-solver:/boxed-in-solver \
            -t boxed-in-solver-debian-buster \
            bash -c "cd test && ctest"
 ```
-
-### MSVC 2019 Docker Container
-
-Build the docker image
-```
-docker build -t boxed-in-solver-msvc-2019 docker/msvc-2019
-```
-
 
 ## Running the solver
 
